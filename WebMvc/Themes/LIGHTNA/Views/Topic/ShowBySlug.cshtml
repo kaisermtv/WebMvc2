@@ -1,0 +1,74 @@
+﻿@model  TopicViewModel
+@{
+    ViewBag.Title = string.Concat(Model.topic.Name, " - ", Model.Cat.Name);
+}
+@Html.Partial("_Header1", "")
+<div class="mainbody">
+    <div class="bgblack mglra10 row wcontentbody">
+        <div class="listnews">
+            <div class="_w-container w-container">
+                <div class="w-row">
+                    <div class="w-col w-col-9 content-left">
+                        <div class="contenttapchict">
+                            <h1 class="heading-32">@Model.topic.Name</h1>
+                            <div class="wpdead">
+                                <ul class="unordered-list-10 w-list-unstyled">
+                                    <li class="list-item-21"><span class="text-span-10"></span>  <span>Đăng lúc @Model.topic.CreateDate.ToString("dd/MM/yyyy hh:mm:ss")</span></li>
+                                    <li class="left10 list-item-21"><span class="text-span-10"></span>  <span>view @Model.topic.Views</span></li>
+                                </ul>
+                            </div>
+                            <div class="likesocial">
+                                <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-583cff5deb9b08eb"></script>
+                                <div class="addthis_inline_share_toolbox"></div>
+                            </div>
+                            <div class="contantnews mgbt10">
+                                @Html.Raw(Model.post.PostContent ?? "")
+                            </div>
+                            <div class="box bg-white w-clearfix">
+                                <div class="comentfacebook">
+                                    <div id="fb-root"></div>
+                                    <script>(function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.10'; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));</script>
+                                    <div class="fb-comments" data-width="100%" data-href="@(Html.Settings("WebsiteUrl"))@AppHelpers.TopicUrls(Model.Cat.Slug, Model.topic.Slug)" data-numposts="5"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box product-related news-related w-clearfix">
+                            <h2 class="title-box-related">TIN LIÊN QUAN</h2>
+                            <div class="slide-related">
+                                @{
+                                    var i = 0;
+                                }
+                                @foreach (var it in AppHelpers.TopTopics(Model.Cat, 10))
+                                {
+                                    i++;
+                                    if (i > 5) { break; }
+                                    if (it.Id != Model.topic.Id)
+                                    {
+                                        string link = AppHelpers.TopicUrls(Model.Cat.Slug, it.Slug);
+                                        <div class="item-post-right item-related palr5">
+                                            <div class="pore">
+                                                <div class="box box-img">
+                                                    <a class="contain" href="@link" title="@it.Name">
+                                                        <img src="@AppHelpers.ImageCropUrl(it.Image, 294,202)" class="he202" alt="@it.Name">
+                                                    </a>
+                                                </div>
+                                                <div class="box-info">
+                                                    <h3 class="title3 text-center">
+                                                        <a href="@link" title="@it.Name">@it.Name</a>
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column pd0 w-col w-col-3">
+                        @Html.Partial("_Sidebar")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

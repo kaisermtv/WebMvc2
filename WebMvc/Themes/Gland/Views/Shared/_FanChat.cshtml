@@ -1,0 +1,26 @@
+﻿@if (Html.Settings("FanChat") != null && Html.Settings("FanChat") != "")
+{
+    <style>
+        .fanchat {
+            position: fixed;
+            bottom: 20px;
+            right: 40px;
+            background-color: rgb(255, 0, 0);
+            border-radius: 20px;
+            text-align: center;
+            font-size: 20px;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+        }
+
+            .fanchat:hover {
+                background-color: rgb(244, 37, 40);
+                color: white;
+            }
+    </style>
+
+    <a class="fanchat" target="_blank" href="@Html.Settings("FanChat")">
+        <i class="fab fa-facebook-square"></i> Chát với chúng tôi
+    </a>
+}

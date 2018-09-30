@@ -1,0 +1,30 @@
+﻿@model Category
+@if (Model != null)
+{
+    <div class="clear"></div>
+    <div class="box-pro-home" data-cat="boxcat1">
+        <div class="title_box_center">
+            <h2 class="h_title">@Model.Name</h2>
+            <div class="sub_cat_title">
+                @foreach (var sub in AppHelpers.SubCategories(Model, true))
+                {
+                    <a href="@Url.Action("ShowBySlugProduct", "Category", new { Slug = sub.Slug })">@sub.Name</a>
+                }
+            </div>
+            <a href="@Url.Action("ShowBySlugProduct", "Category", new { Slug = Model.Slug })" class="viewall">Xem tất cả</a>
+        </div><!--title_box_center-->
+        <div class="bg_gradient_bottom_title"></div>
+        <div class="clear space"></div>
+        <div class="product_list float_r" style="width:940px;">
+            <ul class="ul">
+                @foreach (var item in AppHelpers.Products(AppHelpers.TreeCategories(Model), 10))
+                {
+                    @Html.Partial("_ProductItem", item);
+                }
+            </ul>
+        </div><!--prouduct_list-->
+        <div class="banner_right_pro" id="banner-right-1"><a href=""><img src="@Model.Image"></a></div>
+
+        <div class="clear space"></div>
+    </div>
+}

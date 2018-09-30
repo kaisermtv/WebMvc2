@@ -1,0 +1,27 @@
+﻿using System;
+using WebMvc.Application.Lib;
+
+namespace WebMvc.Application.Entities
+{
+    public partial class ProductPost : Entity
+    {
+        public ProductPost()
+        {
+            Id = GuidComb.GenerateComb();
+        }
+        public Guid Id { get; set; }
+        public string PostContent { get; set; }
+        public DateTime DateCreated { get; set; }
+        public int VoteCount { get; set; }
+        public DateTime DateEdited { get; set; }
+        public bool IsSolution { get; set; }
+        public bool IsTopicStarter { get; set; }
+        public bool? FlaggedAsSpam { get; set; }
+        public string IpAddress { get; set; }
+        public bool? Pending { get; set; }
+        public string SearchField { get; set; }
+        public Guid? InReplyTo { get; set; }
+        public Guid Product_Id { get; set; }
+        public Guid MembershipUser_Id { get; set; }
+    }
+}

@@ -1,0 +1,363 @@
+﻿@using WebMvc.Application.General
+@{
+    // Global Stuff
+    var themeName = Html.Settings("Theme");
+    var theme = new Theme
+    {
+        ThemeName = themeName,
+        ThemePath = string.Concat(SiteConstants.Instance.ThemeRootFolder, themeName)
+    };
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <base href='@Html.Settings("WebsiteUrl")' />
+    <title>@ViewBag.Title - @Html.Settings("WebsiteName")</title>
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    @RenderSection("meta", required: false)
+
+    @Html.Partial("_StyleSheets", theme)
+
+    @Html.Partial("_JavaScript", theme)
+
+    @*<div class="se-pre-con" style="background: url(http://0961.chilibusiness.net/wp-content/uploads/2016/04/724.gif) center no-repeat #fff;">
+    </div>*@
+
+    @RenderSection("head", required: false)
+    <script>
+        var ThemeUrl = '@Html.ThemeUrl()';
+    </script>
+
+    @Html.Raw(Html.Settings("CustomHeaderCode"))
+</head>
+<body class="home page page-id-372 page-template page-template-builder page-template-builder-php body-header-logo-left layers-header-sticky has-site-logo">
+    @RenderBody()
+
+
+    <style>
+        .sticky-bottom {
+            background-color: #000000;
+        }
+
+        .mypage-alo-ph-circle {
+            border-color: #FDCA4E;
+        }
+
+        .mypage-alo-ph-circle-fill,
+        .mypage-alo-ph-img-circle {
+            background-color: #FDCA4E;
+        }
+    </style>
+    <style>
+        .sticky-bottom {
+            left: 15px !important;
+            right: auto;
+        }
+
+        .mypage-alo-phone {
+            left: 90px;
+            right: auto;
+        }
+    </style>
+
+
+
+    <div class="sticky-bottom">
+        <div id="pcSupport" class="wrap">
+            <a href="tel:19007179">Hotline 24/7: 1900 7179</a>
+        </div>
+    </div>
+    <a href="tel:19007179" mypage="" class="call-now" rel="nofollow">
+        <div class="mypage-alo-phone">
+            <div class="animated infinite zoomIn mypage-alo-ph-circle"></div>
+            <div class="animated infinite pulse mypage-alo-ph-circle-fill"></div>
+            <div class="animated infinite tada mypage-alo-ph-img-circle"></div>
+        </div>
+    </a>
+
+    <script>
+        var link = jQuery(".header-site .nav li.menu-item-has-children > a");
+        var linka = link.attr("href");
+
+        jQuery(".header-site .nav li.menu-item-has-children > a").on("touchstart", function (e) {
+            if (link.hasClass("abc")) {
+
+                return true;
+                link.removeClass("abc");
+
+            } else {
+
+                e.preventDefault();
+                link.addClass("abc");
+                return false;
+            }
+        });
+
+
+    </script>
+
+
+
+    <script>
+        jQuery("#off-canvas-right .nav-mobile ul li a").on("touchstart", function () {
+            return true;
+        });
+    </script>
+    <link rel='stylesheet' id='layers-slider-css' href='http://0961.chilibusiness.net/wp-content/themes/layerswp/core/widgets/css/swiper.css?ver=1.2.9' type='text/css' media='all' />
+    <link rel='stylesheet' id='layers-plus-owl.carousel-css' href='http://0961.chilibusiness.net/wp-content/plugins/layers-plus/assets/css/owl.carousel.css?ver=4.2.21' type='text/css' media='all' />
+    <link rel='stylesheet' id='layers-inline-styles-css' href='http://0961.chilibusiness.net/wp-content/themes/layerswp/assets/css/inline.css?ver=4.2.21' type='text/css' media='all' />
+    <style id='layers-inline-styles-inline-css' type='text/css'>
+
+
+        #layers-widget-slide-35-256 {
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-image: url('http://0961.chilibusiness.net/wp-content/uploads/2016/04/slide-012.jpg');
+        }
+
+            #layers-widget-slide-35-256 h3.heading, #layers-widget-slide-35-256 h3.heading a, #layers-widget-slide-35-256 div.excerpt {
+                color: #eeee22;
+            }
+
+        #layers-widget-slide-35-44 {
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-image: url('http://0961.chilibusiness.net/wp-content/uploads/2016/04/slide-022.jpg');
+        }
+
+            #layers-widget-slide-35-44 h3.heading, #layers-widget-slide-35-44 h3.heading a, #layers-widget-slide-35-44 div.excerpt {
+                color: #ff0707;
+            }
+
+        #layers-widget-column-56 {
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        #layers-widget-column-56-87 {
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        #layers-widget-column-56-857 {
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        #layers-widget-column-56-792 {
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        #layers-widget-column-56-256 {
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        #layers-widget-column-44 {
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url('http://0961.chilibusiness.net/wp-content/uploads/2016/04/construction22.gif');
+        }
+
+        #layers-widget-column-44-898 {
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+            #layers-widget-column-44-898 h5.heading a, #layers-widget-column-44-898 h5.heading, #layers-widget-column-44-898 div.excerpt, #layers-widget-column-44-898 div.excerpt p {
+                color: #ffffff;
+            }
+
+        #layers-widget-post-14 {
+            background-color: #f5f5f5;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url('http://0961.chilibusiness.net/wp-content/uploads/2016/04/concrete-wall.png');
+        }
+
+            #layers-widget-post-14 .thumbnail-body a.button:hover {
+                background-color: #4d4d4d;
+            }
+
+        #layers-widget-layers_plus_column_team-5 {
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        #layers-widget-layers_plus_column_team-5-771 {
+            background-color: #fff;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+            #layers-widget-layers_plus_column_team-5-771 h5.heading a, #layers-widget-layers_plus_column_team-5-771 h5.heading, #layers-widget-layers_plus_column_team-5-771 div.excerpt, #layers-widget-layers_plus_column_team-5-771 div.excerpt p {
+                color: #333333;
+            }
+
+        #layers-widget-layers_plus_column_team-5-517 {
+            background-color: #fff;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+            #layers-widget-layers_plus_column_team-5-517 h5.heading a, #layers-widget-layers_plus_column_team-5-517 h5.heading, #layers-widget-layers_plus_column_team-5-517 div.excerpt, #layers-widget-layers_plus_column_team-5-517 div.excerpt p {
+                color: #333333;
+            }
+
+        #layers-widget-layers_plus_column_team-5-787 {
+            background-color: #fff;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+            #layers-widget-layers_plus_column_team-5-787 h5.heading a, #layers-widget-layers_plus_column_team-5-787 h5.heading, #layers-widget-layers_plus_column_team-5-787 div.excerpt, #layers-widget-layers_plus_column_team-5-787 div.excerpt p {
+                color: #333333;
+            }
+
+        #layers-widget-xvcontent-8 {
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url('http://0961.chilibusiness.net/wp-content/uploads/2016/04/testimonials-bg.png');
+        }
+
+            #layers-widget-xvcontent-8 .media {
+                padding: 15px 15px 15px 15px;
+            }
+
+        #layers-widget-xvcontent-8-178 {
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+            #layers-widget-xvcontent-8-178 h5.heading a, #layers-widget-xvcontent-8-178 h5.heading, #layers-widget-xvcontent-8-178 div.excerpt, #layers-widget-xvcontent-8-178 div.excerpt p {
+                color: #ffffff;
+            }
+
+        #layers-widget-xvcontent-8-801 {
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+            #layers-widget-xvcontent-8-801 h5.heading a, #layers-widget-xvcontent-8-801 h5.heading, #layers-widget-xvcontent-8-801 div.excerpt, #layers-widget-xvcontent-8-801 div.excerpt p {
+                color: #ffffff;
+            }
+
+        #layers-widget-post-16 {
+            background-color: #f5f5f5;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url('http://0961.chilibusiness.net/wp-content/uploads/2016/04/concrete-wall.png');
+        }
+
+            #layers-widget-post-16 .thumbnail-body a.button:hover {
+                background-color: #4d4d4d;
+            }
+
+        #layers-widget-post-18 {
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+            #layers-widget-post-18 .thumbnail-body a.button:hover {
+                background-color: #4d4d4d;
+            }
+
+        #layers-widget-column-54 {
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        #layers-widget-column-54-399 {
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        #layers-widget-column-54-544 {
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        #layers-widget-column-54-297 {
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        #layers-widget-column-54-184 {
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        #layers-widget-column-60 {
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            background-image: url('http://0961.chilibusiness.net/wp-content/uploads/2016/04/Bg-hayden.jpg');
+        }
+
+        #layers-widget-column-60-297 {
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+            #layers-widget-column-60-297 h5.heading a, #layers-widget-column-60-297 h5.heading, #layers-widget-column-60-297 div.excerpt, #layers-widget-column-60-297 div.excerpt p {
+                color: #ffffff;
+            }
+
+        #layers-widget-column-60-622 {
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    </style>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var thickboxL10n = { "next": "Trang sau >", "prev": "< Trang tr\u01b0\u1edbc", "image": "\u1ea2nh", "of": "c\u1ee7a", "close": "\u0110\u00f3ng", "noiframes": "T\u00ednh n\u0103ng n\u00e0y y\u00eau c\u1ea7u b\u1eadt frame. B\u1ea1n c\u00f3 th\u1ec3 \u0111\u00e3 t\u1eaft t\u00ednh n\u0103ng n\u00e0y ho\u1eb7c tr\u00ecnh duy\u1ec7t kh\u00f4ng h\u1ed7 tr\u1ee3.", "loadingAnimation": "http:\/\/0961.chilibusiness.net\/wp-includes\/js\/thickbox\/loadingAnimation.gif" };
+        /* ]]> */
+    </script>
+    <script type='text/javascript' src='http://0961.chilibusiness.net/wp-includes/js/thickbox/thickbox.js?ver=3.1-20121105'></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var x_loader = { "startPage": "1", "maxPages": "3", "nextLink": "http:\/\/0961.chilibusiness.net\/page\/2\/", "selector_m": "", "selector_p": "", "selector_n": "", "selector_a": "animation-parent ", "selector_isotope": ".grid", "string_load_more": "Loade More", "string_no_more": "No More Posts", "string_loading": "Loading ...", "gif": "http:\/\/0961.chilibusiness.net\/wp-content\/plugins\/layers-plus\/assets\/img\/g1.gif" };
+        /* ]]> */
+    </script>
+    <script type='text/javascript' src='http://0961.chilibusiness.net/wp-content/plugins/layers-plus/assets/js/load-posts.js?ver=1.0'></script>
+    <script type='text/javascript' src='http://0961.chilibusiness.net/wp-content/plugins/contact-form-7/includes/js/jquery.form.min.js?ver=3.51.0-2014.06.20'></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var _wpcf7 = { "loaderUrl": "http:\/\/0961.chilibusiness.net\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif", "recaptchaEmpty": "Please verify that you are not a robot.", "sending": "\u0110ang g\u1eedi....", "cached": "1" };
+        /* ]]> */
+    </script>
+    <script type='text/javascript' src='http://0961.chilibusiness.net/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=4.3.1'></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var layers_script_settings = { "header_sticky_breakpoint": "270" };
+        /* ]]> */
+    </script>
+    <script type='text/javascript' src='http://0961.chilibusiness.net/wp-content/themes/layerswp/assets/js/layers.framework.js?ver=1.2.9'></script>
+    <script type='text/javascript' src='http://0961.chilibusiness.net/wp-includes/js/comment-reply.min.js?ver=4.2.21'></script>
+    <script type='text/javascript' src='http://0961.chilibusiness.net/wp-content/plugins/layers-plus/assets/js/css3-animate-it.js?ver=4.2.21'></script>
+    <script type='text/javascript' src='http://0961.chilibusiness.net/wp-content/plugins/layers-plus/assets/js/elements.js?ver=4.2.21'></script>
+    <script type='text/javascript' src='http://0961.chilibusiness.net/wp-content/plugins/layers-plus/assets/js/load-callback.js?ver=1.0'></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var icl_vars = { "current_language": "vi", "icl_home": "http:\/\/0961.chilibusiness.net\/", "ajax_url": "http:\/\/0961.chilibusiness.net\/wp-admin\/admin-ajax.php", "url_type": "1" };
+/* ]]> */
+    </script>
+    <script type='text/javascript' src='http://0961.chilibusiness.net/wp-content/plugins/sitepress-multilingual-cms/res/js/sitepress.js?ver=4.2.21'></script>
+    <script type='text/javascript' src='http://0961.chilibusiness.net/wp-content/themes/layerswp/core/widgets/js/swiper.js?ver=1.2.9'></script>
+    <script type='text/javascript' src='http://0961.chilibusiness.net/wp-content/plugins/layers-plus/assets/js/owl.carousel.min.js?ver=4.2.21'></script>
+
+
+
+    @Html.Raw(Html.Settings("CustomFooterCode"))
+</body>
+</html>
+
+<!-- Load time: 0.142 seconds  / 4 mb-->
+<!-- Powered by HuraStore 7.3, Released: 27-Mar-2018 / Website: www.hurasoft.vn -->

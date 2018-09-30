@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "Trang chủ";
+}
+@section head
+{
+    <style>
+        #nav_vertical .ul.ul_menu {
+            visibility: visible !important;
+        }
+    </style>
+}
+    <div class="container">
+        @Html.Action("Slider")
+        <script>
+            $(document).ready(function () {
+                $(".title_tab a").click(function () {
+                    $(".title_tab a").removeClass("current");
+                    $(this).addClass("current");
+
+                    $(".cf").hide();
+                    $($(this).attr("href")).show();
+                    return false;
+                });
+            });
+        </script>
+        <div id="box_pro_special_home">
+            <div class="title_tab">
+                <a href="#tab3" class="cufon1 a_tab current">Sản phẩm mới</a>
+                <a href="#tab4" class="cufon1 a_tab">Sản phẩm khuyến mại</a>
+                <a href="#tab2" class="cufon1 a_tab">Sản phẩm bán chạy</a>
+
+                <!--<a href="#tab4" class="cufon1 a_tab">Hot Deal</a>-->
+            </div><!--title_tab-->
+            <div class="clear"></div>
+            <div class="content_tab">
+                <div class="product_list">
+
+                    <ul id="tab3" class="ul cf" style="display:block;">
+                        <a href="/san-pham-moi" class="viewall">Xem tất cả &gt;&gt;</a>
+                        @foreach (var it in AppHelpers.Products(10))
+                        {
+                            @Html.Partial("_ProductItem", it)
+                        }
+
+                    </ul>
+                    <ul id="tab4" class="ul cf">
+                        <a href="/san-pham-xa-hang" class="viewall">Xem tất cả &gt;&gt;</a>
+                        @foreach (var it in AppHelpers.Products(10))
+                        {
+                            @Html.Partial("_ProductItem", it)
+                        }
+
+                    </ul>
+                    <ul id="tab2" class="ul cf">
+                        <a href="/san-pham-ban-chay" class="viewall">Xem tất cả &gt;&gt;</a>
+
+                        @foreach (var it in AppHelpers.Products(10))
+                        {
+                            @Html.Partial("_ProductItem", it)
+                        }
+                    </ul>
+
+
+                </div><!--prouduct_list-->
+            </div><!--content_tab-->
+        </div><!--box_pro_special_home-->
+        <div id="hot_news_home">
+            <div class="title_box_right"><h2 class="cufon h_title">Tin tức nổi bật</h2> </div>
+            <div class="content_box">
+                <div class="bg_gradient_bottom_title"></div>
+                @foreach (var it in AppHelpers.HostTopics(6))
+                {
+                    <div class="top_news">
+                        <a href="@AppHelpers.TopicUrls(it.Category_Id,it.Slug)"><img src="@AppHelpers.ImageCropUrl(it.Image, 90)" alt="@it.Name"> </a>
+                        <a href="@AppHelpers.TopicUrls(it.Category_Id,it.Slug)"> » @AppHelpers.ShotString(it.Name, 10) ... (@it.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"))</a>
+                    </div>
+                }
+            </div>
+        </div><!--hot_news_home-->
+
+        @{
+            dynamic lsst = ThemesSetting.getValue("HomeCategories");
+            if (lsst != null)
+            {
+                foreach (string it in lsst)
+                {
+                    @Html.Partial("_CategoryNewProduct", AppHelpers.Categorie(new Guid(it)));
+                }
+            }
+            else
+            {
+                foreach (var it in AppHelpers.Categories(true))
+                {
+                    if (it.Category_Id != null)
+                    {
+                        continue;
+                    }
+                    @Html.Partial("_CategoryNewProduct", it);
+
+                }
+
+            }
+        }
+    </div>

@@ -1,0 +1,52 @@
+{
+  "HomeSlider": {
+    "LabelName": "Trang chủ Slider",
+    "Type": "CarouselID",
+    "Value": "33c5ab45-811c-44d1-8772-a9460089f64b"
+  },
+  "MainMenu": {
+    "LabelName": "Chọn menu ngang",
+    "Type": "MenuID",
+    "Value": "5ed2d515-6ddd-481c-a223-a900010faee6"
+  },
+  "MainCattegory": {
+    "LabelName": "Chọn menu danh mục sản phẩm",
+    "Type": "MenuID",
+    "Value": "c552d746-2348-411e-91ad-a901006ff236"
+  },
+  "YoutobeVideoID": {
+    "LabelName": "Nhập youtobe video id",
+    "Type": "Text",
+    "Value": "JU5Xx2sLq3o"
+  },
+  "CustomerSupport": {
+    "LabelName": "Chọn bài viết hỗ trợ khách hàng",
+    "Type": "ListNews",
+    "Value": [ "0efd7989-89ae-4bf6-a79b-a92e0071709a", "e7047c27-1be7-4451-b12d-a92e00ab6afd" ]
+  },
+  "ComputerBuilding": {
+    "LabelName": "danh sách nhóm sản phẩm xây dựng cấu hình",
+    "Type": "ListProductClass",
+    "Value": [ "5b87d512-4e8a-4728-a46d-a91200318f65", "c2f85d01-6e37-418f-b728-a8e800f184c1", "25ca7fb0-1b75-4168-a444-a92900a34eb1", "1edb516e-d0a3-480b-997d-a92e0063bd00", "45ee92ad-7943-46fc-9d1f-a92e0063ca46", "d858c7b1-ad76-4ced-81aa-a92d001bd8e3", "fa48e772-ec92-4b30-8a82-a92c009a61e4", "e702f368-5bc0-4379-8062-a92c00ce0009", "c35feb39-ef31-4a7d-b765-a92e006582c5", "12ea15cd-294c-45fd-9b88-a92e00659de7", "020e1d00-aeb6-4ffc-a177-a92e0065a975", "201dd1c8-8847-43b8-8ca6-a92e0065b736", "b4be6abd-520b-4d8a-99ae-a92e0065c04b", "c23b0c02-fd9f-4ce5-9fce-a92e0066ad3f", "05a2fd55-5ff9-4bf9-bdb8-a92e0066e712", "1942bdff-e920-493b-9d70-a92e0066fffe", "274f8aa1-c4c3-4377-a751-a92e006745c1" ]
+  },
+  "HomeCategories": {
+    "LabelName": "Danh sách danh mục sản phẩm hiển thị trang chủ",
+    "Type": "ListCategoryProduct",
+    "Value": [ "0d0352c9-b65e-48ce-8dcf-a8eb0055cdcf", "79ac9230-0408-4609-8da1-a8eb005623f5", "50c9280c-1bb0-484d-929d-a8eb0056387f", "50e06bce-ff4c-4557-88c0-a8eb005649c8" ]
+  },
+  "ProductPageLimit": {
+    "LabelName": "Số lượng sản phẩm tối đa trong trang",
+    "Type": "Number",
+    "Value": "20"
+  },
+  "TopicPageLimit": {
+    "LabelName": "Số lượng bài viết tối đa trong trang",
+    "Type": "Number",
+    "Value": "10"
+  },
+  "CategoryCarousel": {
+    "LabelName": "Quảng cáo trong danh mục",
+    "Type": "CarouselID",
+    "Value": ""
+  }
+}

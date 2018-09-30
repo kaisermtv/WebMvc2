@@ -1,0 +1,96 @@
+﻿@model  CategoryProductListViewModel
+@{
+    ViewBag.Title = "Sản phẩm";
+}
+<div class="container">
+    <div id="location">
+        <a href="/"><i class="bg icon_home"></i></a>
+
+        <span>»</span><a href="@Url.Action("index","Product")">Sản phẩm</a>
+
+    </div>
+    <script type="text/javascript">
+        $(window).load(function () {
+            $('#banner_pro_list ul').carouFredSel({
+                auto: {
+                    play: true,
+                    pauseOnHover: true
+                },
+                prev: '#banner_pro_list .prev',
+                next: '#banner_pro_list .next',
+                'direction': 'left',
+                mousewheel: true,
+                scroll: 2,
+                items: 2,
+                swipe: {
+                    onMouse: true,
+                    onTouch: true
+                }
+            });
+
+        });
+    </script>
+
+    <div id="banner_pro_list">
+        <div class="btn_slider prev hidden" style="display: none;"></div>
+        <div class="btn_slider next hidden" style="display: none;"></div>
+        <div class="caroufredsel_wrapper" style="display: block; text-align: start; float: none; position: relative; top: auto; right: auto; bottom: auto; left: auto; z-index: auto; width: 1210px; height: 223px; margin: 0px 0px 0px -10px; overflow: hidden;">
+            <ul class="ul" style="text-align: left; float: none; position: absolute; top: 0px; right: auto; bottom: auto; left: 0px; margin: 0px; width: 3630px; height: 223px;">
+
+                <li><img border="0" src="https://gland.vn/media/banner/banner_c20ad4d7.png" width="595" height="220" alt=""></li>
+
+                <li><img border="0" src="https://gland.vn/media/banner/banner_6512bd43.jpg" width="595" height="220" alt=""></li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="clear space"></div>
+
+    <div id="content_center">
+
+        <input type="hidden" id="product_compare_list" value="">
+        <div class="top_area_list_page">
+            <h1>Sản phẩm</h1>
+
+            @Html.Partial("_Paging", Model.Paging)
+        </div><!--top_area_list_page-->
+        Tổng @(Model.Paging.Count)sp
+
+        <div class="clear"></div>
+
+        <div class="product_list page_inside">
+            <ul class="ul">
+                @foreach (var it in Model.ListProduct)
+                {
+                    @Html.Partial("_ProductItem", it)
+                }
+            </ul>
+        </div><!--prouduct_list-->
+
+        <div class="clear"></div>
+        <div class="top_area_list_page">
+            @Html.Partial("_Paging",Model.Paging)
+        </div><!--top_area_list_page-->
+
+        <div class="nd"></div>
+    </div><!--content_center-->
+    <div id="content_right">
+        <div class="box_right">
+            <div class="title_box_right">
+                <h2>Sản phẩm</h2>
+            </div>
+            <div class="content_box">
+                <div class="bg_gradient_bottom_title"></div>
+                <ul class="ul">
+                    @foreach (var sub in AppHelpers.SubCategories(null,true))
+                    {
+                        <li>» <a href="@Url.Action("ShowBySlugProduct","Category", new { Slug = sub.Slug })">@sub.Name</a> </li>
+                    }
+                </ul>
+            </div>
+        </div><!--box_right-->
+
+
+
+    </div><!--content_right-->
+</div>

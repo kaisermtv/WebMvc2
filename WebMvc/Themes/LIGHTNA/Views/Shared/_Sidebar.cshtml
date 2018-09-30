@@ -1,0 +1,31 @@
+﻿<div class="sidebar">
+    @Html.Partial("_CatNews")
+    
+    <div class="featurednews">
+        <h3 class="heading-14">BÀi viết nổi bật<span class="text-span-5"></span></h3>
+        <div class="listnewsfeaturednews">
+            @foreach (var it in AppHelpers.HostTopics(6))
+            {
+                string link = AppHelpers.TopicUrls(it.Category_Id, it.Slug);
+                <div class="boxnewsfeaturednews w-clearfix">
+                    <div class="figure picnewsl">
+                        <a href="@link" title="@it.Name">
+                            <img src="@AppHelpers.ImageCropUrl(it.Image, 90,60)" alt="@it.Name">
+                        </a>
+                    </div>
+                    <div class="contentlistnewssb">
+                        <a href="@link" title="@it.Name">
+                            <h5 class="heading-15">@it.Name</h5>
+                        </a>
+                        <div class="text-block-4">
+                            <span class="text-span-6"></span>
+                            <span>Đăng lúc</span>
+                            <span>@it.CreateDate.ToString("dd/MM/yyyy hh:mm:ss")</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="bannerads top20"> </div>
+    </div>
+</div>

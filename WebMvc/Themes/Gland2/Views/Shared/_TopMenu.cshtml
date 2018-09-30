@@ -1,0 +1,90 @@
+﻿
+<div id="top">
+    <div class="container">
+        <div class="banner_scroll scroll_left"></div>
+        <div class="banner_scroll scroll_right"></div>
+        <ul class="ul">
+            <li id="view-showroom">
+                <i class="bg icon_cskh1"></i><span style="display: inline-block;">
+                    <a href="/" rel="nofollow">
+                        <!--<img class="icon-top" src="/media/lib/icon-htsr.png" />-->Hệ thống Showroom
+                    </a>
+                </span>
+                <div id="hnc-showroom"></div>
+                <script>
+                    $("#view-showroom").hover(function () {
+                        if ($("#hnc-showroom").html() == '') $("#hnc-showroom").load("/Ajax/TopShowroom");
+                        $("#hnc-showroom").show();
+                    }, function () {
+                        $("#hnc-showroom").hide();
+                    });
+                </script>
+            </li>
+            <li id="support_top">
+                <span><img class="icon-top" src="@Html.ThemeUrl()/Content/images/new_icon_banhang.png" />Bán hàng trực tuyến</span>
+                <div id="h_menu_sub_on1" class="h_menu_sub hOnline">
+                    @Html.Action("OnlineOrder", "Employees")
+                </div><!--h_menu_sub-->
+            </li>
+            <li>
+                <span>
+                    <a href="/tin-tuc/tin-khuyen-mai">
+                        <img class="icon-top" src="@Html.ThemeUrl()/Content/images/new_icon_km.png" />Khuyến mại
+                    </a>
+                </span>
+            </li>
+            <li id="list_hot_news_top">
+                <a href="/tin-tuc"><img class="icon-top" src="@Html.ThemeUrl()/Content/images/new_icon_tintuc.png" />Tin nổi bật</a>
+                <i class="bg icon_drop"></i>
+                <ul class="ul">
+                    @foreach (var it in AppHelpers.HostTopics(5))
+                    {
+                        <li>
+                            <a href="@AppHelpers.TopicUrls(it.Category_Id,it.Slug)">
+                                <img src="@AppHelpers.ImageCropUrl(it.Image, 75)" alt="@it.Name" /> 
+                                <span>@it.Name</span>
+                            </a>
+                        </li>
+
+                    }
+                </ul>
+            </li>
+            <li><a href="@Html.Settings("Fanpage")" rel="nofollow">Fanpage</a>  </li>
+            <li>
+                <a href="/xay-dung-may-tinh" rel="nofollow">
+                <span style="color:red; font-weight: bold">XÂY DỰNG CẤU HÌNH</span></a>
+
+            </li>
+            <li id="account-header">
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <a href="@Url.Action("Login", "Members")" rel="nofollow">@Html.LanguageString("Layout.Nav.Logon")</a>
+                    if (Html.Settings("SuspendRegistration") != "true")
+                    {
+                        @("|") <a href="@Url.Action("Register", "Members")" rel="nofollow">@Html.LanguageString("Layout.Nav.Register")</a> 
+                    }
+                        <div class="list">
+                            <a href="@Url.Action("Login", "Members")" rel="nofollow" class="btn">@Html.LanguageString("Layout.Nav.Logon")</a>
+                            @if (Html.Settings("SuspendRegistration") != "true")
+                            {
+                                <a href="@Url.Action("Register", "Members")" rel="nofollow" class="btn">@Html.LanguageString("Layout.Nav.Register")</a>
+                            }
+                        </div>
+                } else {
+                    <a>@Html.CurrentMember().UserName</a> @("|") 
+                    <a href="@Url.Action("Login", "Members")" class="btn">@Html.LanguageString("LogOn.LogOff")</a>
+                    <div class="list">
+                        @if (User.IsInRole(AppConstants.AdminRoleName))
+                        {
+                            <a href="@Url.Action("Index", "Admin", new {area = "Admin"}, null)" rel="nofollow" class="btn">@Html.LanguageString("Layout.Nav.Admin")</a>
+                        }
+                            <a href="@Url.Action("LogOut", "Members")" rel="nofollow" class="btn">@Html.LanguageString("LogOn.LogOff")</a>
+                    </div>
+                }
+                
+
+                </li>
+            </ul>
+    </div>
+</div><!--top-->
+<div class="clear"></div>

@@ -1,0 +1,110 @@
+﻿<div class="footer">
+    <div class="box_footer">
+        <div class="w-row">
+            <div class="w-col w-col-4">
+                <div class="itemft">
+                    <h4 class="heading-5">LUXURYLIGHT - Đ&Egrave;N CH&Iacute;NH H&Atilde;NG.COM</h4>
+                    <div class="contentitem">
+                        @{
+                            var showroom = AppHelpers.GetShowroom();
+                        }
+                        @for (int i = 0; i < showroom.Count; i++)
+                        {
+                            <p>&nbsp;</p>
+                            <p>
+                                <strong>
+                                    <img src="uploads/Logo/denchinhhang-small-logo.png" alt="" width="28" height="27" />@showroom[i].Name
+                                </strong>
+                            </p>
+                            <p>@showroom[i].Addren</p>
+                            if (!showroom[i].Tel.IsNullEmpty())
+                            {
+                                <p>Tel.: @showroom[i].Tel</p>
+                            }
+                            if (!showroom[i].Hotline.IsNullEmpty())
+                            {
+                                <p>Hotline: @showroom[i].Hotline</p>
+                            }
+                        }
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="w-col w-col-4">
+                <div class="itemft">
+                    <h4 class="heading-5">MENU DANH M&#7908;C S&#7842;N PH&#7848;M</h4>
+                    <div class="contentitem">
+                        <ul class="top30 unordered-list w-list-unstyled">
+                            @foreach (var it in AppHelpers.GroupProducts())
+                            {
+                                <li> <p><a href="#" title="@it.Name">@it.Name</a></p> </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="w-col w-col-4">
+                <div class="itemft">
+                    <h4 class="heading-5">MẠNG XÃ HỘI</h4>
+                    @if (!Html.Settings("Fanpage").IsNullEmpty())
+                    {
+                        <div class="contentitem">
+                            <div class="social-footer">
+                                <div id="fb-root"></div>
+                                <script>(function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.10'; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));</script>
+                                <div class="fb-page" data-href="@Html.Settings("Fanpage")" data-tabs="timeline" data-height="200" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                                    <blockquote cite="@Html.Settings("Fanpage")" class="fb-xfbml-parse-ignore">
+                                        <a href="@Html.Settings("Fanpage")">PLUGIN PAGE</a>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @*<div class="logoft">
+                        <a href="" title="ĐÈN CHÍNH HÃNG - NHÀ NHẬP KHẨU VÀ PHÂN PHỐI ĐÈN TRANG TRÍ">
+                            <img src="uploads/Logo/denchinhhang1.png" alt="ĐÈN CHÍNH HÃNG - NHÀ NHẬP KHẨU VÀ PHÂN PHỐI ĐÈN TRANG TRÍ">
+                        </a>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footerboottom">
+        <div class="_w-container w-container">
+            <div class="w-row">
+                <div class="w-col w-col-6">
+                    <div class="text-block">Copyright 2018 © - Bản quyền của SKYSHOP VIỆT NAM</div>
+                </div>
+                <div class="column-16 w-clearfix w-col w-col-6">
+                    <ul class="unordered-list-2 w-list-unstyled">
+                        @if (!Html.Settings("Fanpage").IsNullEmpty())
+                        {
+                            <li class="list-item">
+                                <a href="@Html.Settings("Fanpage")" title="Facebook" rel="nofollow"><span class="text-span"></span></a>
+                            </li>
+                        }
+                        @if (!Html.Settings("Twitter").IsNullEmpty())
+                        {
+                            <li class="list-item-2">
+                                <a href="@Html.Settings("Twitter")" title="Twitter" rel="nofollow"><span class="text-span-2"></span></a>
+                            </li>
+                        }
+                        @if (!Html.Settings("Youtube").IsNullEmpty())
+                        {
+                            <li class="list-item-3">
+                                <a href="@Html.Settings("Youtube")" title="Youtube" rel="nofollow">
+                                    <span class="text-span-3"></span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="div-block-3">
+                <div class="backtop" id="goTop">
+                    <a target="_blank" class="link-2"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

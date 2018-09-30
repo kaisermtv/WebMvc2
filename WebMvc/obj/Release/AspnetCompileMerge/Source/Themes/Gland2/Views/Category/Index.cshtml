@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "Tin Tức";
+}
+<div class="container">
+    <div id="location">
+        <a href="/"><i class="bg icon_home"></i></a>
+        <span>»</span><a href="/tin-tuc">Tin tức</a>
+    </div>
+    <div id="content_left">
+        @Html.Partial("_CatNews")
+        @Html.Partial("_HostView")
+        <div class="banner_left">
+
+        </div>
+    </div><!--content_left-->
+    <div id="content_news_page">
+
+        <script type="text/javascript">
+            $(window).load(function () {
+                $('#banner_pro_list ul').carouFredSel({
+                    auto: {
+                        play: true,
+                        pauseOnHover: true
+                    },
+                    prev: '#banner_pro_list .prev',
+                    next: '#banner_pro_list .next',
+                    'direction': 'left',
+                    mousewheel: true,
+                    scroll: 2,
+                    items: 2,
+                    swipe: {
+                        onMouse: true,
+                        onTouch: true
+                    }
+                });
+
+            });
+        </script>
+        @{
+            var lst = AppHelpers.TopTopics(2);
+        }
+        @for (int i = 0; i < lst.Count; i++)
+        {
+            var it = lst[i];
+            <a href="@AppHelpers.TopicUrls(it.Category_Id,it.Slug)" class="top_newspage"@Html.Raw(i==0? " style=\"margin-left:0px\"" : "")>
+                <img src="@AppHelpers.ImageCropUrl(it.Image, 352)" alt="@it.Name">
+                <span>@it.Name</span>
+            </a><!--top_newspage-->
+        }
+        
+        <div id="hot_news_home" class="float_r">
+            <div class="title_box_right"><h2 class="cufon h_title">Tin tức nổi bật</h2> </div>
+            <div class="content_box" style="height:255px;">
+                <div class="bg_gradient_bottom_title"></div>
+                @{
+                    var hostnews = AppHelpers.HostTopics(5);
+                }
+                @if (hostnews.Count > 0)
+                {
+                    var tnews = hostnews[0];
+                    <div class="top_news">
+                        <a href="@AppHelpers.TopicUrls(tnews.Category_Id,tnews.Slug)"><img src="@AppHelpers.ImageCropUrl(tnews.Image, 90)" alt="@tnews.Name"> </a>
+                        <a href="@AppHelpers.TopicUrls(tnews.Category_Id,tnews.Slug)"> » @AppHelpers.ShotString(tnews.Name,10) ... (@tnews.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"))</a>
+                    </div>
+
+                    <ul>
+                        @for (int i = 1; i < hostnews.Count; i++)
+                        {
+                            var it = hostnews[i];
+                            <li>
+                                <a href="@AppHelpers.TopicUrls(it.Category_Id,it.Slug)"> » @AppHelpers.ShotString(it.Name, 10) ... (@it.CreateDate.ToString("yyyy-MM-dd HH:mm:ss"))</a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div><!--hot_news_home-->
+
+        @foreach (var it in AppHelpers.Categories())
+        {
+            @Html.Partial("_CatTopNews", it)
+        }
+    </div><!--content_news-->
+</div>

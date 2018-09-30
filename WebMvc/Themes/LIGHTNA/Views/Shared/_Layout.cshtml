@@ -1,0 +1,52 @@
+﻿@using WebMvc.Application.General
+@{
+    // Global Stuff
+    var themeName = Html.Settings("Theme");
+    var theme = new Theme
+    {
+        ThemeName = themeName,
+        ThemePath = string.Concat(SiteConstants.Instance.ThemeRootFolder, themeName)
+    };
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href='@Html.Settings("WebsiteUrl")' />
+    <title>@ViewBag.Title - @Html.Settings("WebsiteName")</title>
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    @RenderSection("meta", required: false)
+
+    @Html.Partial("_StyleSheets", theme)
+
+    @Html.Partial("_JavaScript", theme)
+
+    @RenderSection("head", required: false)
+    <script>
+        var ThemeUrl = '@Html.ThemeUrl()';
+    </script>
+
+    @Html.Raw(Html.Settings("CustomHeaderCode"))
+</head>
+<body class="body">
+    <div class="gio-cua-ban " id="them-di"></div>
+    <div class="wcontainer">
+        @RenderBody()
+        @Html.Partial("_Footer")
+    </div>
+    <script src="@Html.ThemeUrl()/Content/js/owl.carousel.min.js"></script>
+    <script src="@Html.ThemeUrl()/Content/js/webflow.js" type="text/javascript"></script>
+    <script src="@Html.ThemeUrl()/Content/plug/script.js"></script>
+    <script src="@Html.ThemeUrl()/Content/js/script.js"></script>
+
+    <script type="text/javascript">$(document).ready(function () { $('#goTop').click(function () { $('body,html').animate({ scrollTop: 0 }, 'slow'); return false; }); $('.togSex').click(function () { $('.togShow').toggle(); }); $('.m-togSex').click(function () { $('.m-togShow').toggle(); }); })</script>
+
+    @Html.Raw(Html.Settings("CustomFooterCode"))
+</body>
+</html>
+
+<!-- Load time: 0.142 seconds  / 4 mb-->
+<!-- Powered by HuraStore 7.3, Released: 27-Mar-2018 / Website: www.hurasoft.vn -->

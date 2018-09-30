@@ -1,0 +1,89 @@
+10/07/2018 08:32:31 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+10/07/2018 08:32:32 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 54 | The action 'MainAdminNav' is accessible only by a child request.
+10/07/2018 13:51:51 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+10/07/2018 14:25:07 | mscorlib.dll | InvokeMethod | System.RuntimeMethodHandle | 0 | START APP
+10/07/2018 14:37:36 | mscorlib.dll | InvokeMethod | System.RuntimeMethodHandle | 0 | START APP
+10/07/2018 15:16:56 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+10/07/2018 15:16:58 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 54 | The action 'MainAdminNav' is accessible only by a child request.
+10/07/2018 15:37:38 | mscorlib.dll | InvokeMethod | System.RuntimeMethodHandle | 0 | START APP
+10/07/2018 15:43:58 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+10/07/2018 15:43:58 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 54 | Path '/Themes/Gland/Views/Home/Slider.cshtml' was not found.
+11/07/2018 13:36:43 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+11/07/2018 14:43:50 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+11/07/2018 14:43:50 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 54 | Path '/Themes/Gland/Views/Home/Slider.cshtml' was not found.
+11/07/2018 15:05:23 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+11/07/2018 15:32:52 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 54 | Error executing child request for handler 'System.Web.Mvc.HttpHandlerUtil+ServerExecuteHttpHandlerAsyncWrapper'. INNER EXCEPTION: "<" is not valid at the start of a code block.  Only identifiers, keywords, comments, "(" and "{" are valid.
+
+11/07/2018 15:56:54 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+12/07/2018 05:52:41 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+12/07/2018 06:00:38 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+12/07/2018 06:31:30 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+12/07/2018 06:35:21 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 54 | A public action method 'ChangePassword' was not found on controller 'WebMvc.Areas.Admin.Controllers.AdminMembersController'.
+12/07/2018 06:35:31 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 54 | A public action method 'ChangePassword' was not found on controller 'WebMvc.Areas.Admin.Controllers.AdminMembersController'.
+12/07/2018 06:35:35 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 54 | The view 'ChangePass' or its master was not found or no view engine supports the searched locations. The following locations were searched:
+~/Areas/Admin/Views/AdminMembers/ChangePass.cshtml
+~/Areas/Admin/Views/AdminMembers/ChangePass.vbhtml
+~/Areas/Admin/Views/Shared/ChangePass.cshtml
+~/Areas/Admin/Views/Shared/ChangePass.vbhtml
+~/Themes/Gland/Views/AdminMembers/ChangePass.cshtml
+~/Themes/Gland/Views/Extensions/AdminMembers/ChangePass.cshtml
+~/Views/Extensions/AdminMembers/ChangePass.cshtml
+~/Views/AdminMembers/ChangePass.cshtml
+~/Views/AdminMembers/ChangePass.vbhtml
+~/Views/Shared/ChangePass.cshtml
+~/Views/Shared/ChangePass.vbhtml
+12/07/2018 06:37:16 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+12/07/2018 06:37:52 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 54 | A public action method 'ChangePassword' was not found on controller 'WebMvc.Areas.Admin.Controllers.AdminMembersController'.
+12/07/2018 06:39:29 | WebMvc.dll | ChangePass | WebMvc.Areas.Admin.Controllers.AdminMembersController | 128 | String reference not set to an instance of a String.
+Parameter name: s
+12/07/2018 06:41:00 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+12/07/2018 06:42:35 | WebMvc.dll | ChangePass | WebMvc.Areas.Admin.Controllers.AdminMembersController | 128 | SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+12/07/2018 06:43:23 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+12/07/2018 06:44:00 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 54 | Timeout expired.  The timeout period elapsed prior to obtaining a connection from the pool.  This may have occurred because all pooled connections were in use and max pool size was reached.
+12/07/2018 06:44:00 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 54 | Timeout expired.  The timeout period elapsed prior to obtaining a connection from the pool.  This may have occurred because all pooled connections were in use and max pool size was reached.
+12/07/2018 06:45:23 | WebMvc.dll | ChangePass | WebMvc.Areas.Admin.Controllers.AdminMembersController | 128 | SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+12/07/2018 09:19:55 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+12/07/2018 09:22:32 | WebMvc.dll | ChangePass | WebMvc.Areas.Admin.Controllers.AdminMembersController | 128 | SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+12/07/2018 09:28:11 | WebMvc.dll | ChangePass | WebMvc.Areas.Admin.Controllers.AdminMembersController | 128 | SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+12/07/2018 09:31:24 | WebMvc.dll | ChangePass | WebMvc.Areas.Admin.Controllers.AdminMembersController | 0 | Must declare the scalar variable "@SlugLastPasswordChangedDate".
+12/07/2018 09:33:02 | WebMvc.dll | ChangePass | WebMvc.Areas.Admin.Controllers.AdminMembersController | 0 | Must declare the scalar variable "@SlugLastPasswordChangedDate".
+12/07/2018 09:34:01 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+12/07/2018 09:35:44 | WebMvc.dll | ChangePass | WebMvc.Areas.Admin.Controllers.AdminMembersController | 128 | Cannot insert the value NULL into column 'Slug', table 'mvp105a21_senvang.dbo.MembershipUser'; column does not allow nulls. UPDATE fails.
+The statement has been terminated.
+12/07/2018 09:40:24 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+15/07/2018 08:53:01 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+16/07/2018 04:49:49 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+16/07/2018 12:35:27 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+16/07/2018 12:35:27 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | The current request for action 'Create' on controller type 'AdminMembersController' is ambiguous between the following action methods:
+System.Web.Mvc.ActionResult Create() on type WebMvc.Areas.Admin.Controllers.AdminMembersController
+System.Web.Mvc.ActionResult Create(WebMvc.Areas.Admin.ViewModels.AdminCreateMemberViewModel) on type WebMvc.Areas.Admin.Controllers.AdminMembersController
+16/07/2018 12:36:25 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+16/07/2018 15:39:55 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+17/07/2018 16:53:20 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+18/07/2018 04:32:12 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+18/07/2018 04:33:40 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | Error executing child request for handler 'System.Web.Mvc.HttpHandlerUtil+ServerExecuteHttpHandlerAsyncWrapper'. INNER EXCEPTION: Invalid object name 'dbo.Carousel'.
+18/07/2018 04:33:44 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | Error executing child request for handler 'System.Web.Mvc.HttpHandlerUtil+ServerExecuteHttpHandlerAsyncWrapper'. INNER EXCEPTION: Invalid object name 'dbo.Carousel'.
+18/07/2018 04:33:54 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | The view 'Edit' or its master was not found or no view engine supports the searched locations. The following locations were searched:
+~/Areas/Admin/Views/AdminMembers/Edit.cshtml
+~/Areas/Admin/Views/AdminMembers/Edit.vbhtml
+~/Areas/Admin/Views/Shared/Edit.cshtml
+~/Areas/Admin/Views/Shared/Edit.vbhtml
+~/Themes/NewsBlue/Views/AdminMembers/Edit.cshtml
+~/Themes/NewsBlue/Views/Extensions/AdminMembers/Edit.cshtml
+~/Views/Extensions/AdminMembers/Edit.cshtml
+~/Views/AdminMembers/Edit.cshtml
+~/Views/AdminMembers/Edit.vbhtml
+~/Views/Shared/Edit.cshtml
+~/Views/Shared/Edit.vbhtml
+18/07/2018 06:13:01 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+18/07/2018 06:20:36 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+18/07/2018 06:20:53 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+18/07/2018 06:21:24 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+18/07/2018 06:21:41 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+18/07/2018 06:24:47 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+18/07/2018 06:25:50 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+18/07/2018 06:26:44 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+18/07/2018 06:30:05 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+18/07/2018 06:30:15 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | Method not found: 'Void ImageProcessor.Imaging.ResizeLayer..ctor(System.Drawing.Size, ImageProcessor.Imaging.ResizeMode, ImageProcessor.Imaging.AnchorPosition, Boolean, Single[], System.Nullable`1<System.Drawing.Size>, System.Collections.Generic.List`1<System.Drawing.Size>)'.
+18/07/2018 06:31:25 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+18/07/2018 06:31:25 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | Method not found: 'Void ImageProcessor.Imaging.ResizeLayer..ctor(System.Drawing.Size, ImageProcessor.Imaging.ResizeMode, ImageProcessor.Imaging.AnchorPosition, Boolean, Single[], System.Nullable`1<System.Drawing.Size>, System.Collections.Generic.List`1<System.Drawing.Size>)'.

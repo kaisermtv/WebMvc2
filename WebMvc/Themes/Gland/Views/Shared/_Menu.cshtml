@@ -1,0 +1,123 @@
+﻿@{
+    var allmenus = AppHelpers.GetAllMenus();
+    List<Menu> menus;
+    var rootid = ThemesSetting.getValue("MainMenu").ToString();
+    if (rootid == "")
+    {
+        menus = allmenus.Where(x => x.Menu_Id == null).ToList();
+    }
+    else
+    {
+        menus = allmenus.Where(x => x.Menu_Id == new Guid(rootid)).ToList();
+    }
+}
+<div id="wrap-head">
+    <div id="header">
+        <div class="container">
+            <a href="/" id="logo">
+                <img src="@Html.ThemeUrl()/Content/media/banner/logo.png" style="width:180px" alt="@Html.Settings("WebsiteName")" /> 
+            </a>
+            <div id="search">
+                <form method="get" action="@Url.Action("index","Product")" enctype="multipart/form-data">
+                    <input type="text" class="text" id="text_search" name="q" placeholder="Gõ từ khóa tìm kiếm..." autocomplete="off" />
+                    <input type="submit" id="submit_search" value="Tìm kiếm" />
+                </form>
+                <div class="autocomplete-suggestions">
+                    <p class="titleSearch">Kết quả phù hợp với từ khóa <span id="keySearchResult"></span></p>
+                    <div id="resultsearch"></div>
+                </div>
+            </div><!--search-->
+            <div id="hotline-header">
+                Mua hàng Online :<b>@Html.Settings("Hotline")</b>
+            </div>
+            <div id="header_right">
+                <a href="/cart" id="cart">
+                    <span>Giỏ hàng</span> <b id="count_shopping_cart_stores">@AppHelpers.GetCountShoppingCart()</b>
+                </a>
+            </div><!--header_right-->
+        </div><!--container-->
+    </div><!--header-->
+    <div class="clear"></div>
+    <div id="nav-main">
+        <div class="container">
+            <style>
+                #nav_vertical:hover .ul.ul_menu {
+                    visibility: visible !important;
+                }
+            </style>
+            <div id="nav_vertical">
+                <div class="title_nav_verticle">Danh mục sản phẩm</div>
+                <ul class="ul ul_menu" style="visibility:hidden;">
+                    @foreach (var it in menus)
+                    {
+                        <li style="background-image:url('@it.Image')">
+                            <a href="@AppHelpers.GetLinkByMenu(it)" class="root">@it.Name.ToUpper()</a>
+                            <div class="sub_nav">
+                                @foreach (var sub1 in allmenus.Where(x => x.Menu_Id == it.Id).ToList())
+                                {
+                                    <div class="box_cate">
+                                        <a href="@AppHelpers.GetLinkByMenu(sub1)" class="sub1">@sub1.Name.ToUpper()</a>
+                                        @foreach (var sub2 in allmenus.Where(x => x.Menu_Id == sub1.Id).ToList())
+                                        {
+                                            <a href="@AppHelpers.GetLinkByMenu(sub2)" class="sub2">@sub2.Name.ToUpper()</a>
+                                        }
+                                    </div>
+                                }
+                            </div><!--sub_nav-->
+                        </li>
+                    }
+                </ul>
+                <div class="clear"></div>
+            </div><!--nav_vertical-->
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $(".sub_nav").each(function () {
+                        //sort_sub_nav(0,16,$(this).find("li"),$(this));
+                    });
+
+                    $("#nav_vertical li").hover(function () {
+                        $(this).children(".sub_nav").show();
+                    }, function () {
+                        $(this).children(".sub_nav").hide();
+                    });
+                });
+            </script>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $(window).scroll(function () {
+                        t = $(window).scrollTop();
+                        if (t > 490) {
+                            $("#wrap-head,#nav-main").addClass("fixed");
+                            $(".support-online-header").show();
+                        }
+                        else {
+                            $("#wrap-head,#nav-main").removeClass("fixed");
+                            $(".support-online-header").hide();
+                        }
+                    });
+                });
+            </script>
+            <div id="nav_horizontal">
+                @{
+                    List<Menu> menus1;
+                    var rootid1 = ThemesSetting.getValue("MainMenu").ToString();
+                    if (rootid1 == "")
+                    {
+                        menus1 = allmenus.Where(x => x.Menu_Id == null).ToList();
+                    }
+                    else
+                    {
+                        menus1 = allmenus.Where(x => x.Menu_Id == new Guid(rootid1)).ToList();
+                    }
+
+                    foreach (var it in menus1)
+                    {
+                        <a href="@AppHelpers.GetLinkByMenu(it)"><img src="@it.Image" alt="@it.Name" />@it.Name</a>
+                    }
+                }
+            </div><!--nav-->
+            <div class="clear"></div>
+        </div><!--container-->
+    </div><!--nav-main-->
+</div><!--wrap-head-->

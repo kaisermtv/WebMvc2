@@ -1,0 +1,27 @@
+﻿@model  AdminCarouselEditViewModel
+@{
+    ViewBag.Title = "Thêm Carousel";
+}
+
+@Html.Partial("_CarouselNavButtons")
+
+<div class="panel">
+    <div class="panel-heading">
+        <h5>@ViewBag.Title</h5>
+    </div>
+    <div class="panel-content">
+        @using (Html.BeginForm("Create", "AdminCarousel", FormMethod.Post))
+        {
+            @Html.ValidationSummary(false)
+            @Html.AntiForgeryToken()
+
+            @Html.Partial("_CarouselFields", Model)
+
+
+            <div class="submit-holder">
+                <input type="submit" class="btn-mvc-green btn-mvc-large" value="Khởi tạo" />
+            </div>
+        }
+    </div>
+</div>
+

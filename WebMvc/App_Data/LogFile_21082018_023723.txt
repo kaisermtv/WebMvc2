@@ -1,0 +1,83 @@
+01/08/2018 16:48:09 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+01/08/2018 16:52:36 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+02/08/2018 02:35:36 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+02/08/2018 03:26:36 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+02/08/2018 03:37:09 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+02/08/2018 03:50:15 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+02/08/2018 03:53:05 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+02/08/2018 04:50:13 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+02/08/2018 07:30:51 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+02/08/2018 07:44:18 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+02/08/2018 07:51:49 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+02/08/2018 08:05:07 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+02/08/2018 08:32:11 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+02/08/2018 08:50:25 | mscorlib.dll | InvokeMethod | System.RuntimeMethodHandle | 0 | START APP
+02/08/2018 09:04:11 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 58 | The model item passed into the dictionary is of type 'WebMvc.Areas.Admin.ViewModels.AdminTopicListViewModel', but this dictionary requires a model item of type 'WebMvc.Areas.Admin.ViewModels.AdminPagingViewModel'.
+02/08/2018 09:04:57 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+02/08/2018 09:14:12 | mscorlib.dll | InvokeMethod | System.RuntimeMethodHandle | 0 | START APP
+02/08/2018 09:38:19 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+02/08/2018 09:42:29 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+02/08/2018 09:55:45 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+03/08/2018 04:11:40 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+03/08/2018 05:15:18 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | A public action method 'ListValues' was not found on controller 'WebMvc.Areas.Admin.Controllers.AdminLanguageController'.
+03/08/2018 05:15:43 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+03/08/2018 05:16:06 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | Must declare the scalar variable "@Language_Id".
+03/08/2018 05:17:44 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+03/08/2018 05:17:45 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | Incorrect syntax near '='.
+03/08/2018 05:19:08 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+03/08/2018 06:56:51 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | Error executing child request for handler 'System.Web.Mvc.HttpHandlerUtil+ServerExecuteHttpHandlerAsyncWrapper'. INNER EXCEPTION: D:\IT\C#\Web\WebMvc\WebMvc\Areas\Admin\Views\AdminLanguage\CreateLanguage.cshtml(21): error CS0103: The name 'LanguageUtils' does not exist in the current context
+03/08/2018 06:59:04 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | Object reference not set to an instance of an object.
+03/08/2018 07:02:53 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | A public action method 'DeleteLanguageConfirmation' was not found on controller 'WebMvc.Areas.Admin.Controllers.AdminLanguageController'.
+03/08/2018 07:05:24 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+03/08/2018 07:05:25 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | The parameters dictionary contains a null entry for parameter 'Id' of non-nullable type 'System.Guid' for method 'System.Web.Mvc.ActionResult DeleteLanguageConfirmation(System.Guid)' in 'WebMvc.Areas.Admin.Controllers.AdminLanguageController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
+Parameter name: parameters
+03/08/2018 07:19:04 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | The action 'Languages' is accessible only by a child request.
+03/08/2018 07:19:22 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | The action 'Languages' is accessible only by a child request.
+03/08/2018 07:28:50 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | The action 'Languages' is accessible only by a child request.
+03/08/2018 07:30:39 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | The action 'Languages' is accessible only by a child request.
+03/08/2018 07:31:22 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+03/08/2018 07:31:25 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | The action 'Languages' is accessible only by a child request.
+03/08/2018 07:31:43 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | The action 'Languages' is accessible only by a child request.
+03/08/2018 07:49:40 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+03/08/2018 07:52:54 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+03/08/2018 07:57:09 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+03/08/2018 07:57:32 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | A public action method 'DeleteResourceConfirmation' was not found on controller 'WebMvc.Areas.Admin.Controllers.AdminLanguageController'.
+03/08/2018 08:18:19 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+03/08/2018 08:21:00 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | A public action method 'DeleteResourceConfirmation' was not found on controller 'WebMvc.Areas.Admin.Controllers.AdminLanguageController'.
+03/08/2018 08:21:12 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | The model item passed into the dictionary is of type 'WebMvc.Application.Entities.LocaleResourceKey', but this dictionary requires a model item of type 'WebMvc.Application.Entities.Language'.
+03/08/2018 09:18:16 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+03/08/2018 09:18:17 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | The view 'ManageResourceKeys' or its master was not found or no view engine supports the searched locations. The following locations were searched:
+~/Areas/Admin/Views/AdminLanguage/ManageResourceKeys.cshtml
+~/Areas/Admin/Views/AdminLanguage/ManageResourceKeys.vbhtml
+~/Areas/Admin/Views/Shared/ManageResourceKeys.cshtml
+~/Areas/Admin/Views/Shared/ManageResourceKeys.vbhtml
+~/Themes/Gland/Views/AdminLanguage/ManageResourceKeys.cshtml
+~/Themes/Gland/Views/Extensions/AdminLanguage/ManageResourceKeys.cshtml
+~/Views/Extensions/AdminLanguage/ManageResourceKeys.cshtml
+~/Views/AdminLanguage/ManageResourceKeys.cshtml
+~/Views/AdminLanguage/ManageResourceKeys.vbhtml
+~/Views/Shared/ManageResourceKeys.cshtml
+~/Views/Shared/ManageResourceKeys.vbhtml
+03/08/2018 09:18:54 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+03/08/2018 09:22:37 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+03/08/2018 09:31:20 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+03/08/2018 10:42:45 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+03/08/2018 10:46:04 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+03/08/2018 14:32:56 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+10/08/2018 02:28:36 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+10/08/2018 02:41:33 | mscorlib.dll | InvokeMethod | System.RuntimeMethodHandle | 0 | START APP
+10/08/2018 02:45:36 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+20/08/2018 02:50:52 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+20/08/2018 02:50:53 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | Path '/Themes/Gland/Views/Topic/ShowBySlug.cshtml' was not found.
+20/08/2018 04:22:34 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+20/08/2018 04:22:34 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | Path '/Themes/Gland/Views/Category/ShowBySlugProduct.cshtml' was not found.
+20/08/2018 04:23:13 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | Column 'dbo.ProductClass.Id' is invalid in the select list because it is not contained in either an aggregate function or the GROUP BY clause.
+20/08/2018 04:33:52 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | Column 'dbo.ProductClass.Id' is invalid in the select list because it is not contained in either an aggregate function or the GROUP BY clause.
+20/08/2018 04:35:46 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+20/08/2018 04:37:06 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | Execution Timeout Expired.  The timeout period elapsed prior to completion of the operation or the server is not responding. INNER EXCEPTION: The wait operation timed out
+20/08/2018 09:34:23 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+20/08/2018 09:34:24 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | Incorrect syntax near ','.
+20/08/2018 09:53:46 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | Incorrect syntax near ','.
+20/08/2018 09:54:34 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+21/08/2018 02:32:07 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 28 | START APP
+21/08/2018 02:32:07 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 56 | Path '/Themes/Gland/Views/Category/ShowBySlugProduct.cshtml' was not found.

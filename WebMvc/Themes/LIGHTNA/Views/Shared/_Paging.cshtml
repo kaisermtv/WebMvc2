@@ -1,0 +1,53 @@
+﻿@model  PagingViewModel
+@{ 
+    var url = Request.Path + "?";
+
+    //Request.QueryString.Remove("p");
+    string urlqr = "";
+
+
+    if (Request.QueryString["p"].IsNullEmpty())
+    {
+        urlqr = Request.QueryString.ToString();
+    } else
+    {
+        urlqr = Request.QueryString.ToString().Replace("&p=" + Request.QueryString["p"], "");
+        urlqr = urlqr.Replace("p=" + Request.QueryString["p"], "");
+    }
+
+
+    if (!urlqr.IsNullEmpty()) {
+        urlqr += "&";
+    }
+
+    urlqr = urlqr.Replace("&&","&");
+    url += urlqr + "p=";
+
+    int pl = Model.Page-5;
+    if (pl < 2) {
+        pl = 2;
+    }
+}
+<div class="numberpage">
+    <ul class="unordered-list-5 w-list-unstyled list-pagin">
+        @if (Model.Page > 1)
+        {
+            <a href="@(url + (Model.Page-1))" data-ci-pagination-page="@(Model.Page-1)">Đầu</a>
+            <a href="@(url + 1)" data-ci-pagination-page="1">1</a>
+        }
+        @for (var i = pl; i < Model.Page; i++)
+        {
+            <a href="@(url + i)" data-ci-pagination-page="@i">@i</a>
+        }
+        <strong>@Model.Page</strong>
+        @for (var i = Model.Page + 1; i < (Model.MaxPage) && i < Model.Page + 5; i++)
+        {
+            <a href="@(url + i)" data-ci-pagination-page="@i">@i</a>
+        }
+        @if (Model.Page < Model.MaxPage)
+        {
+            <a href="@(url + Model.MaxPage)" data-ci-pagination-page="@Model.MaxPage">@Model.MaxPage</a>
+            <a href="@(url + (Model.Page+1))" data-ci-pagination-page="@(Model.Page+1)">Cuối</a>
+        }
+    </ul>
+</div>

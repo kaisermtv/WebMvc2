@@ -1,0 +1,56 @@
+01/07/2018 09:19:59 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 09:20:00 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | An error occurred when trying to create a controller of type 'WebMvc.Controllers.HomeController'. Make sure that the controller has a parameterless public constructor. INNER EXCEPTION: Resolution of the dependency failed, type = 'WebMvc.Controllers.HomeController', name = '(none)'.
+Exception occurred while: while resolving.
+Exception is: InvalidOperationException - The current type, WebMvc.Application.Interfaces.IUnitOfWorkManager, is an interface and cannot be constructed. Are you missing a type mapping?
+-----------------------------------------------
+At the time of the exception, the container was: 
+  Resolving WebMvc.Controllers.HomeController,(none)
+  Resolving parameter 'unitOfWorkManager' of constructor WebMvc.Controllers.HomeController(WebMvc.Services.LoggingService loggingService, WebMvc.Application.Interfaces.IUnitOfWorkManager unitOfWorkManager, WebMvc.Services.MembershipService membershipService, WebMvc.Services.SettingsService settingsService, WebMvc.Services.CacheService cacheService, WebMvc.Services.LocalizationService localizationService)
+    Resolving WebMvc.Application.Interfaces.IUnitOfWorkManager,(none)
+ INNER EXCEPTION: The current type, WebMvc.Application.Interfaces.IUnitOfWorkManager, is an interface and cannot be constructed. Are you missing a type mapping?
+01/07/2018 09:23:04 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 09:23:06 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | D:\IT\C#\Forum\WebMvc\WebMvc\Themes\NewsBlue\Views\Home\Index.cshtml(1): error CS0234: The type or namespace name 'Domain' does not exist in the namespace 'WebMvc' (are you missing an assembly reference?)
+01/07/2018 09:26:28 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 09:26:30 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | D:\IT\C#\Forum\WebMvc\WebMvc\Themes\NewsBlue\Views\_ViewStart.cshtml(1): error CS0234: The type or namespace name 'Domain' does not exist in the namespace 'WebMvc' (are you missing an assembly reference?)
+01/07/2018 09:33:38 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 09:33:42 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | Could not find file 'D:\IT\C#\Forum\WebMvc\WebMvc\App_Data\App.config'.
+01/07/2018 09:34:33 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 09:34:36 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | C:\Users\kaisermtv\AppData\Local\Temp\Temporary ASP.NET Files\vs\f606dc37\b84a055c\App_Web_showbyslug.cshtml.d6af7cab.2pt6brzq.0.cs(35): error CS0234: The type or namespace name 'ViewModels' does not exist in the namespace 'WebMvc.Web' (are you missing an assembly reference?)
+01/07/2018 09:35:05 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 09:35:08 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | C:\Users\kaisermtv\AppData\Local\Temp\Temporary ASP.NET Files\vs\f606dc37\b84a055c\App_Web_showbyslug.cshtml.d6af7cab.a2ihp3zz.0.cs(35): error CS0234: The type or namespace name 'ViewModels' does not exist in the namespace 'WebMvc.Web' (are you missing an assembly reference?)
+01/07/2018 09:38:29 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | Path '/Themes/NewsBlue/Views/Cart/Commit.cshtml' was not found.
+01/07/2018 09:43:09 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 09:44:39 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 09:44:39 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | Could not load type 'WebMvc.Web.Membership.RoleProvider'. (D:\IT\C#\Forum\WebMvc\WebMvc\web.config line 31) INNER EXCEPTION: Could not load type 'WebMvc.Web.Membership.RoleProvider'.
+01/07/2018 09:46:03 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 09:46:03 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | Could not load type 'WebMvc.Membership.RoleProvider'. (D:\IT\C#\Forum\WebMvc\WebMvc\web.config line 31) INNER EXCEPTION: Could not load type 'WebMvc.Membership.RoleProvider'.
+01/07/2018 09:46:43 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 09:46:53 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | C:\Users\kaisermtv\AppData\Local\Temp\Temporary ASP.NET Files\vs\f606dc37\b84a055c\App_Web_index.cshtml.73918b26.g9obh-lh.0.cs(27): error CS0246: The type or namespace name 'SquishIt' could not be found (are you missing a using directive or an assembly reference?)
+01/07/2018 09:48:45 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 09:48:47 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | C:\Users\kaisermtv\AppData\Local\Temp\Temporary ASP.NET Files\vs\f606dc37\b84a055c\App_Web_index.cshtml.73918b26.s-zqmcwu.0.cs(30): error CS0234: The type or namespace name 'ExtensionMethods' does not exist in the namespace 'WebMvc.Application' (are you missing an assembly reference?)
+01/07/2018 09:49:35 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 09:49:38 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | D:\IT\C#\Forum\WebMvc\WebMvc\Areas\Admin\Views\shared\_AdminLayout.cshtml(1): error CS0234: The type or namespace name 'Domain' does not exist in the namespace 'WebMvc' (are you missing an assembly reference?)
+01/07/2018 10:02:34 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 10:03:34 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | D:\IT\C#\Forum\WebMvc\WebMvc\Areas\Admin\Views\Setting\General.cshtml(43): error CS1061: 'HtmlHelper<AdminGeneralSettingViewModel>' does not contain a definition for 'BeginLabelFor' and no extension method 'BeginLabelFor' accepting a first argument of type 'HtmlHelper<AdminGeneralSettingViewModel>' could be found (are you missing a using directive or an assembly reference?)
+01/07/2018 10:06:39 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 10:07:07 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | D:\IT\C#\Forum\WebMvc\WebMvc\Areas\Admin\Views\Setting\Themes.cshtml(3): error CS0246: The type or namespace name 'ISettingsService' could not be found (are you missing a using directive or an assembly reference?)
+01/07/2018 10:12:09 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 10:12:25 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | C:\Users\kaisermtv\AppData\Local\Temp\Temporary ASP.NET Files\vs\f606dc37\b84a055c\App_Web_index.cshtml.3c08e94a.37tyut-s.0.cs(31): error CS0234: The type or namespace name 'ViewModels' does not exist in the namespace 'WebMvc.Application' (are you missing an assembly reference?)
+01/07/2018 10:13:15 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 10:13:17 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | D:\IT\C#\Forum\WebMvc\WebMvc\Themes\Gland\Views\_ViewStart.cshtml(1): error CS0234: The type or namespace name 'Domain' does not exist in the namespace 'WebMvc' (are you missing an assembly reference?)
+01/07/2018 10:21:03 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 10:21:18 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | D:\IT\C#\Forum\WebMvc\WebMvc\Themes\Gland\Views\_ViewStart.cshtml(1): error CS0234: The type or namespace name 'Domain' does not exist in the namespace 'WebMvc' (are you missing an assembly reference?)
+01/07/2018 10:21:37 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | D:\IT\C#\Forum\WebMvc\WebMvc\Themes\Gland\Views\_ViewStart.cshtml(3): error CS0246: The type or namespace name 'SettingsService' could not be found (are you missing a using directive or an assembly reference?)
+01/07/2018 10:22:15 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 10:22:19 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | D:\IT\C#\Forum\WebMvc\WebMvc\Themes\Gland\Views\Shared\_ProductItem.cshtml(3): error CS0234: The type or namespace name 'Web' does not exist in the namespace 'WebMvc' (are you missing an assembly reference?)
+01/07/2018 10:24:03 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 14:42:15 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 14:42:52 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 15:22:44 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 16:37:02 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | Object reference not set to an instance of an object.
+01/07/2018 16:37:40 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 16:37:40 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | Path '/Themes/Gland/Views/Product/index.cshtml' was not found.
+01/07/2018 16:37:55 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | The parameterized query '(@Seach nvarchar(4000))SELECT COUNT(*) FROM  [dbo].[Product] WHE' expects the parameter '@Seach', which was not supplied.
+01/07/2018 16:41:08 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 27 | START APP
+01/07/2018 16:41:10 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | The parameterized query '(@Seach nvarchar(4000),@Offset int)SELECT TOP 12 * FROM ( SELECT' expects the parameter '@Seach', which was not supplied.
+01/07/2018 16:42:27 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 46 | The parameterized query '(@Seach nvarchar(4000),@Offset int)SELECT TOP 12 * FROM ( SELECT' expects the parameter '@Seach', which was not supplied.
