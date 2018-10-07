@@ -1,9 +1,11 @@
 ﻿@model WebMvc.Application.General.Theme
 
 
-<script type='text/javascript' src='http://0961.chilibusiness.net/wp-includes/js/jquery/jquery.js?ver=1.11.2'></script>
-<script type='text/javascript' src='http://0961.chilibusiness.net/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
-<script type='text/javascript' src='http://0961.chilibusiness.net/wp-content/themes/layerswp/assets/js/plugins.js?ver=1.2.9'></script>
+<script type='text/javascript' src='@Html.ThemeUrl("/Content/js/jquery-2-2-0.min.js")'></script>
+
+<script type='text/javascript' src='@Html.ThemeUrl("/Content/js/jquery-migrate.min.js")'></script>
+<script type='text/javascript' src='@Html.ThemeUrl("/Content/js/plugins.js")'></script>
+<script type='text/javascript' src='/Scripts/bootstrap.js'></script>
 
 <script type="text/javascript">
     if (jQuery(window).width() > 320) {

@@ -54,7 +54,10 @@ namespace WebMvc.Areas.Admin.Controllers
                 System.Web.Security.FormsAuthentication.SignOut();
                 filterContext.Result = RedirectToAction("index", "Home");
             }
-        }
+			
+			//var rolesevice = F
+
+		}
 
         internal ActionResult ErrorToHomePage(string errorMessage)
         {

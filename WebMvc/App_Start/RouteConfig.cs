@@ -100,7 +100,7 @@ namespace WebMvc
 
 			routes.MapRoute(
                 "topicShowUrls", // Route name
-                string.Concat(SiteConstants.Instance.TopicUrlIdentifier, "/{catslug}/{slug}"), // URL with parameters
+                string.Concat(SiteConstants.Instance.CategoryUrlIdentifier, "/{catslug}/{slug}"), // URL with parameters
                 new { controller = "Topic", action = "ShowBySlug", catslug = UrlParameter.Optional, slug = UrlParameter.Optional } // Parameter defaults
             );
 
