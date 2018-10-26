@@ -1,0 +1,133 @@
+﻿@{
+    ViewBag.Title = "Trang chủ";
+}
+@Html.Partial("_Header")
+
+<div class="mainbody mainbody-home clear">
+    <h1 class="hidden">ĐÈN CHÍNH HÃNG - NHÀ NHẬP KHẨU VÀ PHÂN PHỐI ĐÈN TRANG TRÍ</h1>
+    <div class="bgblack bghoa mglra10 row wcontentbody">
+        <div class="div productnews pdt0">
+            <div class="box description-home"> </div>
+            <div class="title_cate_home">
+                <h2 class="heading-2">Sản phẩm mới</h2>
+                <div class="div-block" style="display: none;"></div>
+            </div>
+            <div class="w-clearfix wpboxprdnews">
+                @foreach (var it in AppHelpers.Products(6))
+                {
+                    @Html.Partial("_ProductItem", it)
+                }
+            </div>
+            <div class="title_cate_home">
+                <h2 class="heading-2">Thương hiệu</h2>
+                <div class="div-block" style="display: none;"></div>
+            </div>
+            <div class="row3 w-row">
+                @foreach (var it in AppHelpers.Categories(true))
+                {
+                    <div class="w-col w-col-4 w-col-small-6 mgbt20 doitac50">
+                        <div data-ix="hoverlogodt" class="logodt">
+                            <h3 class="box pd0 mg0">
+                                <a href="@Url.Action("ShowBySlugProduct","Category", new { Slug = it.Slug })" title="@it.Name">
+                                    <img src="@AppHelpers.ImageCropUrl(it.Image, 390,118)" alt="@it.Name">
+                                </a>
+                            </h3>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="title_cate_home top10_991 top10_991 top0_767">
+                <h2 class="heading-2">Sản phẩm bán chạy</h2>
+                <div class="div-block" style="display: none;"></div>
+            </div>
+            <div class="w-clearfix wpboxbc">
+                @foreach (var it in AppHelpers.Products(6))
+                {
+                    @Html.Partial("_ProductItem", it)
+                }
+            </div>
+            <div class="more">
+                <div class="div-block-2 top20">
+                    <a target="_blank" class="link"></a>
+                    <a href="@Url.Action("Index","Product")" title="xem thêm" rel="nofollow">
+                        <span class="readmore">Xem thêm</span>
+                    </a>
+                </div>
+            </div>
+            <div data-animation="slide" data-duration="1000" data-infinite="1" data-autoplay="1" class="slider-2 top60 w-slider clear">
+                <div class="w-slider-mask">
+                    <div class="slide-3 w-slide">
+                        <div class="contentcoment">
+                            <div class="contentcomentslide">
+                                <div class="div-block-19">
+                                    <div class="div-block-21">
+                                        <p class="paragraph-7"> <span class="text-span-8">"Tôi rất hài lòng với sản phẩm và dịch vụ của Hệ thống sản phẩm cao cấp RichHome, đã dùng vài năm mà sản phẩm vẫn tốt như mới."</span> </p>
+                                    </div> <div class="div-block-20"></div>
+                                </div> <div class="avata"><img src="uploads/customer/thumbs/13083733-chi-hoan.jpg" alt="Chị Đào Thúy Hoàn - Lê Trọng Tấn, Hà Nội"></div> <h5 class="heading-25">Chị Đào Thúy Hoàn - Lê Trọng Tấn, Hà Nội</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-3 w-slide">
+                        <div class="contentcoment">
+                            <div class="contentcomentslide">
+                                <div class="div-block-19">
+                                    <div class="div-block-21">
+                                        <p class="paragraph-7">
+                                            <span class="text-span-8">"Tôi đã sử dụng sản phẩm của công ty, chất lượng rất tốt, giá bán lại hợp lý, chắc chắn tôi sẽ giới thiệu cho người quen của tôi."</span>
+                                        </p>
+                                    </div> <div class="div-block-20"></div>
+                                </div>
+                                <div class="avata">
+                                    <img src="uploads/customer/thumbs/13083655-a-thuong.jpg" alt=" Anh Phạm Viết Thưởng - Khâm Thiên, Hà Nội">
+                                </div> <h5 class="heading-25"> Anh Phạm Viết Thưởng - Khâm Thiên, Hà Nội</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-3 w-slide">
+                        <div class="contentcoment">
+                            <div class="contentcomentslide">
+                                <div class="div-block-19">
+                                    <div class="div-block-21">
+                                        <p class="paragraph-7"> <span class="text-span-8">"Nhân viên của công ty tư vấn rất nhiệt tình và rất thật, tôi thích phong cách phục vụ như vậy."</span> </p>
+                                    </div>
+                                    <div class="div-block-20"></div>
+                                </div>
+                                <div class="avata">
+                                    <img src="uploads/customer/thumbs/13092558-fb-img-1476368597405.jpg" alt="Chị Mỹ Phượng - Chung cư Golden West - Lê Văn Thiêm, Hà Nội">
+                                </div>
+                                <h5 class="heading-25">Chị Mỹ Phượng - Chung cư Golden West - Lê Văn Thiêm, Hà Nội</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-slider-arrow-left">
+                    <div class="w-icon-slider-left"></div>
+                </div>
+                <div class="w-slider-arrow-right">
+                    <div class="icon w-icon-slider-right"></div>
+                </div>
+                <div class="w-round w-slider-nav"></div>
+            </div>
+            <div class="title_cate_home">
+                <h2 class="heading-2">Tạp chí</h2>
+                <div class="div-block" style="display: none;"></div>
+            </div>
+            <div class="contenttc">
+                <div class="w-row">
+                    @foreach (var it in AppHelpers.TopTopics(6))
+                    {
+                        var link = AppHelpers.TopicUrls(it.Category_Id, it.Slug);
+                        <div class="w-col w-col-4">
+                            <div class="boxtc">
+                                <div class="figure">
+                                    <a href="@link" title="@it.Name"><img src="@AppHelpers.ImageCropUrl(it.Image, 390,248)" class="image-14" alt="@it.Name"></a>
+                                </div> <div class="texttc"> <h3 class="heading-4"><a href="@link" title="@it.Name">@it.Name</a></h3> </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

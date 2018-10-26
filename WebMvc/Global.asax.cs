@@ -38,7 +38,10 @@ namespace WebMvc
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-            HttpContext.Current.Response.AddHeader("X-Frame-Options", "SAMEORIGIN");
+			//RouteConfig.CheckRouteTheme();
+
+
+			HttpContext.Current.Response.AddHeader("X-Frame-Options", "SAMEORIGIN");
         }
 
         protected void Application_EndRequest(object sender, EventArgs e)

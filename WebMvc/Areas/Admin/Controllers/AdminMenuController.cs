@@ -111,6 +111,9 @@ namespace WebMvc.Areas.Admin.Controllers
                             case 4:
                                 menu.Link = viewModel.LinkProduct;
                                 break;
+							case 5:
+								menu.Link = viewModel.LinkGroupProduct;
+								break;
                         }
                         
                         //if (categoryViewModel.ParentCategory != null)
@@ -208,6 +211,17 @@ namespace WebMvc.Areas.Admin.Controllers
                     }
                      
                     break;
+				case 5:
+					if (!menu.Link.IsNullEmpty())
+					{
+						var b = _productSevice.GetProductClass(new Guid(menu.Link));
+						if (b != null)
+						{
+							viewModel.LinkGroupProduct = menu.Link;
+							viewModel.TitleGroupProduct = b.Name;
+						}
+					}
+					break;
             }
 
             return viewModel;
@@ -263,6 +277,9 @@ namespace WebMvc.Areas.Admin.Controllers
                             case 4:
                                 menu.Link = viewModel.LinkProduct;
                                 break;
+							case 5:
+								menu.Link = viewModel.LinkGroupProduct;
+								break;
                         }
                         menu.SortOrder = viewModel.SortOrder;
 
@@ -391,9 +408,10 @@ namespace WebMvc.Areas.Admin.Controllers
             lst.Add(new SelectListItem { Text = "Liên kết danh mục",Value = "2" });
             lst.Add(new SelectListItem { Text = "Liên kết bài viết",Value = "3" });
             lst.Add(new SelectListItem { Text = "Liên kết sản phẩm", Value = "4" });
+            lst.Add(new SelectListItem { Text = "Liên kết nhóm sản phẩm", Value = "5" });
 
 
-            return lst;
+			return lst;
         }
 
         private List<SelectListItem> GetPageLink()

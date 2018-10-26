@@ -1,0 +1,52 @@
+{
+  "HomeSlider": {
+    "LabelName": "Trang chủ Slider",
+    "Type": "CarouselID",
+    "Value": "8f01995a-a3b0-4c30-8902-a94a00a8ac3a"
+  },
+  "MainMenu": {
+    "LabelName": "Chọn menu ngang",
+    "Type": "MenuID",
+    "Value": "c988bd49-873b-40fe-9f6d-a951001e690a"
+  },
+  "MainCattegory": {
+    "LabelName": "Chọn menu danh mục sản phẩm",
+    "Type": "MenuID",
+    "Value": ""
+  },
+  "YoutobeVideoID": {
+    "LabelName": "Nhập youtobe video id",
+    "Type": "Text",
+    "Value": "JU5Xx2sLq3o"
+  },
+  "CustomerSupport": {
+    "LabelName": "Chọn bài viết hỗ trợ khách hàng",
+    "Type": "ListNews",
+    "Value": []
+  },
+  "ComputerBuilding": {
+    "LabelName": "danh sách nhóm sản phẩm xây dựng cấu hình",
+    "Type": "ListProductClass",
+    "Value": []
+  },
+  "HomeCategories": {
+    "LabelName": "Danh sách danh mục sản phẩm hiển thị trang chủ",
+    "Type": "ListCategoryProduct",
+    "Value": []
+  },
+  "ProductPageLimit": {
+    "LabelName": "Số lượng sản phẩm tối đa trong trang",
+    "Type": "Number",
+    "Value": "20"
+  },
+  "TopicPageLimit": {
+    "LabelName": "Số lượng bài viết tối đa trong trang",
+    "Type": "Number",
+    "Value": "10"
+  },
+  "CategoryCarousel": {
+    "LabelName": "Quảng cáo trong danh mục",
+    "Type": "CarouselID",
+    "Value": ""
+  }
+}

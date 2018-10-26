@@ -73,5 +73,8 @@ namespace WebMvc.Areas.Admin.ViewModels
         public string TitleProduct { get; set; }
 
 
-    }
+		[DisplayName("Liên kết nhóm sản phẩm")]
+		public string LinkGroupProduct { get; set; }
+		public string TitleGroupProduct { get; set; }
+	}
 }

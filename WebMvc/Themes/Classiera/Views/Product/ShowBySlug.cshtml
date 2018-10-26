@@ -1,0 +1,177 @@
+﻿@model  ProductViewModel
+@using System.Collections
+@{
+    ViewBag.Title = string.Concat(Model.product.Name, " - ", Model.Cat.Name);
+
+    var val = AppHelpers.ProductValues(Model.product);
+    string price = "Liên hệ";
+    string Price = "0";
+    string guarantee = "";
+    string showProperti = "";
+
+    foreach (DictionaryEntry it in val)
+    {
+        var item = (ProductValueViewModel)it.Value;
+        switch (it.Key.ToString())
+        {
+            case "Price":
+                Price = item.Value;
+                try
+                {
+                    price = int.Parse(Price).ToString("N0").Replace(",", ".") + " <sup>đ</sup>";
+                }
+                catch { }
+                break;
+            case "Guarantee":
+                guarantee = item.Value;
+                break;
+            default:
+                if (item.IsShow)
+                {
+                    showProperti = string.Concat(showProperti, "<b>", it.Key, ":</b> ", item.Value, "<br/>");
+                }
+                break;
+        }
+    }
+
+
+    var img = Model.product.Image.Split('|');
+    string img1 = "";
+    if (img.Length > 0)
+    {
+        img1 = img[0];
+    }
+}
+<div class="header">
+    @Html.Partial("_Menu")
+    @Html.Action("Slider", "Home")
+    <div class="navbottom">
+        <div class="namepage">
+            <div class="pdt10"></div>
+            <ul class="unordered-list-3 w-list-unstyled">
+                <li class="list-item-5">
+                    <a href="/"> Trang chủ</a>
+                </li>
+                <li class="list-item-6"></li>
+                <li class="list-item-7"> <a href="@Url.Action("ShowBySlugProduct","Category",new { slug = Model.Cat.Slug })"> @Model.Cat.Name</a> </li>
+                <li class="list-item-6"></li>
+                <li class="list-item-7">@Model.product.Name</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="mainbody">
+    <div class="bgblack mglra10 row wcontentbody">
+        <div class="productnews">
+            <div class="contentprddetail">
+                <div class="row-3 w-row box clear">
+                    <div class="w-col w-col-7 w-col-stack">
+                        <div class="w-clearfix">
+                            <div class="imgprddt w595 single-pro-img">
+                                @foreach (var it in img)
+                                {
+                                    <a href="@it" class="w-inline-block w-lightbox fancybox-thumb" title="@Model.product.Name" rel="gal">
+                                        <img src="@it" class="image-4 scaledown" alt="@Model.product.Name">
+                                    </a>
+                                }
+                            </div>
+                            <div class="single-gallery">
+                                @foreach (var it in img)
+                                {
+                                    <a class="single-gl-item" href="@it" rel="gal">
+                                        <img class="scaledown" src="@it" alt="@Model.product.Name">
+                                    </a>
+                                }
+                            </div>
+                            <div class="div-block-22 hidden">
+                                <div>
+                                    <div class="nexttop"></div>
+                                    <ul class="mga5 unordered-list-9 w-list-unstyled">
+                                        <li class="list-item-18">
+                                            <div class="figure">
+                                                <img src="@img1">
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="nextprv"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-col w-col-5 w-col-stack">
+                        <div class="infoprt">
+                            <h1 class="heading-28">@Model.product.Name</h1>
+                            <div class="line"></div>
+                            <ul class="unordered-list-7 w-list-unstyled">
+                                @*<li class="list-item-19" style="text-decoration: line-through;">Giá: @Html.Raw(price)</li>*@
+                                <li class="list-item-19">Giá: @Html.Raw(price)</li>
+                                <div class="enuy">
+                                    @*<p><strong>MC8851NEW-1190*210</strong>:LED ceiling light<br />Epistar SMD2835/ 40W/ CRI&ge;80/ CCT:3000K-6500K/ TUV approval LED driver/ AC220-240V/ Aluminum+acrylic/ White or Black color frame/ Size:1190*210*H100mm/ Beam angle 120&deg;/ IP20</p>*@<p>&nbsp;</p>
+                                </div>
+                            </ul>
+                            <div class="suport">
+                                <h3 class="heading-29">Hỗ trợ trực tuyến</h3>
+                                <div class="line"></div>
+                                <ul class="unordered-list-8 w-list-unstyled">
+                                    <li class="list-item-20">
+                                        <div class="phone2 w-clearfix">
+                                            <div class="iconphone">
+                                                <a href="viber://add?number=0904.374.826 / 0904.419.656" title="Viber">
+                                                <img src="@Html.ThemeUrl("/Content/images/phone.png")"></a>
+                                            </div>
+                                            <div class="text-block-9">
+                                                <a href="viber://add?number=0904.374.826 / 0904.419.656" title="Viber" style="color: #333;"><strong>0904.374.826 / 0904.419.656</strong></a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-item-20">
+                                        <div class="phone2 w-clearfix">
+                                            <div class="iconphone">
+                                                <a href="https://zalo.me/0904374826" title="zalo">
+                                                    <img src="@Html.ThemeUrl("/Content/images/zalo.jpg")">
+                                                </a>
+                                            </div>
+                                            <div class="text-block-9">
+                                                <a href="https://zalo.me/0904374826" title="zalo" style="color: #333;"><strong>0904374826</strong></a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="div-block-23">
+                                    <a href="@Url.Action("Addproduct","Cart",new { id = Model.product.Id })" class="button-8 w-button" rel="nofollow">Đặt hàng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-duration-in="300" data-duration-out="100" class="topid w-tabs box clear">
+                    <div class="w-tab-menu">
+                        <a data-w-tab="Tab 1" class="tab-link w--current w-inline-block w-tab-link">
+                            <div class="text-block-11">Thông tin chung</div>
+                        </a>
+                    </div>
+                    <div class="tabs-content w-tab-content">
+                        <div data-w-tab="Tab 1" class="w-tab-pane w--tab-active">
+                            <div class="box enuy">
+                                @Html.Raw(Model.post.PostContent)
+                            </div>
+                        </div>
+                        <div class="comentfacebook">
+                            <div id="fb-root"></div>
+                            <script>(function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.10'; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));</script> <div class="fb-comments" data-width="100%" data-href="@(Html.Settings("WebsiteUrl"))@AppHelpers.ProductUrls(Model.Cat.Id, Model.product.Slug)" data-numposts="5"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box product-related w-clearfix">
+                    <h2 class="title-box-related">SẢN PHẨM LIÊN QUAN</h2>
+                    <div class="slide-related">
+                        @foreach (var it in AppHelpers.Products(Model.Cat, 9))
+                        {
+                            @Html.Partial("_ProductItem2", it)
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

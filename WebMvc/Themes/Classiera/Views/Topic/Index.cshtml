@@ -1,0 +1,42 @@
+﻿@model  TopicListViewModel
+
+@{
+    ViewBag.Title = "Tạp chí";
+    var themeName = Html.Settings("Theme");
+    var ThemePath = string.Concat(SiteConstants.Instance.ThemeRootFolder, themeName);
+}
+@Html.Partial("_Header1","TẠP CHÍ")
+<div class="mainbody">
+    <div class="bgblack mglra10 row wcontentbody">
+        <div class="listnews">
+            <div class="_w-container w-container">
+                <div class="w-row">
+                    <div class="pd0 w-col w-col-9 content-left">
+                        @foreach (var it in Model.ListTopic)
+                        {
+                            string link = AppHelpers.TopicUrls(it.Category_Id, it.Slug);
+                            <div class="bottom10 boxnews w-clearfix">
+                                <div class="contentboxnews">
+                                    <a href="@link" title="@it.Name">
+                                        <h3 class="heading-13">@it.Name</h3>
+                                    </a>
+                                    <p class="paragraph-4">@Html.Raw(it.ShotContent)</p>
+                                    <a href="@link" title="@it.Name" class="button w-button" rel="nofollow">Xem Chi Tiết</a>
+                                </div>
+                                <div class="boximgnews figure">
+                                    <a href="@link" title="@it.Name" rel="nofollow">
+                                        <img src="@AppHelpers.ImageCropUrl(it.Image, 460,310)" class="image-2" alt="@it.Name">
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                        @Html.Partial("_Paging",Model.Paging)
+                    </div>
+                    <div class="column pd0 w-col w-col-3">
+                        @Html.Partial("_Sidebar")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

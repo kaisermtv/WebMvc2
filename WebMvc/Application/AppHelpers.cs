@@ -779,7 +779,14 @@ namespace WebMvc.Application
                         return string.Concat("/", SiteConstants.Instance.ProductUrlIdentifier, "/", cat1.Slug, "/", prod.Slug);
                     }
                     break;
-            }
+				case 5:
+					var group = GetGroupProduct(new Guid(menu.Link));
+					if (group != null)
+					{
+						return string.Concat("/", SiteConstants.Instance.GroupProductUrlIdentifier, "/", group.Slug);
+					}
+					break;
+			}
 
 
             return "/";

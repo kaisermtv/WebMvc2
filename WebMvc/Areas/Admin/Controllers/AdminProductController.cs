@@ -441,8 +441,13 @@ namespace WebMvc.Areas.Admin.Controllers
 
                         product.ShotContent = string.Concat(StringUtils.ReturnAmountWordsFromString(StringUtils.StripHtmlFromString(post.PostContent), 50), "....");
                         product.isAutoShotContent = true;
-                        
-                        _productSevice.Add(product);
+						var i = product.ShotContent.Length;
+						if (i > 450)
+						{
+							product.ShotContent = product.ShotContent.Substring(0, 440) + "...";
+						}
+
+						_productSevice.Add(product);
                         _productPostSevice.Add(post);
 
                         if (model.AllAttribute != null)

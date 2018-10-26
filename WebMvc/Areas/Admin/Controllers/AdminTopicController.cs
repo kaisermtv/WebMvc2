@@ -144,9 +144,13 @@ namespace WebMvc.Areas.Admin.Controllers
 
                             topic.ShotContent = string.Concat(StringUtils.ReturnAmountWordsFromString(StringUtils.StripHtmlFromString(post.PostContent), 50), "....");
                             topic.isAutoShotContent = true;
+							var i = topic.ShotContent.Length;
+							if (i > 450)
+							{
+								topic.ShotContent = topic.ShotContent.Substring(0, 440) + "...";
+							}
 
-                            
-                            try
+							try
                             {
                                 _topicServic.Add(topic);
                                 _postSevice.Add(post);
@@ -287,7 +291,13 @@ namespace WebMvc.Areas.Admin.Controllers
 
                             topic.ShotContent = string.Concat(StringUtils.ReturnAmountWordsFromString(StringUtils.StripHtmlFromString(post.PostContent), 50), "....");
                             topic.isAutoShotContent = true;
-                            try
+							var i = topic.ShotContent.Length;
+							if (i > 450)
+							{
+								topic.ShotContent = topic.ShotContent.Substring(0, 440) + "...";
+							}
+
+							try
                             {
                                 _topicServic.Update(topic);
                                 if(pn) _postSevice.Add(post);

@@ -1,0 +1,83 @@
+﻿@model  ContactCreateViewModel
+
+@{
+    ViewBag.Title = "Liên hệ";
+    var themeName = Html.Settings("Theme");
+    var ThemePath = string.Concat(SiteConstants.Instance.ThemeRootFolder, themeName);
+}
+@Html.Partial("_Header1", "LIÊN HỆ")
+<div class="mainbody">
+    <div class="bgblack mglra10 row wcontentbody">
+        <div class="lien-he">
+            <div class="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d931.3008543481233!2d105.78374847301636!3d20.98448154605802!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9a9b4d1e0a551ddc!2zU29mYSBDaMOtbmggSMOjbmc!5e0!3m2!1svi!2s!4v1516027151321" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+            <div class="formlh">
+                <div class="w-row">
+                    <div class="w-col w-col-6">
+                        <div class="contact">
+                            <div>
+                                <h3 class="heading-33"><strong>NỘI THẤT RICHHOME</strong></h3>
+                                <h3 class="heading-33"><strong>LUXURYLIGHT - DENCHINHHANG.COM</strong></h3>
+                                <p>Số 14 - D&atilde;y 16B1, L&agrave;ng Việt kiều Ch&acirc;u &Acirc;u, P. Mỗ Lao, Q. H&agrave; Đ&ocirc;ng, H&agrave; Nội</p>
+                                <p>Tel.: (024) 6686.9216</p><p>Hotline: 0911.419.656 / 0904.374.826</p>
+                            </div>
+                            <div class="top50">
+                                <p>&nbsp;</p>
+                                <p>&nbsp;</p>
+                                <p>&copy; Copyright 2012 - 2018, JANKO, All Rights Reserved.&nbsp;</p>
+                                <p>C&ocirc;ng ty C.P JANKO VIỆT NAM / MST 0106009073</p>
+                                <p>Chịu tr&aacute;ch nhiệm nội dung: Ph&ugrave;ng Quyết Thắng</p><p>&nbsp;</p>
+                                <p><a title="BCT" href="http://online.gov.vn/HomePage/CustomWebsiteDisplay.aspx?DocId=43182"><img src="http://online.gov.vn/PublicImages/2015/08/27/11/20150827110756-dathongbao.png" alt="" width="200" height="76" /></a></p><p>&nbsp;</p>
+                                <p>&nbsp;</p>
+                                <p>&nbsp;</p>
+                                <p>&nbsp;</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-col w-col-6">
+                        <div class="bform">
+                            <h3 class="heading-34">Ý kiên phản hồi</h3>
+                            <div class="line"></div>
+                            <div class="top20">
+                                <form action="sendContact" onsubmit="submitFormContact(this,'sendContact');return false;" method="post" id="email-form-2" name="email-form-2" data-name="Email Form 2">
+                                    <input type="hidden" name="csrf_enuy_name" value="b7d5e120756e67f72a662a5ecd7eaab5">
+                                    <input type="hidden" name="csrf_enuy_name" value="b7d5e120756e67f72a662a5ecd7eaab5">
+                                    <div class="box">
+                                        <div>
+                                            <input required="required" type="text" class="text-field-4 w-input" maxlength="256" name="name" data-name="Name 4" placeholder="Tên..." id="name-4">
+                                        </div>
+                                        <div>
+                                            <input required="required" type="text" class="text-field-5 w-input" maxlength="256" name="address" data-name="Name 2" placeholder="Địa chỉ ..." id="Name-5">
+                                        </div>
+                                        <div>
+                                            <input required="required" type="email" class="text-field-6 w-input" maxlength="256" name="email" data-name="Name 2" placeholder="Email ..." id="name-2">
+                                        </div>
+                                        <div>
+                                            <input required="required" type="number" class="text-field-7 w-input" maxlength="256" name="phone" data-name="Name 2" placeholder="Số điện thoại ..." id="name-2">
+                                        </div>
+                                        <div>
+                                            <textarea required="required" id="field-2" name="content" placeholder="Nội dung ..." maxlength="5000" data-name="Field 2" class="w-input"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="securety">
+                                        <div class="w-form">
+                                            <div class="form-2 w-clearfix">
+                                                <label for="name-5" class="field-label-2">Mã bảo vệ:</label>
+                                                <input required="required" type="text" id="name-3" name="captcha" data-name="Name 3" maxlength="256" autofocus="true" class="text-field-2 w-input">
+                                                <div class="makt">
+                                                    <img src="http://denchinhhang.com/captchas/1536052772.3915.jpg" style="width: 120; height: 30; border: 0;" alt=" " /><a target="_blank" class="link-6">Đổi mã khác</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button href="#" class="button-7 w-button">Gửi phản hồi</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

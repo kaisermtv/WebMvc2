@@ -1,0 +1,12 @@
+﻿<div class="categorynews">
+    <h3 class="heading-14">
+        <span class="text-span-4"></span>
+        <span class="text-span-5">DANH MỤC Tạp chí</span>
+    </h3>
+    <ul class="unordered-list-6 w-list-unstyled">
+        @foreach (var it in AppHelpers.Categories(false))
+        {
+            <li class="list-item-17"><a href="@Url.Action("ShowBySlug","Category",new { slug = it.Slug })" title="@it.Name">@it.Name</a></li>
+        }
+    </ul>
+</div>
