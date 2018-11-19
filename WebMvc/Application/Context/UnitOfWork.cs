@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataLib;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace WebMvc.Application.Context
     class UnitOfWork : IUnitOfWork
     {
         private readonly WebMvcContext context;
-        private readonly SqlTransaction transaction;
+        private readonly SQLTrans transaction;
 
         public UnitOfWork(WebMvcContext _context)
         {

@@ -113,7 +113,7 @@ namespace WebMvc.Services
 
                 Cmd.CommandText = "SELECT * FROM  [TypeRoom] ORDER BY Name DESC";
 
-                DataTable data = Cmd.findAll();
+                DataTable data = Cmd.FindAll();
                 Cmd.Close();
 
                 if (data == null) return null;
@@ -143,7 +143,7 @@ namespace WebMvc.Services
                 Cmd.CommandText = "SELECT * FROM  [dbo].[TypeRoom] WHERE [IsShow] = @IsShow ORDER BY Name DESC";
                 Cmd.AddParameters("IsShow", isShow);
 
-                DataTable data = Cmd.findAll();
+                DataTable data = Cmd.FindAll();
                 Cmd.Close();
 
                 if (data == null) return null;

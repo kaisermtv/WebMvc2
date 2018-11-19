@@ -9,7 +9,7 @@
         <ul class="dropdown-menu">
             <li>
                 <a href="@Url.Action("Index", "PrivateMessage", new { area = "" })">
-                    <i class="fa fa-fw fa-envelope"></i> Private Messages
+                    <i class="fa fa-fw fa-envelope"></i> Tin nhắn riêng
                     @if (Model.PrivateMessageCount > 0)
                     {
                         <span class="badge">@Model.PrivateMessageCount</span>
@@ -17,11 +17,11 @@
                 </a>
             </li>
             <li>
-                <a href="@Url.Action("ChangePass", "AdminMembers")"><i class="fa fa-fw fa-key"></i> Change password</a>
+                <a href="@Url.Action("ChangePass", "AdminMembers")"><i class="fa fa-fw fa-key"></i> Đổi mật khẩu</a>
             </li>
             <li class="divider"></li>
             <li>
-                <a href="@Url.Action("Logout", "Members", new { area = "" })"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                <a href="@Url.Action("Logout", "AdminMembers")"><i class="fa fa-fw fa-power-off"></i> Đăng xuất</a>
             </li>
         </ul>
     </li>

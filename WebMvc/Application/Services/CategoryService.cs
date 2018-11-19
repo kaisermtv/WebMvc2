@@ -288,7 +288,7 @@ namespace WebMvc.Services
 
                 Cmd.CommandText = "SELECT * FROM  [Category] ORDER BY SortOrder ASC";
 
-                DataTable data = Cmd.findAll();
+                DataTable data = Cmd.FindAll();
                 Cmd.Close();
 
                 if (data == null) return null;

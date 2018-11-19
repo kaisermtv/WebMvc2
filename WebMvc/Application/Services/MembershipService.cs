@@ -17,7 +17,8 @@ namespace WebMvc.Services
         PasswordAttemptsExceeded,
         UserLockedOut,
         UserNotApproved,
-        Banned
+        Banned,
+        OutOfException
     }
 
     public partial class MembershipService
@@ -162,7 +163,7 @@ namespace WebMvc.Services
 
                 Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = Id;
 
-                DataRow data = Cmd.findFirst();
+                DataRow data = Cmd.FindFirst();
                 if (data == null) return null;
 
                 topic = DataRowToMembershipUser(data);
@@ -282,7 +283,7 @@ namespace WebMvc.Services
 
                 Cmd.Parameters.Add("Email", SqlDbType.NVarChar).Value = email;
 
-                DataRow data = Cmd.findFirst();
+                DataRow data = Cmd.FindFirst();
 
                 Cmd.Close();
 
@@ -302,7 +303,7 @@ namespace WebMvc.Services
 
                 Cmd.Parameters.Add("UserName", SqlDbType.NVarChar).Value = username;
 
-                DataRow data = Cmd.findFirst();
+                DataRow data = Cmd.FindFirst();
 
                 Cmd.Close();
                 
@@ -322,7 +323,7 @@ namespace WebMvc.Services
 
             Cmd.Parameters.Add("UserId", SqlDbType.UniqueIdentifier).Value = user.Id;
 
-            DataTable data = Cmd.findAll();
+            DataTable data = Cmd.FindAll();
 
             Cmd.Close();
 
@@ -359,19 +360,15 @@ namespace WebMvc.Services
             if (user == null)
             {
                 LastLoginStatus = LoginAttemptStatus.UserNotFound;
-            }
-
-            if (user.IsBanned)
+            } else if (user.IsBanned)
             {
                 LastLoginStatus = LoginAttemptStatus.Banned;
             }
-
-            if (user.IsLockedOut)
+            else if (user.IsLockedOut)
             {
                 LastLoginStatus = LoginAttemptStatus.UserLockedOut;
             }
-
-            if (!user.IsApproved)
+            else if (!user.IsApproved)
             {
                 LastLoginStatus = LoginAttemptStatus.UserNotApproved;
             }
@@ -423,6 +420,24 @@ namespace WebMvc.Services
 
             if (LastLoginStatus != LoginAttemptStatus.LoginSuccessful) return null;
             return user;
+        }
+
+        public void UpdateLogin(MembershipUser user)
+        {
+            var Cmd = _context.CreateCommand();
+
+            Cmd.CommandText = "UPDATE [MembershipUser] SET FailedPasswordAttemptCount = @FailedPasswordAttemptCount,IsLockedOut = @IsLockedOut,LastLockoutDate = @LastLockoutDate,LastLoginDate = @LastLoginDate  WHERE [Id] = @Id";
+
+            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = user.Id;
+            Cmd.Parameters.Add("FailedPasswordAttemptCount", SqlDbType.Int).Value = user.FailedPasswordAttemptCount;
+            Cmd.Parameters.Add("IsLockedOut", SqlDbType.Bit).Value = user.IsLockedOut;
+            Cmd.Parameters.Add("LastLockoutDate", SqlDbType.DateTime).Value = user.LastLockoutDate;
+            Cmd.Parameters.Add("LastLoginDate", SqlDbType.DateTime).Value = user.LastLoginDate;
+
+            Cmd.command.ExecuteNonQuery();
+
+            Cmd.cacheStartsWithToClear(CacheKeys.Member.StartsWith);
+            Cmd.Close();
         }
 
 
@@ -495,7 +510,7 @@ namespace WebMvc.Services
                 //Cmd.Parameters.Add("limit", SqlDbType.Int).Value = limit;
                 Cmd.Parameters.Add("Offset", SqlDbType.Int).Value = (page - 1) * limit;
 
-                DataTable data = Cmd.findAll();
+                DataTable data = Cmd.FindAll();
                 Cmd.Close();
 
                 if (data == null) return null;

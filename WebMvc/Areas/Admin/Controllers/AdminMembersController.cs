@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Filters;
 using WebMvc.Application;
+using WebMvc.Application.Attribute;
 using WebMvc.Application.Context;
 using WebMvc.Application.Entities;
 using WebMvc.Application.Interfaces;
@@ -280,5 +281,72 @@ namespace WebMvc.Areas.Admin.Controllers
                 return View(viewModel);
         }
         #endregion
+        
+        public ActionResult Logout()
+        {
+            LoginRequest.LogOut();
+
+            return RedirectToAction("Login");
+        }
+
+        [Login(LoginOption.NotAdminLogin)]
+        public ActionResult Login(string ReturnUrl = "")
+        {
+            AdminLogOnViewModel viewModel = new AdminLogOnViewModel
+            {
+                ReturnUrl = ReturnUrl
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Login(LoginOption.NotAdminLogin)]
+        public ActionResult Login(AdminLogOnViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                switch (LoginRequest.ValidateUser(model.UserName, model.Password,false,Application.Login.TypeLogin.AdminLogin))
+                {
+                    case LoginAttemptStatus.LoginSuccessful:
+                        if (Url.IsLocalUrl(model.ReturnUrl) && model.ReturnUrl.Length > 1 && model.ReturnUrl.StartsWith("/")
+                                        && !model.ReturnUrl.StartsWith("//") && !model.ReturnUrl.StartsWith("/\\"))
+                        {
+                            return Redirect(model.ReturnUrl);
+                        }
+
+                        return RedirectToAction("Index", "Admin");
+                    case LoginAttemptStatus.UserNotFound:
+                    case LoginAttemptStatus.PasswordIncorrect:
+                        ModelState.AddModelError(string.Empty,"Tài khoản hoặc mật khẩu không chính xác!");
+                        break;
+
+                    case LoginAttemptStatus.PasswordAttemptsExceeded:
+                        ModelState.AddModelError("Password","Vượt quá số lần thử mật khẩu!");
+                        break;
+
+                    case LoginAttemptStatus.UserLockedOut:
+                        ModelState.AddModelError("UserName", "Tài khoản này đã bị khóa!");
+                        break;
+
+                    case LoginAttemptStatus.Banned:
+                        ModelState.AddModelError("UserName", "Tài khoản bị cấm!");
+                        break;
+
+                    case LoginAttemptStatus.UserNotApproved:
+                        ModelState.AddModelError("UserName", "Tài khoản người dùng chưa được kích hoạt!");
+                        //user = MembershipService.GetUser(username);
+                        //SendEmailConfirmationEmail(user);
+                        break;
+
+                    default:
+                        ModelState.AddModelError(string.Empty,"Lỗi đăng nhập không xác định!");
+                        break;
+                }
+            }
+            return View(model);
+        }
+
     }
 }

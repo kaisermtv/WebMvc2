@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Filters;
 using WebMvc.Application;
+using WebMvc.Application.Attribute;
 using WebMvc.Application.Context;
 using WebMvc.Application.Entities;
 using WebMvc.Application.Interfaces;
@@ -14,7 +15,8 @@ using WebMvc.Services;
 
 namespace WebMvc.Areas.Admin.Controllers
 {
-    [Authorize(Roles = AppConstants.AdminRoleName)]
+    
+    //[Authorize(Roles = AppConstants.AdminRoleName)]
     public class AdminBookingController : BaseAdminController
     {
         private readonly BookingSevice _bookingSevice;

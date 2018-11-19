@@ -87,7 +87,7 @@ namespace WebMvc.Services
                 Cmd.CommandText = "SELECT * FROM  [ShoppingCart] WHERE [Id] = @Id";
                 Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = Id;
 
-                DataRow data = Cmd.findFirst();
+                DataRow data = Cmd.FindFirst();
                 if (data == null) return null;
 
                 cart = DataRowToShoppingCart(data);
@@ -175,7 +175,7 @@ namespace WebMvc.Services
                 //Cmd.Parameters.Add("limit", SqlDbType.Int).Value = limit;
                 Cmd.Parameters.Add("Offset", SqlDbType.Int).Value = (page - 1) * limit;
 
-                DataTable data = Cmd.findAll();
+                DataTable data = Cmd.FindAll();
                 Cmd.Close();
 
                 if (data == null) return null;

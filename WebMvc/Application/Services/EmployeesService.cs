@@ -134,7 +134,7 @@ namespace WebMvc.Services
                 Cmd.CommandText = "SELECT * FROM  [Employees] WHERE RoleId = @RoleId";
                 Cmd.Parameters.Add("RoleId", SqlDbType.UniqueIdentifier).Value = employeesRole.Id;
 
-                DataTable data = Cmd.findAll();
+                DataTable data = Cmd.FindAll();
                 Cmd.Close();
 
                 if (data == null) return null;
@@ -165,7 +165,7 @@ namespace WebMvc.Services
 
                 Cmd.CommandText = "SELECT * FROM  [Employees]";
 
-                DataTable data = Cmd.findAll();
+                DataTable data = Cmd.FindAll();
                 Cmd.Close();
 
                 if (data == null) return null;

@@ -126,7 +126,7 @@ namespace WebMvc.Services
 
                 Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = Id;
 
-                DataRow data = Cmd.findFirst();
+                DataRow data = Cmd.FindFirst();
                 if (data == null) return null;
 
                 cat = DataRowToProductPost(data);

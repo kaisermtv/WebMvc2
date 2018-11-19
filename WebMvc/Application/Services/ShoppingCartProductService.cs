@@ -71,7 +71,7 @@ namespace WebMvc.Services
                 Cmd.CommandText = "SELECT * FROM  [ShoppingCartProduct] WHERE [Id] = @Id";
                 Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = Id;
 
-                DataRow data = Cmd.findFirst();
+                DataRow data = Cmd.FindFirst();
                 if (data == null) return null;
 
                 cart = DataRowToShoppingCartProduct(data);
@@ -107,7 +107,7 @@ namespace WebMvc.Services
                 Cmd.CommandText = "SELECT * FROM  [dbo].[ShoppingCartProduct] WHERE [ShoppingCartId] = @ShoppingCartId";
                 Cmd.Parameters.Add("ShoppingCartId", SqlDbType.UniqueIdentifier).Value = cart.Id;
 
-                DataTable data = Cmd.findAll();
+                DataTable data = Cmd.FindAll();
                 Cmd.Close();
 
                 if (data == null) return null;

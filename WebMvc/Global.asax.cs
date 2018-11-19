@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -27,6 +28,8 @@ namespace WebMvc
             LoggingService.Initialise(ConfigUtils.GetAppSettingInt32("LogFileMaxSizeBytes", 10000));
             LoggingService.Error("START APP");
 
+            DataManage.SettingConfig(new DbConfig());
+
             // Set the view engine
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new WebMvcViewEngine());
@@ -42,6 +45,11 @@ namespace WebMvc
 
 
 			HttpContext.Current.Response.AddHeader("X-Frame-Options", "SAMEORIGIN");
+        }
+
+        protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
+        {
+            HttpContext.Current.User = ServiceFactory.Get<LoginPrincipal>() ;
         }
 
         protected void Application_EndRequest(object sender, EventArgs e)

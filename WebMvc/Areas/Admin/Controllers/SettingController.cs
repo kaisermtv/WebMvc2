@@ -15,7 +15,7 @@ using WebMvc.Services;
 
 namespace WebMvc.Areas.Admin.Controllers
 {
-    [Authorize(Roles = AppConstants.AdminRoleName)]
+    //[Authorize(Roles = AppConstants.AdminRoleName)]
     public class SettingController : BaseAdminController
     {
         public SettingController(LoggingService loggingService, IUnitOfWorkManager unitOfWorkManager,MembershipService membershipService, SettingsService settingsService, LocalizationService localizationService)

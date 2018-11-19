@@ -15,11 +15,12 @@ namespace WebMvc.Application
         {
             if (HttpContext.Current != null)
             {
-                var key = string.Concat("factory-", typeof(THelper).Name);
+                var key = string.Concat("ServiceFactory-", typeof(THelper).Name);
                 if (!HttpContext.Current.Items.Contains(key))
                 {
                     var resolvedService = DependencyResolver.Current.GetService<THelper>();
-                    HttpContext.Current.Items.Add(key, resolvedService);
+                    if (!HttpContext.Current.Items.Contains(key))
+                        HttpContext.Current.Items.Add(key, resolvedService);
                 }
                 return (THelper)HttpContext.Current.Items[key];
             }

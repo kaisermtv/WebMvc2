@@ -234,3 +234,7 @@ D:\IT\C#\Web\WebMvc\WebMvc\obj\Debug\WebMvc.pdb
 D:\IT\C#\Web\WebMvc\WebMvc\bin\roslyn\System.Security.Cryptography.Primitives.dll
 D:\IT\C#\Web\WebMvc\WebMvc\bin\roslyn\System.IO.FileSystem.dll
 D:\IT\C#\Web\WebMvc\WebMvc\obj\Debug\WebMvc.csprojAssemblyReference.cache
+D:\IT\C#\Web\WebMvc\WebMvc\bin\DataLib.dll
+D:\IT\C#\Web\WebMvc\WebMvc\bin\Helpers.dll
+D:\IT\C#\Web\WebMvc\WebMvc\bin\DataLib.pdb
+D:\IT\C#\Web\WebMvc\WebMvc\bin\Helpers.pdb

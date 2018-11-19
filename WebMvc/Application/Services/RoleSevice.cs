@@ -65,7 +65,7 @@
                 var Cmd = _context.CreateCommand();
                 Cmd.CommandText = "SELECT * FROM [MembershipRole]";
 
-                DataTable data = Cmd.findAll();
+                DataTable data = Cmd.FindAll();
                 Cmd.Close();
                 if (data == null) return null;
 

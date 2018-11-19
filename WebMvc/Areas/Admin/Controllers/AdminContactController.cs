@@ -14,7 +14,7 @@ using WebMvc.Services;
 
 namespace WebMvc.Areas.Admin.Controllers
 {
-    [Authorize(Roles = AppConstants.AdminRoleName)]
+    //[Authorize(Roles = AppConstants.AdminRoleName)]
     public class AdminContactController : BaseAdminController
     {
         private readonly ContactService _contactSevice;

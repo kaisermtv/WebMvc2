@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebMvc", "WebMvc\WebMvc.csproj", "{6C394BA4-9E6D-461C-AAEE-B016BAB08111}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLib", "..\..\Libary\DataLib\DataLib\DataLib.csproj", "{8964704F-AFC8-45B2-80DF-FFAAF2584ACF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "..\..\Libary\Helpers\Helpers\Helpers.csproj", "{A2488666-AB4A-47CA-8EF9-839925A9685D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{6C394BA4-9E6D-461C-AAEE-B016BAB08111}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C394BA4-9E6D-461C-AAEE-B016BAB08111}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C394BA4-9E6D-461C-AAEE-B016BAB08111}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8964704F-AFC8-45B2-80DF-FFAAF2584ACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8964704F-AFC8-45B2-80DF-FFAAF2584ACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8964704F-AFC8-45B2-80DF-FFAAF2584ACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8964704F-AFC8-45B2-80DF-FFAAF2584ACF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2488666-AB4A-47CA-8EF9-839925A9685D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2488666-AB4A-47CA-8EF9-839925A9685D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2488666-AB4A-47CA-8EF9-839925A9685D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2488666-AB4A-47CA-8EF9-839925A9685D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

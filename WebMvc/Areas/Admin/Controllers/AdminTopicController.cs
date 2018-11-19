@@ -17,7 +17,7 @@ using WebMvc.ViewModels;
 
 namespace WebMvc.Areas.Admin.Controllers
 {
-    [Authorize(Roles = AppConstants.AdminRoleName)]
+    //[Authorize(Roles = AppConstants.AdminRoleName)]
     public class AdminTopicController : BaseAdminController
     {
 

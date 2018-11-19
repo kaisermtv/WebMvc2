@@ -195,6 +195,7 @@
     <Compile Include="Application\Annotation\WebMvcResourceDisplayName.cs" />
     <Compile Include="Application\AppConstants.cs" />
     <Compile Include="Application\AppHelpers.cs" />
+    <Compile Include="Application\Attribute\LoginAttribute.cs" />
     <Compile Include="Application\CacheKeys.cs" />
     <Compile Include="Application\CacheTimes.cs" />
     <Compile Include="Application\Context\UnitOfWorkManager.cs" />
@@ -211,6 +212,7 @@
     <Compile Include="Application\Entities\Language.cs" />
     <Compile Include="Application\Entities\LocaleResourceKey.cs" />
     <Compile Include="Application\Entities\LocaleStringResource.cs" />
+    <Compile Include="Application\Entities\MembershipLogin.cs" />
     <Compile Include="Application\Entities\MembershipRole.cs" />
     <Compile Include="Application\Entities\MembershipUser.cs" />
     <Compile Include="Application\Entities\Menu.cs" />
@@ -243,9 +245,9 @@
     <Compile Include="Application\Lib\LanguageUtils.cs" />
     <Compile Include="Application\Lib\MarkdownOptions.cs" />
     <Compile Include="Application\Lib\NodePositions.cs" />
+    <Compile Include="Application\Login.cs" />
     <Compile Include="Application\MemoryFile.cs" />
     <Compile Include="Application\Providers\DiskStorageProvider.cs" />
-    <Compile Include="Application\Providers\RoleProvider.cs" />
     <Compile Include="Application\Providers\StorageProvider.cs" />
     <Compile Include="Application\ServiceFactory.cs" />
     <Compile Include="Application\Services\BookingSevice.cs" />
@@ -258,6 +260,7 @@
     <Compile Include="Application\Services\EmployeesService.cs" />
     <Compile Include="Application\Services\LocalizationService.cs" />
     <Compile Include="Application\Services\LoggingService.cs" />
+    <Compile Include="Application\Services\MembershipLoginService.cs" />
     <Compile Include="Application\Services\MembershipService.cs" />
     <Compile Include="Application\Services\MenuService.cs" />
     <Compile Include="Application\Services\PermissionService.cs" />
@@ -279,6 +282,7 @@
     <Compile Include="Application\TypeFactory.cs" />
     <Compile Include="Application\ViewEngine\WebMvcViewEngine.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\DbConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
@@ -869,6 +873,10 @@
     <Content Include="Content\admin\Images\icons\[Originals]\yin-yang.png" />
     <Content Include="Content\admin\Images\icons\[Originals]\zone.png" />
     <Content Include="Content\admin\Imports.css" />
+    <Content Include="Content\admin\login.js" />
+    <Content Include="Content\admin\login.css" />
+    <Content Include="Content\admin\normalize.min.css" />
+    <Content Include="Content\admin\prefixfree.min.js" />
     <Content Include="Content\admin\sb-admin.css" />
     <Content Include="Content\badges\jedi.png" />
     <Content Include="Content\badges\MemberForAYearBadge.png" />
@@ -1562,6 +1570,7 @@
     <Content Include="Areas\Admin\Views\Shared\_EditIMage.cshtml" />
     <Content Include="Areas\Admin\Views\AdminLanguage\DeleteLanguage.cshtml" />
     <Content Include="Areas\Admin\Views\AdminLanguage\DeleteResourceKey.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminMembers\Login.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="Scripts\fileman\lang\vi.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -2860,6 +2869,12 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Libary\DataLib\DataLib\DataLib.csproj">
+      <Project>{8964704f-afc8-45b2-80df-ffaaf2584acf}</Project>
+      <Name>DataLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataLib;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -138,7 +139,7 @@ namespace WebMvc.Services
                 Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = product.Id;
                 Cmd.Parameters.Add("Slug", SqlDbType.NVarChar).Value = string.Concat(slug, "%");
 
-                DataTable data = Cmd.findAll();
+                DataTable data = Cmd.FindAll();
                 Cmd.Close();
 
                 int i = 0;
@@ -165,7 +166,7 @@ namespace WebMvc.Services
 				Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = product.Id;
 				Cmd.Parameters.Add("Slug", SqlDbType.NVarChar).Value = string.Concat(slug, "%");
 
-				DataTable data = Cmd.findAll();
+				DataTable data = Cmd.FindAll();
 				Cmd.Close();
 
 				int i = 0;
@@ -275,7 +276,7 @@ namespace WebMvc.Services
 
             Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = Id;
 
-            DataRow data = Cmd.findFirst();
+            DataRow data = Cmd.FindFirst();
             if (data == null) return null;
 
             return DataRowToProduct(data);
@@ -293,7 +294,7 @@ namespace WebMvc.Services
 
                 Cmd.Parameters.Add("Slug", SqlDbType.NVarChar).Value = Slug;
 
-                DataRow data = Cmd.findFirst();
+                DataRow data = Cmd.FindFirst();
                 if (data == null) return null;
 
                 topic = DataRowToProduct(data);
@@ -316,7 +317,7 @@ namespace WebMvc.Services
             //Cmd.Parameters.Add("limit", SqlDbType.Int).Value = limit;
             Cmd.Parameters.Add("Offset", SqlDbType.Int).Value = (page - 1) * limit;
 
-            DataTable data = Cmd.findAll();
+            DataTable data = Cmd.FindAll();
             Cmd.Close();
 
             if (data == null) return null;
@@ -374,7 +375,7 @@ namespace WebMvc.Services
 			
 			Cmd.Parameters.Add("Offset", SqlDbType.Int).Value = (page - 1) * limit;
 
-			DataTable data = Cmd.findAll();
+			DataTable data = Cmd.FindAll();
 			Cmd.Close();
 
 			if (data == null) return null;
@@ -446,7 +447,7 @@ namespace WebMvc.Services
 
 			Cmd.Parameters.Add("Offset", SqlDbType.Int).Value = (page - 1) * limit;
 
-			DataTable data = Cmd.findAll();
+			DataTable data = Cmd.FindAll();
 			Cmd.Close();
 
 			if (data == null) return null;
@@ -493,7 +494,7 @@ namespace WebMvc.Services
             //Cmd.Parameters.Add("limit", SqlDbType.Int).Value = limit;
             Cmd.Parameters.Add("Offset", SqlDbType.Int).Value = (page - 1) * limit;
 
-            DataTable data = Cmd.findAll();
+            DataTable data = Cmd.FindAll();
             Cmd.Close();
 
             if (data == null) return null;
@@ -519,7 +520,7 @@ namespace WebMvc.Services
             //Cmd.Parameters.Add("limit", SqlDbType.Int).Value = limit;
             Cmd.Parameters.Add("Offset", SqlDbType.Int).Value = (page - 1) * limit;
 
-            DataTable data = Cmd.findAll();
+            DataTable data = Cmd.FindAll();
             Cmd.Close();
 
             if (data == null) return null;
@@ -549,7 +550,7 @@ namespace WebMvc.Services
                 //Cmd.Parameters.Add("limit", SqlDbType.Int).Value = limit;
                 Cmd.Parameters.Add("Offset", SqlDbType.Int).Value = (page - 1) * limit;
 
-                DataTable data = Cmd.findAll();
+                DataTable data = Cmd.FindAll();
                 Cmd.Close();
 
                 if (data == null) return null;
@@ -619,7 +620,7 @@ namespace WebMvc.Services
             //Cmd.Parameters.Add("limit", SqlDbType.Int).Value = limit;
             Cmd.Parameters.Add("Offset", SqlDbType.Int).Value = (page - 1) * limit;
 
-            DataTable data = Cmd.findAll();
+            DataTable data = Cmd.FindAll();
             Cmd.Close();
 
             if (data == null) return null;
@@ -667,7 +668,7 @@ namespace WebMvc.Services
             Cmd.Parameters.Add("Seach", SqlDbType.NVarChar).Value = seach;
             Cmd.Parameters.Add("Offset", SqlDbType.Int).Value = (page - 1) * limit;
 
-            DataTable data = Cmd.findAll();
+            DataTable data = Cmd.FindAll();
             Cmd.Close();
 
             if (data == null) return null;
@@ -805,7 +806,7 @@ namespace WebMvc.Services
 				return this;
 			}
 
-			private WebMvcContext.DbCommand GetQuery(WebMvcContext.DbCommand Cmd)
+			private SQLCon GetQuery(SQLCon Cmd)
 			{
 				Cmd.CommandText += " FROM [dbo].[Product] AS P";
 
@@ -1005,7 +1006,7 @@ namespace WebMvc.Services
                 Cmd.CommandText = "SELECT * FROM  [dbo].[ProductAttributeValue] WHERE [ProductId] = @ProductId ";
                 Cmd.AddParameters("ProductId", productid);
 
-                DataTable data = Cmd.findAll();
+                DataTable data = Cmd.FindAll();
                 Cmd.Close();
 
                 if (data == null) return null;
@@ -1079,7 +1080,7 @@ namespace WebMvc.Services
 
                 Cmd.AddParameters("ProductClassId", id);
 
-                DataTable data = Cmd.findAll();
+                DataTable data = Cmd.FindAll();
                 Cmd.Close();
 
                 if (data == null) return null;
@@ -1223,7 +1224,7 @@ namespace WebMvc.Services
 
                 Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = Id;
 
-                DataRow data = Cmd.findFirst();
+                DataRow data = Cmd.FindFirst();
                 if (data == null) return null;
 
                 topic = DataRowToProductClass(data);

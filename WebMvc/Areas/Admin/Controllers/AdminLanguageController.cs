@@ -16,7 +16,7 @@ using static WebMvc.Areas.Admin.ViewModels.ListLanguagesViewModel;
 
 namespace WebMvc.Areas.Admin.Controllers
 {
-    [Authorize(Roles = AppConstants.AdminRoleName)]
+    //[Authorize(Roles = AppConstants.AdminRoleName)]
     public class AdminLanguageController : BaseAdminController
     {
         public AdminLanguageController( LoggingService loggingService, IUnitOfWorkManager unitOfWorkManager, MembershipService membershipService, SettingsService settingsService, LocalizationService localizationService)

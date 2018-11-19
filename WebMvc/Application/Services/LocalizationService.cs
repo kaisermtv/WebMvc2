@@ -94,7 +94,7 @@ namespace WebMvc.Services
 			Cmd.Parameters.Add("KEY", SqlDbType.NVarChar).Value = key;
 			Cmd.Parameters.Add("Language_Id", SqlDbType.UniqueIdentifier).Value = languageId;
 
-			DataRow data = Cmd.findFirst();
+			DataRow data = Cmd.FindFirst();
 
 			Cmd.Close();
 
@@ -449,7 +449,7 @@ namespace WebMvc.Services
 
                 Cmd.CommandText = "SELECT * FROM  [Language] ORDER BY [Name] DESC";
 
-                DataTable data = Cmd.findAll();
+                DataTable data = Cmd.FindAll();
                 Cmd.Close();
 
                 if (data == null) return null;
@@ -632,7 +632,7 @@ namespace WebMvc.Services
                 
                 Cmd.Parameters.Add("Language_Id", SqlDbType.UniqueIdentifier).Value = languageId;
 
-                DataTable data = Cmd.findAll();
+                DataTable data = Cmd.FindAll();
 
                 Cmd.Close();
 
@@ -663,7 +663,7 @@ namespace WebMvc.Services
 
             Cmd.Parameters.Add("Language_Id", SqlDbType.UniqueIdentifier).Value = language.Id;
 
-            DataTable data = Cmd.findAll();
+            DataTable data = Cmd.FindAll();
 
             Cmd.Close();
 
@@ -854,7 +854,7 @@ namespace WebMvc.Services
 
                 Cmd.Parameters.Add("Name", SqlDbType.NVarChar).Value = resourceKey;
 
-                DataRow data = Cmd.findFirst();
+                DataRow data = Cmd.FindFirst();
                 Cmd.Close();
 
                 if (data == null) return null;
@@ -879,7 +879,7 @@ namespace WebMvc.Services
 
 				Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = Id;
 
-				DataRow data = Cmd.findFirst();
+				DataRow data = Cmd.FindFirst();
 				Cmd.Close();
 
 				if (data == null) return null;
@@ -905,7 +905,7 @@ namespace WebMvc.Services
                 Cmd.Parameters.Add("LocaleResourceKey_Id", SqlDbType.UniqueIdentifier).Value = value_Id;
                 Cmd.Parameters.Add("Language_Id", SqlDbType.UniqueIdentifier).Value = lang_id;
 
-                DataRow data = Cmd.findFirst();
+                DataRow data = Cmd.FindFirst();
                 if (data == null) return null;
 
                 cachedSettings = DataRowToLocaleStringResource(data);
@@ -932,7 +932,7 @@ namespace WebMvc.Services
                 Cmd.Parameters.Add("KEY", SqlDbType.NVarChar).Value = resourceKey;
                 Cmd.Parameters.Add("Language_Id", SqlDbType.UniqueIdentifier).Value = lang_id;
 
-                DataRow data = Cmd.findFirst();
+                DataRow data = Cmd.FindFirst();
                 if (data == null) return null;
 
                 cachedSettings = DataRowToLocaleStringResource(data);

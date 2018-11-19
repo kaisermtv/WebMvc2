@@ -16,7 +16,7 @@ using WebMvc.Services;
 
 namespace WebMvc.Areas.Admin.Controllers
 {
-    [Authorize(Roles = AppConstants.AdminRoleName)]
+    //[Authorize(Roles = AppConstants.AdminRoleName)]
     public class AdminCategoryController : BaseAdminController
     {
         private readonly CategoryService _categoryService;

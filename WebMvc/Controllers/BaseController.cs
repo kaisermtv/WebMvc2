@@ -11,6 +11,7 @@
     using WebMvc.ViewModels;
     using WebMvc.Areas.Admin.ViewModels;
     using WebMvc.Application.Interfaces;
+    using WebMvc.Application.Attribute;
 
     public class BaseController : Controller
     {
@@ -20,6 +21,8 @@
         protected readonly SettingsService SettingsService;
         protected readonly LoggingService LoggingService;
         protected readonly CacheService CacheService;
+
+        protected Login LoginRequest => ServiceFactory.Get<Login>();
 
         protected MembershipUser LoggedOnReadOnlyUser;
         protected MembershipUser LoginUser;
@@ -47,24 +50,20 @@
 
         protected override void OnAuthentication(AuthenticationContext filterContext)
         {
-            //var date = new DateTime(2018, 8, 6);
-
-            //if (DateTime.Now.Date > date)
-            //{
-            //    filterContext.Result = HttpNotFound();
-            //    return;
-            //}
-
             base.OnAuthentication(filterContext);
 
-            LoggedOnReadOnlyUser = UserIsAuthenticated ? MembershipService.GetUser(Username) : null;
-			LoginUser = LoggedOnReadOnlyUser;
-			
-			if (!Username.IsNullEmpty() && LoggedOnReadOnlyUser == null)
+            var lstAttribute = filterContext.ActionDescriptor.GetCustomAttributes(typeof(LoginAttribute), true);
+            if(lstAttribute == null) lstAttribute = this.GetType().GetCustomAttributes(typeof(LoginAttribute), true);
+            foreach (var obj in lstAttribute)
             {
-                System.Web.Security.FormsAuthentication.SignOut();
-                filterContext.Result = RedirectToAction("index", "Home");
+                if (obj is LoginAttribute)
+                {
+                    var loginatrribute = obj as LoginAttribute;
+
+                    loginatrribute.OnAuthorization(filterContext);
+                }
             }
+            
         }
         
 

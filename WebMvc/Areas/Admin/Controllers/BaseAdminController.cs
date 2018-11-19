@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Filters;
 using WebMvc.Application;
+using WebMvc.Application.Attribute;
 using WebMvc.Application.Context;
 using WebMvc.Application.Entities;
 using WebMvc.Application.Interfaces;
@@ -14,7 +15,8 @@ using WebMvc.Services;
 
 namespace WebMvc.Areas.Admin.Controllers
 {
-    [Authorize(Roles = AppConstants.AdminRoleName)]
+    [Login(LoginOption.AdminLogin)]
+    //[Authorize(Roles = AppConstants.AdminRoleName)]
     public class BaseAdminController : Controller
     {
         protected readonly IUnitOfWorkManager UnitOfWorkManager;
@@ -23,8 +25,10 @@ namespace WebMvc.Areas.Admin.Controllers
         protected readonly SettingsService SettingsService;
         protected readonly LoggingService LoggingService;
 
-        protected MembershipUser LoggedOnReadOnlyUser;
-        protected MembershipUser LoginUser;
+        protected Login LoginRequest => ServiceFactory.Get<Login>();
+
+        protected MembershipUser LoggedOnReadOnlyUser => LoginRequest.User;
+        protected MembershipUser LoginUser => LoginRequest.User;
         protected Guid UsersRole;
 
         public BaseAdminController(LoggingService loggingService, IUnitOfWorkManager unitOfWorkManager, MembershipService membershipService, SettingsService settingsService, LocalizationService localizationService)
@@ -46,18 +50,20 @@ namespace WebMvc.Areas.Admin.Controllers
         {
             base.OnAuthentication(filterContext);
 
-            LoggedOnReadOnlyUser = UserIsAuthenticated ? MembershipService.GetUser(Username) : null;
-            LoginUser = LoggedOnReadOnlyUser;
 
-            if (!Username.IsNullEmpty() && LoggedOnReadOnlyUser == null)
+            var lstAttribute = filterContext.ActionDescriptor.GetCustomAttributes(typeof(LoginAttribute), true);
+            if (lstAttribute.Count() == 0) lstAttribute = this.GetType().GetCustomAttributes(typeof(LoginAttribute), true);
+            foreach (var obj in lstAttribute)
             {
-                System.Web.Security.FormsAuthentication.SignOut();
-                filterContext.Result = RedirectToAction("index", "Home");
-            }
-			
-			//var rolesevice = F
+                if (obj is LoginAttribute)
+                {
+                    var loginatrribute = obj as LoginAttribute;
 
-		}
+                    loginatrribute.OnAuthorization(filterContext);
+                }
+            }
+
+        }
 
         internal ActionResult ErrorToHomePage(string errorMessage)
         {
@@ -68,7 +74,7 @@ namespace WebMvc.Areas.Admin.Controllers
                 MessageType = GenericMessages.danger
             };
             // Not allowed in here so
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home",new { area = "" });
         }
 
         protected internal AdminPagingViewModel CalcPaging(int limit, int? page, int count)

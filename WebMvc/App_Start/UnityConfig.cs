@@ -2,6 +2,7 @@ using System;
 
 using Unity;
 using Unity.Lifetime;
+using WebMvc.Application;
 using WebMvc.Application.Context;
 using WebMvc.Application.Interfaces;
 using WebMvc.Services;
@@ -90,6 +91,7 @@ namespace WebMvc
             container.BindInRequestScope<ShoppingCartProductService>();
             container.BindInRequestScope<MenuService>();
             container.BindInRequestScope<CarouselService>();
+            container.BindInRequestScope<Login>();
             
         }
     }

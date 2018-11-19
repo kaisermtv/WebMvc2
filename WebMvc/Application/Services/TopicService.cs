@@ -78,7 +78,7 @@ namespace WebMvc.Services
                 Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = topic.Id;
                 Cmd.Parameters.Add("Slug", SqlDbType.NVarChar).Value = string.Concat(slug,"%");
 
-                DataTable data = Cmd.findAll();
+                DataTable data = Cmd.FindAll();
                 Cmd.Close();
 
                 int i = 0;
@@ -182,7 +182,7 @@ namespace WebMvc.Services
 
                 Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = Id;
 
-                DataRow data = Cmd.findFirst();
+                DataRow data = Cmd.FindFirst();
                 if (data == null) return null;
 
                 topic = DataRowToTopic(data);
@@ -204,7 +204,7 @@ namespace WebMvc.Services
 
                 Cmd.Parameters.Add("Slug", SqlDbType.NVarChar).Value = Slug;
 
-                DataRow data = Cmd.findFirst();
+                DataRow data = Cmd.FindFirst();
                 if (data == null) return null;
 
                 topic = DataRowToTopic(data);
@@ -253,7 +253,7 @@ namespace WebMvc.Services
                 Cmd.Parameters.Add("Category_Id", SqlDbType.UniqueIdentifier).Value = Id;
                 Cmd.Parameters.Add("Offset", SqlDbType.Int).Value = (page - 1) * limit;
 
-                DataTable data = Cmd.findAll();
+                DataTable data = Cmd.FindAll();
                 Cmd.Close();
 
                 if (data == null) return null;
@@ -302,7 +302,7 @@ namespace WebMvc.Services
                 //Cmd.Parameters.Add("limit", SqlDbType.Int).Value = limit;
                 Cmd.Parameters.Add("Offset", SqlDbType.Int).Value = (page - 1) * limit;
 
-                DataTable data = Cmd.findAll();
+                DataTable data = Cmd.FindAll();
                 Cmd.Close();
 
                 if (data == null) return null;
@@ -367,7 +367,7 @@ namespace WebMvc.Services
 				//Cmd.Parameters.Add("limit", SqlDbType.Int).Value = limit;
 				Cmd.Parameters.Add("Offset", SqlDbType.Int).Value = (page - 1) * limit;
 
-                DataTable data = Cmd.findAll();
+                DataTable data = Cmd.FindAll();
                 Cmd.Close();
 
                 if (data == null) return null;

@@ -10,6 +10,23 @@ using WebMvc.Application.Entities;
 
 namespace WebMvc.Areas.Admin.ViewModels
 {
+    public class AdminLogOnViewModel
+    {
+        public string ReturnUrl { get; set; }
+
+        [Required(ErrorMessage="Bạn cần nhập trường tài khoản!")]
+        [DisplayName("Tài khoản")]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessage = "Bạn cần nhập trường mật khẩu!")]
+        [DataType(DataType.Password)]
+        [DisplayName("Mật khẩu")]
+        public string Password { get; set; }
+
+        [DisplayName("Nhớ tôi")]
+        public bool RememberMe { get; set; }
+    }
+
     public class AdminListMembersViewModel
     {
         public List<MembershipUser> ListMembers { get; set; }

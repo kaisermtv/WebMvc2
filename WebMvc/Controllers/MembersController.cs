@@ -2,6 +2,7 @@
 {
     using System;
     using System.Web.Mvc;
+    using WebMvc.Application.Attribute;
     using WebMvc.Application.Context;
     using WebMvc.Application.Entities;
     using WebMvc.Application.Interfaces;
@@ -136,6 +137,7 @@
 
         #region Login
         [AllowAnonymous]
+        [Login(LoginOption.Allow)]
         public ActionResult Login()
         {
 			if (LoggedOnReadOnlyUser != null) return RedirectToAction("Index", "Home");
