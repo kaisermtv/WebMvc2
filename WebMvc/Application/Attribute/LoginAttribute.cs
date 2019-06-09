@@ -11,18 +11,18 @@ namespace WebMvc.Application.Attribute
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true)]
     public class LoginAttribute : System.Attribute
     {
-        private RedirectToRouteResult LoginPage => new RedirectToRouteResult(new RouteValueDictionary(new { action = "Login", controller = "Members", area = "", ReturnUrl = HttpContext.Current.Request.RawUrl }));
-        private RedirectToRouteResult HomePage => new RedirectToRouteResult(new RouteValueDictionary(new { action = "Index", controller = "Home", area = "" }));
-        private RedirectToRouteResult AdminLoginPage => new RedirectToRouteResult(new RouteValueDictionary(new { action = "Login", controller = "AdminMembers", area = "Admin", ReturnUrl = HttpContext.Current.Request.RawUrl }));
-        private RedirectToRouteResult AdminHomePage => new RedirectToRouteResult(new RouteValueDictionary(new { action = "Index", controller = "Admin", area = "Admin" }));
-        private RedirectToRouteResult NotPermisionPage => new RedirectToRouteResult(new RouteValueDictionary(new { action = "Login", controller = "Members", area = "", ReturnUrl = HttpContext.Current.Request.RawUrl }));
-        private RedirectToRouteResult NotRolePage => new RedirectToRouteResult(new RouteValueDictionary(new { action = "Login", controller = "Members", area = "", ReturnUrl = HttpContext.Current.Request.RawUrl }));
+        protected RedirectToRouteResult LoginPage => new RedirectToRouteResult(new RouteValueDictionary(new { action = "Login", controller = "Members", area = "", ReturnUrl = HttpContext.Current.Request.RawUrl }));
+        protected RedirectToRouteResult HomePage => new RedirectToRouteResult(new RouteValueDictionary(new { action = "Index", controller = "Home", area = "" }));
+        protected RedirectToRouteResult AdminLoginPage => new RedirectToRouteResult(new RouteValueDictionary(new { action = "Login", controller = "AdminMembers", area = "Admin", ReturnUrl = HttpContext.Current.Request.RawUrl }));
+        protected RedirectToRouteResult AdminHomePage => new RedirectToRouteResult(new RouteValueDictionary(new { action = "Index", controller = "Admin", area = "Admin" }));
+        protected RedirectToRouteResult NotPermisionPage => new RedirectToRouteResult(new RouteValueDictionary(new { action = "Login", controller = "Members", area = "", ReturnUrl = HttpContext.Current.Request.RawUrl }));
+        protected RedirectToRouteResult NotRolePage => new RedirectToRouteResult(new RouteValueDictionary(new { action = "Login", controller = "Members", area = "", ReturnUrl = HttpContext.Current.Request.RawUrl }));
 
-        
-        private Login Login => ServiceFactory.Get<Login>();
 
-        private LoginOption Opt;
-        private string[] StrOpt;
+        protected Login Login => ServiceFactory.Get<Login>();
+
+        protected LoginOption Opt;
+        protected string[] StrOpt;
 
         public string[] Users;
         public string[] Roles;
@@ -30,18 +30,7 @@ namespace WebMvc.Application.Attribute
 
         public LoginAttribute()
         {
-            Opt = LoginOption.Allow;
-        }
-
-        public LoginAttribute(LoginOption opt)
-        {
-            Opt = opt;
-        }
-
-        public LoginAttribute(LoginOption opt,params string[] stropt)
-        {
-            Opt = opt;
-            StrOpt = stropt;
+            Opt = LoginOption.Login;
         }
 
         public void OnAuthorization(AuthenticationContext filterContext)
@@ -80,13 +69,64 @@ namespace WebMvc.Application.Attribute
                 case LoginOption.Role:
 
                     break;
-                case LoginOption.Permision:
+                case LoginOption.Permission:
 
                     break;
             }
         }
 
     }
+
+    public class AdminLoginAttribute : LoginAttribute
+    {
+        public AdminLoginAttribute()
+        {
+            Opt = LoginOption.AdminLogin;
+        }
+    }
+
+    public class AdminNotLoginAttribute : LoginAttribute
+    {
+        public AdminNotLoginAttribute()
+        {
+            Opt = LoginOption.NotAdminLogin;
+        }
+    }
+
+    public class AllowLoginAttribute : LoginAttribute
+    {
+        public AllowLoginAttribute()
+        {
+            Opt = LoginOption.Allow;
+        }
+    }
+
+    public class NotLoginAttribute : LoginAttribute
+    {
+        public NotLoginAttribute()
+        {
+            Opt = LoginOption.NotLogin;
+        }
+    }
+
+    public class RoleAttribute : LoginAttribute
+    {
+        public RoleAttribute(params string[] roles)
+        {
+            Opt = LoginOption.Role;
+            Roles = roles;
+        }
+    }
+
+    public class PermissionAttribute : LoginAttribute
+    {
+        public PermissionAttribute(params string[] permissions)
+        {
+            Opt = LoginOption.Permission;
+            Permisions = permissions;
+        }
+    }
+
 
     public enum LoginOption
     {
@@ -96,7 +136,7 @@ namespace WebMvc.Application.Attribute
         Login,
         User,
         Role,
-        Permision,
+        Permission,
         AdminLogin,
         SuperLogin
     }

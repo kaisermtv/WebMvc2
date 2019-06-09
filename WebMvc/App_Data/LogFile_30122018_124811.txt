@@ -1,0 +1,101 @@
+24/11/2018 12:22:57 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+24/11/2018 14:19:14 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+24/11/2018 14:19:50 | WebMvc.dll | UpdateShoterList | WebMvc.Areas.Admin.Controllers.AdminMenuController | 111 | Object reference not set to an instance of an object.
+24/11/2018 14:21:32 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+24/11/2018 14:34:55 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+24/11/2018 14:43:10 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+24/11/2018 14:58:50 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+25/11/2018 10:42:13 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+25/11/2018 10:42:52 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | The action 'GetMainMenus' is accessible only by a child request.
+25/11/2018 10:43:12 | WebMvc.dll | Index | WebMvc.Areas.Admin.Controllers.AdminMenuController | 99 | Error reading JArray from JsonReader. Path '', line 0, position 0.
+25/11/2018 10:43:37 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+25/11/2018 10:43:59 | WebMvc.dll | Index | WebMvc.Areas.Admin.Controllers.AdminMenuController | 99 | Error reading JArray from JsonReader. Path '', line 0, position 0.
+25/11/2018 10:45:01 | WebMvc.dll | Index | WebMvc.Areas.Admin.Controllers.AdminMenuController | 99 | Error reading JArray from JsonReader. Path '', line 0, position 0.
+25/11/2018 10:45:13 | WebMvc.dll | Index | WebMvc.Areas.Admin.Controllers.AdminMenuController | 99 | Error reading JArray from JsonReader. Path '', line 0, position 0.
+25/11/2018 10:45:22 | WebMvc.dll | Index | WebMvc.Areas.Admin.Controllers.AdminMenuController | 99 | Error reading JArray from JsonReader. Path '', line 0, position 0.
+25/11/2018 10:46:56 | WebMvc.dll | Index | WebMvc.Areas.Admin.Controllers.AdminMenuController | 99 | Error reading JArray from JsonReader. Path '', line 0, position 0.
+25/11/2018 10:47:38 | WebMvc.dll | Index | WebMvc.Areas.Admin.Controllers.AdminMenuController | 99 | Error reading JArray from JsonReader. Path '', line 0, position 0.
+25/11/2018 10:49:01 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | Error executing child request for handler 'System.Web.Mvc.HttpHandlerUtil+ServerExecuteHttpHandlerAsyncWrapper'. INNER EXCEPTION: Encountered end tag "div" with no matching start tag.  Are your start/end tags properly balanced?
+
+25/11/2018 13:33:28 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+25/11/2018 13:39:16 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+25/11/2018 13:39:19 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | The action 'MainAdminNav' is accessible only by a child request.
+25/11/2018 13:45:06 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | A public action method 'Members' was not found on controller 'WebMvc.Areas.Admin.Controllers.ImportExportController'.
+25/11/2018 14:12:13 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+25/11/2018 14:12:32 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | Must declare the scalar variable "@Offset".
+25/11/2018 14:13:22 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+25/11/2018 14:14:44 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+25/11/2018 14:14:55 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | The view 'Edit' or its master was not found or no view engine supports the searched locations. The following locations were searched:
+~/Areas/Admin/Views/AdminMembers/Edit.cshtml
+~/Areas/Admin/Views/AdminMembers/Edit.vbhtml
+~/Areas/Admin/Views/Shared/Edit.cshtml
+~/Areas/Admin/Views/Shared/Edit.vbhtml
+~/Themes/Classiera/Views/AdminMembers/Edit.cshtml
+~/Themes/Classiera/Views/Extensions/AdminMembers/Edit.cshtml
+~/Views/Extensions/AdminMembers/Edit.cshtml
+~/Views/AdminMembers/Edit.cshtml
+~/Views/AdminMembers/Edit.vbhtml
+~/Views/Shared/Edit.cshtml
+~/Views/Shared/Edit.vbhtml
+26/11/2018 16:18:01 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+26/11/2018 16:18:59 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | Object reference not set to an instance of an object.
+26/11/2018 16:19:37 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+26/11/2018 16:19:44 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | Object reference not set to an instance of an object.
+26/11/2018 16:19:50 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | Object reference not set to an instance of an object.
+26/11/2018 16:20:36 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+26/11/2018 16:20:58 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | Object reference not set to an instance of an object.
+26/11/2018 16:22:27 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+26/11/2018 16:22:37 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | Unexpected "if" keyword after "@" character.  Once inside code, you do not need to prefix constructs like "if" with "@".
+
+26/11/2018 16:28:50 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+26/11/2018 16:29:56 | WebMvc.dll | Create | WebMvc.Areas.Admin.Controllers.PermissionsController | 78 | The parameterized query '(@Id uniqueidentifier,@PermissionId uniqueidentifier,@Name nvarc' expects the parameter '@PermissionId', which was not supplied.
+26/11/2018 16:31:36 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+26/11/2018 16:38:01 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | A public action method 'Edit' was not found on controller 'WebMvc.Areas.Admin.Controllers.PermissionsController'.
+26/11/2018 16:47:44 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+26/11/2018 16:48:33 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+26/11/2018 16:48:36 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | Unexpected "if" keyword after "@" character.  Once inside code, you do not need to prefix constructs like "if" with "@".
+
+26/11/2018 16:49:28 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | Unexpected "if" keyword after "@" character.  Once inside code, you do not need to prefix constructs like "if" with "@".
+
+27/11/2018 11:44:02 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+27/11/2018 12:41:46 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | A public action method 'AddRole' was not found on controller 'WebMvc.Areas.Admin.Controllers.AdminMembersController'.
+27/11/2018 12:43:11 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+27/11/2018 12:43:12 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | A public action method 'CreateRole' was not found on controller 'WebMvc.Areas.Admin.Controllers.AdminMembersController'.
+27/11/2018 13:15:41 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+27/11/2018 13:17:09 | WebMvc.dll | AddRole | WebMvc.Areas.Admin.Controllers.AdminMembersController | 463 | Add MembershipRole false
+27/11/2018 13:17:53 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+27/11/2018 13:18:45 | WebMvc.dll | AddRole | WebMvc.Areas.Admin.Controllers.AdminMembersController | 463 | Add MembershipRole false
+27/11/2018 13:22:48 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+27/11/2018 13:49:22 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | The view 'EditRole' or its master was not found or no view engine supports the searched locations. The following locations were searched:
+~/Areas/Admin/Views/AdminMembers/EditRole.cshtml
+~/Areas/Admin/Views/AdminMembers/EditRole.vbhtml
+~/Areas/Admin/Views/Shared/EditRole.cshtml
+~/Areas/Admin/Views/Shared/EditRole.vbhtml
+~/Themes/Classiera/Views/AdminMembers/EditRole.cshtml
+~/Themes/Classiera/Views/Extensions/AdminMembers/EditRole.cshtml
+~/Views/Extensions/AdminMembers/EditRole.cshtml
+~/Views/AdminMembers/EditRole.cshtml
+~/Views/AdminMembers/EditRole.vbhtml
+~/Views/Shared/EditRole.cshtml
+~/Views/Shared/EditRole.vbhtml
+27/11/2018 13:54:22 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+27/11/2018 13:57:01 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+27/11/2018 13:57:56 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+27/11/2018 14:12:53 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+27/11/2018 14:13:01 | WebMvc.dll | EditRole | WebMvc.Areas.Admin.Controllers.AdminMembersController | 539 | Delete PermissionsInRoles false
+27/11/2018 14:15:05 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+27/11/2018 14:15:47 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+28/11/2018 12:21:49 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+28/11/2018 12:25:21 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | The view 'Edit' or its master was not found or no view engine supports the searched locations. The following locations were searched:
+~/Areas/Admin/Views/AdminMembers/Edit.cshtml
+~/Areas/Admin/Views/AdminMembers/Edit.vbhtml
+~/Areas/Admin/Views/Shared/Edit.cshtml
+~/Areas/Admin/Views/Shared/Edit.vbhtml
+~/Themes/Classiera/Views/AdminMembers/Edit.cshtml
+~/Themes/Classiera/Views/Extensions/AdminMembers/Edit.cshtml
+~/Views/Extensions/AdminMembers/Edit.cshtml
+~/Views/AdminMembers/Edit.cshtml
+~/Views/AdminMembers/Edit.vbhtml
+~/Views/Shared/Edit.cshtml
+~/Views/Shared/Edit.vbhtml
+30/12/2018 11:00:19 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP

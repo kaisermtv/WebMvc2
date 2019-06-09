@@ -45,8 +45,8 @@ namespace WebMvc.Services
             Cmd.CommandText = "INSERT INTO [Employees]([Id],[RoleId],[Name],[Phone],[Email],[Skype])"
                 + " VALUES(@Id,@RoleId,@Name,@Phone,@Email,@Skype)";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = emp.Id;
-            Cmd.Parameters.Add("RoleId", SqlDbType.UniqueIdentifier).Value = emp.RoleId;
+            Cmd.AddParameters("Id", emp.Id);
+            Cmd.AddParameters("RoleId", emp.RoleId);
             Cmd.AddParameters("Name", emp.Name);
             Cmd.AddParameters("Phone", emp.Phone);
             Cmd.AddParameters("Email", emp.Email);
@@ -65,8 +65,8 @@ namespace WebMvc.Services
 
             Cmd.CommandText = "UPDATE [dbo].[Employees] SET [RoleId] = @RoleId,[Name] = @Name,[Phone] = @Phone,[Email] = @Email,[Skype] = @Skype WHERE [Id] = @Id";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = emp.Id;
-            Cmd.Parameters.Add("RoleId", SqlDbType.UniqueIdentifier).Value = emp.RoleId;
+            Cmd.AddParameters("Id", emp.Id);
+            Cmd.AddParameters("RoleId", emp.RoleId);
             Cmd.AddParameters("Name", emp.Name);
             Cmd.AddParameters("Phone", emp.Phone);
             Cmd.AddParameters("Email", emp.Email);
@@ -85,7 +85,7 @@ namespace WebMvc.Services
             var Cmd = _context.CreateCommand();
             Cmd.CommandText = "DELETE FROM [Employees] WHERE Id = @Id";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = emp.Id;
+            Cmd.AddParameters("Id", emp.Id);
 
             Cmd.command.ExecuteNonQuery();
             Cmd.cacheStartsWithToClear(CacheKeys.Employees.StartsWith);
@@ -132,7 +132,7 @@ namespace WebMvc.Services
                 var Cmd = _context.CreateCommand();
 
                 Cmd.CommandText = "SELECT * FROM  [Employees] WHERE RoleId = @RoleId";
-                Cmd.Parameters.Add("RoleId", SqlDbType.UniqueIdentifier).Value = employeesRole.Id;
+                Cmd.AddParameters("RoleId", employeesRole.Id);
 
                 DataTable data = Cmd.FindAll();
                 Cmd.Close();

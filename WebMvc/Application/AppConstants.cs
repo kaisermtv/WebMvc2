@@ -7,6 +7,37 @@ namespace WebMvc.Application
 {
     public static class AppConstants
     {
+        //SettingKeys
+        public const string STWebsiteName = "WebsiteName";
+        public const string STWebsiteUrl = "WebsiteUrl";
+        public const string STPageTitle = "PageTitle";
+        public const string STMetaDesc = "MetaDesc";
+
+        public const string STBusinessName = "BusinessName";
+        public const string STRepresentAtive = "RepresentAtive";
+        public const string STRepresentPosition = "RepresentPosition";
+        public const string STIntroduce = "Introduce";
+        public const string STGreeting = "Greeting";
+        public const string STFanpage = "Fanpage";
+        public const string STFanChat = "FanChat";
+        public const string STHotline = "Hotline";
+        public const string STHotlineImg = "HotlineImg";
+        public const string STBankID = "BankID";
+        public const string STBankName = "BankName";
+        public const string STBankUser = "BankUser";
+        public const string STBankPay = "BankPay";
+        public const string STShowroomCount = "ShowroomCount";
+
+        public const string STInEmail = "InEmail";
+
+        public const string STLockRegister = "LockRegister";
+
+
+
+        // Admin options
+        public const int AdminNumberInPage = 10;
+
+
         public const int SaltSize = 24;
         public const string EditorType = "forumeditor";
 
@@ -37,6 +68,7 @@ namespace WebMvc.Application
         // Main guest role [This should never be changed]
         // This is the role a non logged in user defaults to
         public const string GuestRoleName = "Guest";
+        public const string StandardRoleName = "Standard Members";
 
         //------------ End Permissions ----------
 

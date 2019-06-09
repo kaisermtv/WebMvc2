@@ -21,10 +21,10 @@ namespace WebMvc
 			RouteConfig.routes = routes;
 
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            //CheckRouteTheme();
+            CheckRouteTheme();
 
             #region hidden
-            //* 
+            /** / 
             routes.MapRoute(
               name: "Contact",
               url: "lien-he",
@@ -201,8 +201,9 @@ namespace WebMvc
 			public object controller {
 				get
 				{
+                    if (data.controller == null) return UrlParameter.Optional;
 
-					return data.controller;
+                    return (string)data.controller;
 				}
 				
 			}
@@ -211,7 +212,8 @@ namespace WebMvc
 			{
 				get
 				{
-					return data.action;
+                    if (data.action == null) return UrlParameter.Optional;
+                    return (string)data.action;
 				}
 			}
 
@@ -219,9 +221,46 @@ namespace WebMvc
 			{
 				get
 				{
-					return data.id;
+                    if (data.id == null) return UrlParameter.Optional;
+
+                    return (string)data.id;
 				}
 			}
-		}
+
+            public object isSelling
+            {
+                get
+                {
+                    if (data.isSelling == null) return UrlParameter.Optional;
+                    return (bool)data.isSelling;
+                }
+            }
+
+            public object isSale
+            {
+                get
+                {
+                    if (data.isSale == null) return UrlParameter.Optional;
+                    return (bool)data.isSale;
+                }
+            }
+
+            public object slug
+            {
+                get
+                {
+                    if (data.slug == null) return UrlParameter.Optional;
+                    return (string)data.slug;
+                }
+            }
+            public object catslug
+            {
+                get
+                {
+                    if (data.catslug == null) return UrlParameter.Optional;
+                    return (string)data.catslug;
+                }
+            }
+        }
     }
 }

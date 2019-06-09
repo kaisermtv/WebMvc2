@@ -9,8 +9,9 @@
     border-bottom: 1px solid #eee;
 }
 
+
 .dropdown-menu {
-  min-width: 210px;
+    min-width: 210px;
 }
 
 .navbar-brand {
@@ -242,7 +243,7 @@ h6 {
 }
 
 .tablescroll {
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: auto;
   margin: 0 0 20px 0;
 }
@@ -279,7 +280,7 @@ a:hover, a:focus, a:visited:hover, a:visited:focus {
 .validation-summary-errors ul li {
   padding: 4px;
   background-color: #ed5565;
-  color: #e92b3f;
+  color: white;
   list-style: none;
 }
 
@@ -687,4 +688,9 @@ footer {
     #page-wrapper footer {
         width: calc(100% - 50px);
     }
+}
+
+
+.float-right {
+    float: right;
 }

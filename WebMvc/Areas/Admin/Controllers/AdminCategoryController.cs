@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -27,54 +28,251 @@ namespace WebMvc.Areas.Admin.Controllers
             _categoryService = categoryService;
         }
 
-        // GET: Admin/Category
-        public ActionResult Index()
+        #region News Cat
+        public ActionResult News()
         {
-            return View();
+            return TreeCategory(false);
         }
 
-        public ActionResult List()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult News(string JsonText)
+        {
+            return TreeCategory(false, JsonText);
+        }
+
+        public ActionResult ListCatNews()
+        {
+            return List(false);
+        }
+
+        public ActionResult NewCatNews()
+        {
+            return Create(false);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult NewCatNews(CategoryViewModel categoryViewModel)
+        {
+            return Create(false, categoryViewModel);
+        }
+
+        public ActionResult EditCatNews(Guid id)
+        {
+            return Edit(false, id);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCatNews(CategoryViewModel categoryViewModel)
+        {
+            return Edit(false, categoryViewModel);
+        }
+
+        public ActionResult DelCatNews(Guid id)
+        {
+            return Delete(false, id);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DelCatNews1(Guid id)
+        {
+            return Delete1(false, id);
+        }
+        #endregion
+
+        #region Product cat
+        public ActionResult Product()
+        {
+            return TreeCategory(true);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Product(string JsonText)
+        {
+            return TreeCategory(false, JsonText);
+        }
+
+        public ActionResult ListCatProduct()
+        {
+            return List(true);
+        }
+
+        public ActionResult NewCatProduct()
+        {
+            return Create(true);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult NewCatProduct(CategoryViewModel categoryViewModel)
+        {
+            return Create(true, categoryViewModel);
+        }
+
+        public ActionResult EditCatProduct(Guid id)
+        {
+            return Edit(true, id);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCatProduct(CategoryViewModel categoryViewModel)
+        {
+            return Edit(true, categoryViewModel);
+        }
+
+        public ActionResult DelCatProduct(Guid id)
+        {
+            return Delete(false, id);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DelCatProduct1(Guid id)
+        {
+            return Delete1(false, id);
+        }
+        #endregion
+
+
+        private ActionResult List(bool isProduct)
         {
             var viewModel = new ListCategoriesViewModel
             {
-                Categories = _categoryService.GetAll()
+                isProduct = isProduct,
+                Categories = _categoryService.GetList(isProduct)
             };
-            return View(viewModel);
+            return View("List", viewModel);
         }
 
-
-
-        [ChildActionOnly]
-        public PartialViewResult GetMainCategories()
+        private ActionResult TreeCategory(bool isProduct)
         {
-            using (UnitOfWorkManager.NewUnitOfWork())
+            var viewModel = new ListCategoriesViewModel
             {
-                var viewModel = new ListCategoriesViewModel
+                isProduct = isProduct,
+                Categories = _categoryService.GetList(isProduct)
+            };
+            return View("TreeCategory", viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        private ActionResult TreeCategory(bool isProduct, string JsonText)
+        {
+            try
+            {
+                JArray json = JArray.Parse(JsonText);
+
+                var templst = new Dictionary<Guid, Guid?>();
+
+                AddChild(templst, json, null);
+
+                var menulst = _categoryService.GetList(isProduct);
+                foreach (var it in menulst)
                 {
-                    Categories = _categoryService.GetAll()
+                    if (!templst.ContainsKey(it.Id))
+                    {
+                        templst.Add(it.Id, null);
+                    }
+                }
+
+                using (var unitOfWork = UnitOfWorkManager.NewUnitOfWork())
+                {
+                    try
+                    {
+                        int sort = 0;
+                        foreach (var it in templst)
+                        {
+                            _categoryService.UpdateSortAndParent(it.Key, it.Value, sort++);
+                        }
+
+
+                        unitOfWork.Commit();
+
+                        TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = "Cập nhật thành công",
+                            MessageType = GenericMessages.success
+                        };
+                    }
+                    catch (Exception ex)
+                    {
+                        unitOfWork.Rollback();
+                        LoggingService.Error(ex);
+
+                        TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = "Có lỗi xảy ra! Xin thử lại.",
+                            MessageType = GenericMessages.warning
+                        };
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LoggingService.Error(ex);
+
+                TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "Có lỗi xảy ra! Xin thử lại.",
+                    MessageType = GenericMessages.warning
                 };
-                return PartialView(viewModel);
+            }
+
+            var viewModel = new ListCategoriesViewModel
+            {
+                isProduct = isProduct,
+                Categories = _categoryService.GetList(isProduct)
+            };
+            return View("TreeCategory", viewModel);
+        }
+
+        private void AddChild(Dictionary<Guid, Guid?> templst, JArray array, Guid? paren)
+        {
+            foreach (var it in array)
+            {
+                string id = (string)it["id"];
+                Guid guid = new Guid(id);
+
+                if (!templst.ContainsKey(guid))
+                {
+                    templst.Add(guid, paren);
+                }
+
+                if (it["children"] != null)
+                {
+                    AddChild(templst, (JArray)it["children"], guid);
+                }
+
             }
         }
 
         #region Create
-        public ActionResult Create()
+        private ActionResult Create(bool isProduct)
         {
             using (UnitOfWorkManager.NewUnitOfWork())
             {
                 var categoryViewModel = new CategoryViewModel
                 {
-                    AllCategories = _categoryService.GetBaseSelectListCategories(_categoryService.GetAll())
+                    IsProduct = isProduct,
+                    AllCategories = _categoryService.GetBaseSelectListCategories(_categoryService.GetList(isProduct))
                 };
-                return View(categoryViewModel);
+                return View("Create", categoryViewModel);
             }
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CategoryViewModel categoryViewModel)
+        private ActionResult Create(bool isProduct, CategoryViewModel categoryViewModel)
         {
+            categoryViewModel.IsProduct = isProduct;
+
             if (ModelState.IsValid)
             {
                 using (var unitOfWork = UnitOfWorkManager.NewUnitOfWork())
@@ -96,7 +294,7 @@ namespace WebMvc.Areas.Admin.Controllers
                             IsProduct = categoryViewModel.IsProduct,
                             Image = categoryViewModel.Image,
                         };
-                        
+
                         //if (categoryViewModel.ParentCategory != null)
                         //{
                         //    var parentCategory = _categoryService.Get(categoryViewModel.ParentCategory.Value);
@@ -105,7 +303,7 @@ namespace WebMvc.Areas.Admin.Controllers
                         //}
 
                         _categoryService.Add(category);
-                        
+
                         unitOfWork.Commit();
                         // We use temp data because we are doing a redirect
                         TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
@@ -114,7 +312,15 @@ namespace WebMvc.Areas.Admin.Controllers
                             MessageType = GenericMessages.success
                         };
 
-                        return RedirectToAction("Index");
+                        if (isProduct)
+                        {
+                            return RedirectToAction("Product");
+                        }
+                        else
+                        {
+                            return RedirectToAction("News");
+                        }
+
                     }
                     catch (Exception ex)
                     {
@@ -129,8 +335,8 @@ namespace WebMvc.Areas.Admin.Controllers
                 ModelState.AddModelError("", "There was an error creating the category");
             }
 
-            categoryViewModel.AllCategories = _categoryService.GetBaseSelectListCategories(_categoryService.GetAll());
-            return View(categoryViewModel);
+            categoryViewModel.AllCategories = _categoryService.GetBaseSelectListCategories(_categoryService.GetList(isProduct));
+            return View("Create", categoryViewModel);
         }
 
         #endregion
@@ -155,24 +361,49 @@ namespace WebMvc.Areas.Admin.Controllers
                 IsProduct = category.IsProduct,
                 AllCategories = _categoryService.GetBaseSelectListCategories(_categoryService.GetCategoriesParenCatregori(category))
             };
-            
+
             return categoryViewModel;
         }
 
-        public ActionResult Edit(Guid id)
+        private ActionResult Edit(bool isProduct, Guid id)
         {
             using (UnitOfWorkManager.NewUnitOfWork())
             {
                 var category = _categoryService.Get(id);
+                if (category == null || category.IsProduct != isProduct)
+                {
+                    string message;
+                    string rAction;
+                    if (isProduct)
+                    {
+                        message = "Nhóm sản phẩm không tồn tại hoặc đã bị xóa!";
+                        rAction = "Product";
+                    }
+                    else
+                    {
+                        message = "Nhóm bài viết không tồn tại hoặc đã bị xóa!";
+                        rAction = "News";
+                    }
+
+                    TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = message,
+                        MessageType = GenericMessages.danger
+                    };
+
+                    return RedirectToAction(rAction);
+                }
+
+
                 var categoryViewModel = CreateEditCategoryViewModel(category);
 
-                return View(categoryViewModel);
+                return View("Edit", categoryViewModel);
             }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(CategoryViewModel categoryViewModel)
+        private ActionResult Edit(bool isProduct, CategoryViewModel categoryViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -181,13 +412,36 @@ namespace WebMvc.Areas.Admin.Controllers
                     try
                     {
                         var category = _categoryService.Get(categoryViewModel.Id);
+                        if (category == null || category.IsProduct != isProduct)
+                        {
+                            string message;
+                            string rAction;
+                            if (isProduct)
+                            {
+                                message = "Nhóm sản phẩm không tồn tại hoặc đã bị xóa!";
+                                rAction = "Product";
+                            }
+                            else
+                            {
+                                message = "Nhóm bài viết không tồn tại hoặc đã bị xóa!";
+                                rAction = "News";
+                            }
+
+                            TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                            {
+                                Message = message,
+                                MessageType = GenericMessages.danger
+                            };
+
+                            return RedirectToAction(rAction);
+                        }
 
                         // Check they are not trying to add a subcategory of this category as the parent or it will break
                         var cats = _categoryService.GetCategoriesParenCatregori(category);
                         var lst = cats.Where(x => x.Id == categoryViewModel.ParentCategory).ToList();
                         if (lst.Count == 0) categoryViewModel.ParentCategory = null;
                         //categoryViewModel.AllCategories = _categoryService.GetBaseSelectListCategories(cats);
-                        
+
 
                         category.Description = categoryViewModel.Description;
                         category.IsLocked = categoryViewModel.IsLocked;
@@ -228,24 +482,36 @@ namespace WebMvc.Areas.Admin.Controllers
                 }
             }
 
-            return View(categoryViewModel);
+            return View("Edit", categoryViewModel);
         }
         #endregion
 
-
         #region delete
-        public ActionResult Delete(Guid id)
+        public ActionResult Delete(bool isProduct, Guid id)
         {
             var model = _categoryService.Get(id);
-            if (model == null)
+            if (model == null || model.IsProduct != isProduct)
             {
+                string message;
+                string rAction;
+                if (isProduct)
+                {
+                    message = "Nhóm sản phẩm không tồn tại hoặc đã bị xóa!";
+                    rAction = "Product";
+                }
+                else
+                {
+                    message = "Nhóm bài viết không tồn tại hoặc đã bị xóa!";
+                    rAction = "News";
+                }
+
                 TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
                 {
-                    Message = "Danh mục không tồn tại",
-                    MessageType = GenericMessages.warning
+                    Message = message,
+                    MessageType = GenericMessages.danger
                 };
 
-                return RedirectToAction("index");
+                return RedirectToAction(rAction);
             }
 
             var submenu = _categoryService.GetSubCategory(model);
@@ -269,23 +535,36 @@ namespace WebMvc.Areas.Admin.Controllers
             }
 
 
-            return View(model);
+            return View("Delete",model);
         }
 
         [HttpPost]
         [ActionName("Delete")]
-        public ActionResult Delete1(Guid id)
+        public ActionResult Delete1(bool isProduct, Guid id)
         {
             var model = _categoryService.Get(id);
-            if (model == null)
+            if (model == null || model.IsProduct != isProduct)
             {
+                string message;
+                string rAction;
+                if (isProduct)
+                {
+                    message = "Nhóm sản phẩm không tồn tại hoặc đã bị xóa!";
+                    rAction = "Product";
+                }
+                else
+                {
+                    message = "Nhóm bài viết không tồn tại hoặc đã bị xóa!";
+                    rAction = "News";
+                }
+
                 TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
                 {
-                    Message = "Danh mục không tồn tại",
-                    MessageType = GenericMessages.warning
+                    Message = message,
+                    MessageType = GenericMessages.danger
                 };
 
-                return RedirectToAction("index");
+                return RedirectToAction(rAction);
             }
 
             var submenu = _categoryService.GetSubCategory(model);
@@ -308,7 +587,7 @@ namespace WebMvc.Areas.Admin.Controllers
             {
                 return View("NotDel", model);
             }
-            
+
 
             using (var unitOfWork = UnitOfWorkManager.NewUnitOfWork())
             {
@@ -339,7 +618,7 @@ namespace WebMvc.Areas.Admin.Controllers
             }
 
 
-            return View(model);
+            return View("Delete",model);
         }
         #endregion
 

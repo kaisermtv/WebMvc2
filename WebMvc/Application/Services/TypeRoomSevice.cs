@@ -46,7 +46,7 @@ namespace WebMvc.Services
             Cmd.CommandText = "INSERT INTO [TypeRoom]([Id],[Name],[IsShow],[Note],[CreateDate])"
                 + " VALUES(@Id,@Name,@IsShow,@Note,@CreateDate)";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = typeRoom.Id;
+            Cmd.AddParameters("Id", typeRoom.Id);
             Cmd.AddParameters("Name", typeRoom.Name);
             Cmd.AddParameters("IsShow", typeRoom.IsShow);
             Cmd.AddParameters("Note", typeRoom.Note);
@@ -87,7 +87,7 @@ namespace WebMvc.Services
 
             Cmd.CommandText = "UPDATE [dbo].[TypeRoom] SET [Name] = @Name,[IsShow] = @IsShow ,[Note] = @Note ,[CreateDate] = @CreateDate WHERE [Id] = @Id";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = typeRoom.Id;
+            Cmd.AddParameters("Id", typeRoom.Id);
             Cmd.AddParameters("Name", typeRoom.Name);
             Cmd.AddParameters("IsShow", typeRoom.IsShow);
             Cmd.AddParameters("Note", typeRoom.Note);

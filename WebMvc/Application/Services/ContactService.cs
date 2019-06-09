@@ -49,7 +49,7 @@ namespace WebMvc.Services
             Cmd.CommandText = "INSERT INTO [Contact]([Id],[Name],[Email],[Content],[IsCheck],[Note],[CreateDate])"
                 + " VALUES(@Id,@Name,@Email,@Content,@IsCheck,@Note,@CreateDate)";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = contact.Id;
+            Cmd.AddParameters("Id", contact.Id);
             Cmd.AddParameters("Name", contact.Name);
             Cmd.AddParameters("Email", contact.Email);
             Cmd.AddParameters("Content", contact.Content);
@@ -70,7 +70,7 @@ namespace WebMvc.Services
 
             Cmd.CommandText = "SELECT * FROM [Contact] WHERE Id = @Id";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = Id;
+            Cmd.AddParameters("Id", Id);
 
             DataRow data = Cmd.FindFirst();
             if (data == null) return null;
@@ -83,8 +83,8 @@ namespace WebMvc.Services
             var Cmd = _context.CreateCommand();
 
             Cmd.CommandText = "UPDATE [Contact] SET [Name] = @Name,[Email] = @Email,[Content] = @Content,[IsCheck] = @IsCheck, [Note] = @Note,[CreateDate] = @CreateDate WHERE Id = @Id";
-            
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = contact.Id;
+
+            Cmd.AddParameters("Id", contact.Id);
             Cmd.AddParameters("Name", contact.Name);
             Cmd.AddParameters("Email", contact.Email);
             Cmd.AddParameters("Content", contact.Content);
@@ -105,7 +105,6 @@ namespace WebMvc.Services
             var Cmd = _context.CreateCommand();
             Cmd.CommandText = "DELETE FROM [Contact] WHERE Id = @Id";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = emp.Id;
 
             Cmd.command.ExecuteNonQuery();
             Cmd.cacheStartsWithToClear(CacheKeys.Contact.StartsWith);
@@ -141,7 +140,7 @@ namespace WebMvc.Services
             Cmd.CommandText = "SELECT TOP " + limit + " * FROM ( SELECT *,(ROW_NUMBER() OVER(ORDER BY CreateDate DESC)) AS RowNum FROM  [Contact]) AS MyDerivedTable WHERE RowNum > @Offset";
 
             //Cmd.Parameters.Add("limit", SqlDbType.Int).Value = limit;
-            Cmd.Parameters.Add("Offset", SqlDbType.Int).Value = (page - 1) * limit;
+            Cmd.AddParameters("Offset", (page - 1) * limit);
 
             DataTable data = Cmd.FindAll();
             Cmd.Close();

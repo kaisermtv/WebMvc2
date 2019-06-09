@@ -58,23 +58,37 @@ namespace WebMvc.Services
             {
                 Cmd.CommandText = "DELETE FROM [dbo].[MembershipLogin] WHERE Id = @Id";
 
-                Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = Id;
+                Cmd.AddParameters("Id", Id);
 
                 Cmd.command.ExecuteNonQuery();
             }
         }
 
-        //public void Clear()
-        //{
-        //    using (var Cmd = _context.CreateCommand())
-        //    {
-        //        Cmd.CommandText = "DELETE FROM [dbo].[MembershipLogin] WHERE OnlineDate - @OnlineDate > @TimeOut";
+        internal void UpdateOnline(Guid Id)
+        {
+            using (var Cmd = _context.CreateCommand())
+            {
+                Cmd.CommandText = "UPDATE  [dbo].[MembershipLogin] SET [OnlineDate] = @OnlineDate WHERE Id = @Id";
 
-        //        Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = Id;
+                Cmd.AddParameters("Id", Id);
+                Cmd.AddParameters("OnlineDate", DateTime.UtcNow);
 
-        //        Cmd.command.ExecuteNonQuery();
-        //    }
-        //}
+                Cmd.command.ExecuteNonQuery();
+            }
+        }
+
+        public void Clear(TimeSpan TimeOut)
+        {
+            using (var Cmd = _context.CreateCommand())
+            {
+                Cmd.CommandText = "DELETE FROM [dbo].[MembershipLogin] WHERE [Id] IN (SELECT LG.[Id] FROM [dbo].[MembershipLogin] AS LG LEFT JOIN [dbo].[MembershipUser] AS MU ON LG.[UserId] = MU.[Id] WHERE (LG.[OnlineDate] - @OnlineDate > @TimeOut AND LG.[Remember] = 0) OR LG.[Password] <> MU.[Password] OR MU.[Id] IS NULL ) ";
+
+                Cmd.AddParameters("OnlineDate", DateTime.UtcNow);
+                Cmd.AddParameters("TimeOut", TimeOut);
+
+                Cmd.command.ExecuteNonQuery();
+            }
+        }
 
     }
 }

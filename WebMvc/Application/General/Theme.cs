@@ -9,5 +9,6 @@ namespace WebMvc.Application.General
     {
         public string ThemeName { get; set; }
         public string ThemePath { get; set; }
+        public string ThemeUrl { get; set; }
     }
 }

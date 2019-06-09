@@ -115,8 +115,10 @@ namespace WebMvc.Areas.Admin.ViewModels
 
     public class AdminRegistrationSettingViewModel
     {
-
+        [DisplayName("Khóa chức năng đăng ký tài khoản.")]
+        public bool LockRegister { get; set; }
     }
+
     public class AdminBusinessSettingViewModel
     {
         [DisplayName("Tên doanh nghiệp")]

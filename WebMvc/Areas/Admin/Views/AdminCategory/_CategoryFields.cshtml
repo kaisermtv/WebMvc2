@@ -30,13 +30,13 @@
     @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
 
 </div>
-<div class="checkbox">
+@*<div class="checkbox">
     @using (Html.BeginLabelFor(m => m.IsProduct, new { @class = "checkbox" }))
     {
         @Html.CheckBoxFor(m => m.IsProduct)
     }
     @Html.ValidationMessageFor(m => m.IsProduct)
-</div>
+</div>*@
 <div class="checkbox">
     @using (Html.BeginLabelFor(m => m.IsLocked, new { @class = "checkbox" }))
     {
@@ -44,7 +44,7 @@
     }
     @Html.ValidationMessageFor(m => m.IsLocked)
 </div>
-<div class="checkbox">
+@*<div class="checkbox">
     @using (Html.BeginLabelFor(m => m.ModerateTopics, new { @class = "checkbox" }))
     {
         @Html.CheckBoxFor(m => m.ModerateTopics)
@@ -57,7 +57,7 @@
         @Html.CheckBoxFor(m => m.ModeratePosts)
     }
     @Html.ValidationMessageFor(m => m.ModeratePosts)
-</div>
+</div>*@
 <div class="form-group">
     @Html.LabelFor(model => model.SortOrder)
     @Html.TextBoxFor(model => model.SortOrder, new { @class = "form-control", type = "number" })

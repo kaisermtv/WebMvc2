@@ -38,9 +38,12 @@
                             <td>@it.UserName</td>
                             <td>@it.IsApproved</td>
                             <td>
-                                <a href="@Url.Action("Delete", new { id = it.Id })" class="btn-mvc">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </a>
+                                @if (User.Identity.Name != it.UserName && (User.Identity.Name == AppConstants.AdminUsername || !AppHelpers.UserIsRole(it,AppConstants.AdminRoleName)))
+                                {
+                                    <a href="@Url.Action("Delete", new { id = it.Id })" class="btn-mvc">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                }
                             </td>
                         </tr>
                         }

@@ -49,13 +49,20 @@ namespace WebMvc.Application.Context
             }
         }
 
+        public void ClearCache()
+        {
+            _cacheService.ClearStartsWith(cacheStartsWithToClear);
+            cacheStartsWithToClear.Clear();
+        }
+
         public void Dispose()
         {
             if (transaction != null)
             {
                 transaction.Dispose();
                 transaction = null;
-                _cacheService.ClearStartsWith(cacheStartsWithToClear);
+                //_cacheService.ClearStartsWith(cacheStartsWithToClear);
+                cacheStartsWithToClear.Clear();
             }
 
         }

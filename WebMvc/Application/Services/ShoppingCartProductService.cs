@@ -46,7 +46,7 @@ namespace WebMvc.Services
             Cmd.CommandText = "INSERT INTO [dbo].[ShoppingCartProduct]([Id],[CountProduct],[Price] ,[ProductId],[ShoppingCartId])"
                 + " VALUES(@Id,@CountProduct,@Price,@ProductId,@ShoppingCartId)";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = cat.Id;
+            Cmd.AddParameters("Id", cat.Id);
             Cmd.AddParameters("CountProduct", cat.CountProduct);
             Cmd.AddParameters("Price", cat.Price);
             Cmd.AddParameters("ProductId", cat.ProductId);
@@ -69,7 +69,7 @@ namespace WebMvc.Services
                 var Cmd = _context.CreateCommand();
 
                 Cmd.CommandText = "SELECT * FROM  [ShoppingCartProduct] WHERE [Id] = @Id";
-                Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = Id;
+                Cmd.AddParameters("Id", Id);
 
                 DataRow data = Cmd.FindFirst();
                 if (data == null) return null;
@@ -88,7 +88,7 @@ namespace WebMvc.Services
             var Cmd = _context.CreateCommand();
             Cmd.CommandText = "DELETE FROM [ShoppingCartProduct] WHERE ShoppingCartId = @Id";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = shoppingCart.Id;
+            Cmd.AddParameters("Id", shoppingCart.Id);
 
             Cmd.command.ExecuteNonQuery();
             Cmd.cacheStartsWithToClear(CacheKeys.ShoppingCartProduct.StartsWith);
@@ -105,7 +105,7 @@ namespace WebMvc.Services
                 var Cmd = _context.CreateCommand();
                 
                 Cmd.CommandText = "SELECT * FROM  [dbo].[ShoppingCartProduct] WHERE [ShoppingCartId] = @ShoppingCartId";
-                Cmd.Parameters.Add("ShoppingCartId", SqlDbType.UniqueIdentifier).Value = cart.Id;
+                Cmd.AddParameters("ShoppingCartId", cart.Id);
 
                 DataTable data = Cmd.FindAll();
                 Cmd.Close();

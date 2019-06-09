@@ -147,7 +147,7 @@ CREATE TABLE [dbo].[Carousel](
 CREATE TABLE [dbo].[Topic](
 	[Id] [uniqueidentifier] NOT NULL PRIMARY KEY,
 	[Name] [nvarchar](450) NOT NULL,
-	[ShotContent] [nvarchar](450) NULL,
+	[ShotContent] [nvarchar](1000) NULL,
 	[isAutoShotContent] [bit] NOT NULL,
 	[Image] [nvarchar](max) NULL,
 	[CreateDate] [datetime] NOT NULL,
@@ -214,7 +214,7 @@ CREATE TABLE [dbo].[ProductClassAttribute](
 CREATE TABLE [dbo].[Product](
 	[Id] [uniqueidentifier] NOT NULL PRIMARY KEY,
 	[ProductClassId] [uniqueidentifier] NOT NULL,
-	[Name] [nvarchar](450) NOT NULL,
+	[Name] [nvarchar](1000) NOT NULL,
 	[ShotContent] [nvarchar](450) NULL,
 	[isAutoShotContent] [bit] NOT NULL,
 	[Image] [nvarchar](max) NULL,

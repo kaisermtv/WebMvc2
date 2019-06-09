@@ -1,7 +1,11 @@
 using System;
-
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 using Unity;
+using Unity.Injection;
 using Unity.Lifetime;
+using Unity.Registration;
 using WebMvc.Application;
 using WebMvc.Application.Context;
 using WebMvc.Application.Interfaces;
@@ -19,6 +23,11 @@ namespace WebMvc
         public static void BindInRequestScope<T1>(this IUnityContainer container)
         {
             container.RegisterType<T1>(new HierarchicalLifetimeManager());
+        }
+
+        public static void BindInRequestScope<T1>(this IUnityContainer container, params InjectionMember[] injectionMembers)
+        {
+            container.RegisterType<T1>(new HierarchicalLifetimeManager(), injectionMembers);
         }
 
     }
@@ -92,8 +101,11 @@ namespace WebMvc
             container.BindInRequestScope<MenuService>();
             container.BindInRequestScope<CarouselService>();
             container.BindInRequestScope<Login>();
+            container.BindInRequestScope<RequestHelpers>();
+
             
         }
+
     }
 
 

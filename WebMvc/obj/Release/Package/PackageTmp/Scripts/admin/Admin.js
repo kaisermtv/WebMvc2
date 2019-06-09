@@ -840,8 +840,24 @@ SHOWROOM = {
 
         var iDiv = document.createElement('div');
         iDiv.id = "Showroom_container_" + i;
+        var html = "";
+
+        html += "<div class=\"form-group\" >";
+        html += "<label for=\"Showroom_Name_" + i + "\">Tên Showroom(" + this.Count + ")</label>";
+        html += "<input class=\"form-control\" id=\"Showroom_Name_" + i + "\" name=\"Addrens[" + i + "].Name\" type=\"text\" />";
+        html += "</div>";
+
+        html += "<div class=\"form-group\" >";
+        html += "<label for=\"Showroom_Tel_" + i + "\">Tel Showroom(" + this.Count + ")</label>";
+        html += "<input class=\"form-control\" id=\"Showroom_Tel_" + i + "\" name=\"Addrens[" + i + "].Tel\" type=\"text\" />";
+        html += "</div>";
+
+        html += "<div class=\"form-group\" >";
+        html += "<label for=\"Showroom_Hotline_" + i + "\">Hotline Showroom(" + this.Count + ")</label>";
+        html += "<input class=\"form-control\" id=\"Showroom_Hotline_" + i + "\" name=\"Addrens[" + i + "].Hotline\" type=\"text\" />";
+        html += "</div>";
         
-        var html = "<div class=\"form-group\" >";
+        html += "<div class=\"form-group\" >";
         html += "<label for=\"Showroom_" + i + "\">Địa chỉ Showroom(" + this.Count+")</label>";
         html += "<input class=\"form-control\" id=\"Showroom_" + i + "\" name=\"Addrens[" + i +"].Addren\" type=\"text\" />";
         html += "</div>";

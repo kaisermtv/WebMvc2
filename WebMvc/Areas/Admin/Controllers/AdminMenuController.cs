@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -37,6 +38,94 @@ namespace WebMvc.Areas.Admin.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(string JsonText)
+        {
+            try
+            {
+                JArray json = JArray.Parse(JsonText);
+
+                var templst = new Dictionary<Guid, Guid?>();
+
+                AddChild(templst, json, null);
+
+                var menulst = _menuService.GetAll();
+                foreach (var it in menulst)
+                {
+                    if (!templst.ContainsKey(it.Id))
+                    {
+                        templst.Add(it.Id, null);
+                    }
+                }
+
+                using (var unitOfWork = UnitOfWorkManager.NewUnitOfWork())
+                {
+                    try
+                    {
+                        int sort = 0;
+                        foreach (var it in templst)
+                        {
+                            _menuService.UpdateSortAndParent(it.Key, it.Value, sort++);
+                        }
+
+
+                        unitOfWork.Commit();
+
+                        TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = "Cập nhật thành công",
+                            MessageType = GenericMessages.success
+                        };
+                    }
+                    catch (Exception ex)
+                    {
+                        unitOfWork.Rollback();
+                        LoggingService.Error(ex);
+
+                        TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = "Có lỗi xảy ra! Xin thử lại.",
+                            MessageType = GenericMessages.warning
+                        };
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LoggingService.Error(ex);
+
+                TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "Có lỗi xảy ra! Xin thử lại.",
+                    MessageType = GenericMessages.warning
+                };
+            }
+            return View();
+        }
+
+
+        private void AddChild(Dictionary<Guid, Guid?> templst, JArray array,Guid? paren)
+        {
+            foreach (var it in array)
+            {
+                string id = (string)it["id"];
+                Guid guid = new Guid(id);
+
+                if (!templst.ContainsKey(guid))
+                {
+                    templst.Add(guid, paren);
+                }
+
+                if(it["children"] != null)
+                {
+                    AddChild(templst, (JArray)it["children"], guid);
+                }
+                
+            }
         }
 
         public ActionResult List()
@@ -421,6 +510,7 @@ namespace WebMvc.Areas.Admin.Controllers
             lst.Add(new SelectListItem { Text = "Tin tức", Value = "1" });
             lst.Add(new SelectListItem { Text = "Sản phẩm", Value = "2" });
             lst.Add(new SelectListItem { Text = "Liên hệ", Value = "3" });
+            lst.Add(new SelectListItem { Text = "Giới thiệu", Value = "4" });
 
 
             return lst;

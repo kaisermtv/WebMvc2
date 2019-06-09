@@ -1,0 +1,102 @@
+﻿@model  ListCategoriesViewModel
+@{
+    ModulConfig.AdminMenuItem[] _Menu;
+    string eAction;
+    string dAction;
+    if (Model.isProduct)
+    {
+        ViewBag.Title = "Quản lý nhóm sản phẩm";
+        _Menu = ModulConfig.ProductManage;
+        eAction = "EditCatProduct";
+        dAction = "DelCatProduct";
+    }
+    else
+    {
+        ViewBag.Title = "Quản lý nhóm bài viết";
+        _Menu = ModulConfig.NewsManage;
+        eAction = "EditCatNews";
+        dAction = "DelCatNews";
+    }
+}
+@section AdminHeader
+{
+    <link href="~/Content/all.css" rel="stylesheet" />
+    <link href="~/Content/admin/Menu.css" rel="stylesheet" />
+    <script src="~/Content/Sortable.min.js"></script>
+    <script src="~/Content/jquery.nestable.min.js"></script>
+}
+
+@Html.Partial("_TopMenu", _Menu)
+
+@{
+    /**/
+
+    var mainmenus = Model.Categories.Where(x => x.Category_Id == null).ToList();
+}
+
+<section class="card card-fluid tablescroll">
+    @using (Html.BeginForm(Model.isProduct ? "Product" : "News", "AdminCategory", FormMethod.Post, new { onsubmit = "submitfrom()" }))
+    {
+        @Html.AntiForgeryToken()
+        <input type="hidden" id="JsonText" name="JsonText" />
+
+        <header class="card-header border-bottom-0"> @ViewBag.Title </header><!-- .nestable -->
+        <div id="nestable02" class="dd" data-toggle="nestable" data-group="1">
+            <!-- .dd-list -->
+            <ol class="dd-list">
+                @foreach (var it in mainmenus)
+                {
+                    <li class="dd-item" data-id="@it.Id">
+                        <div class="dd-handle">
+                            <span class="drag-indicator"></span>
+                            <div>
+                                @Html.Raw(it.Name)
+                            </div>
+                            <div class="dd-nodrag btn-group ml-auto">
+                                <a href="@Url.Action(eAction, new { id = it.Id })" class="btn btn-sm btn-secondary">Edit</a> <a href="@Url.Action(dAction, new { id = it.Id })" class="btn btn-sm btn-secondary"><i class="far fa-trash-alt"></i></a>
+                            </div>
+                        </div>
+                        @GetSubCategories(it,eAction,dAction)
+                    </li>
+                }
+
+            </ol><!-- /.dd-list -->
+        </div><!-- /.nestable -->
+        <!-- .card-footer -->
+        <div class="card-footer">
+            <button type="submit" class="card-footer-item justify-content-start"><span><i class="fa fa-save mr-1"></i> Lưu</span></button>
+        </div><!-- /.card-footer -->
+    }
+</section>
+<script>
+    var nestable = $("#nestable02");
+    nestable.nestable(nestable.data());
+
+    function submitfrom() {
+        $("#JsonText").val(JSON.stringify(nestable.nestable('serialize')));
+    }
+</script>
+
+@helper GetSubCategories(Category cat,string eAction,string dAction)
+{
+    /**/
+    var subCategories = Model.Categories.Where(x => x.Category_Id != null && x.Category_Id == cat.Id).ToList();
+    if (subCategories.Any())
+    {
+        <ol class="dd-list">
+            @foreach (var subCat in subCategories)
+            {
+                <li class="dd-item" data-id="@subCat.Id">
+                    <div class="dd-handle">
+                        <span class="drag-indicator"></span>
+                        <div> @Html.Raw(subCat.Name) </div>
+                        <div class="dd-nodrag btn-group ml-auto">
+                            <a href="@Url.Action(eAction, new { id = subCat.Id })" class="btn btn-sm btn-secondary">Edit</a> <a href="@Url.Action(dAction, new { id = subCat.Id })" class="btn btn-sm btn-secondary"><i class="far fa-trash-alt"></i></a>
+                        </div>
+                    </div>
+                    @GetSubCategories(subCat,eAction,dAction)
+                </li>
+            }
+        </ol>
+    }
+}

@@ -7,6 +7,7 @@
     using WebMvc.Application.Context;
     using WebMvc.Application.Entities;
     using WebMvc.Application.Lib;
+    using System.Linq;
 
     public partial class RoleSevice
     {
@@ -44,10 +45,8 @@
             Cmd.CommandText += " BEGIN INSERT INTO [MembershipRole]([Id],[RoleName])";
             Cmd.CommandText += " VALUES(@Id,@RoleName) END ";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = role.Id;
-            Cmd.Parameters.Add("RoleName", SqlDbType.NVarChar).Value = role.RoleName;
-            //Cmd.AddParameters("Id", role.Id);
-            //Cmd.AddParameters("RoleName", role.RoleName);
+            Cmd.AddParameters("Id", role.Id);
+            Cmd.AddParameters("RoleName", role.RoleName);
 
             bool ret = Cmd.command.ExecuteNonQuery() > 0;
 
@@ -121,8 +120,8 @@
 
             Cmd.CommandText = "UPDATE [MembershipRole] SET [RoleName] = @RoleName WHERE [Id] = @Id";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = role.Id;
-            Cmd.Parameters.Add("RoleName", SqlDbType.NVarChar).Value = role.RoleName;
+            Cmd.AddParameters("Id", role.Id);
+            Cmd.AddParameters("RoleName", role.RoleName);
 
             bool ret = Cmd.command.ExecuteNonQuery() > 0;
 
@@ -138,13 +137,18 @@
 
             Cmd.CommandText = "DELETE FROM [MembershipRole] WHERE [Id] = @Id";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = Id;
+            Cmd.AddParameters("Id", Id);
 
             bool ret = Cmd.command.ExecuteNonQuery() > 0;
 
             Cmd.Close();
 
             if (!ret) throw new Exception("Update MembershipRole false");
+        }
+
+        public string GetRoleNameById(Guid Id)
+        {
+            return GetAllMembershipRole().Where(x => x.Id == Id).FirstOrDefault()?.RoleName;
         }
         #endregion
     }

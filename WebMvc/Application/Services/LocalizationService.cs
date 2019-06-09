@@ -91,8 +91,8 @@ namespace WebMvc.Services
 				+ " INNER JOIN [LocaleResourceKey] AS KY ON ST.LocaleResourceKey_Id = KY.Id"
 				+ "  WHERE KY.[Name] = @KEY AND ST.[Language_Id] = @Language_Id";
 
-			Cmd.Parameters.Add("KEY", SqlDbType.NVarChar).Value = key;
-			Cmd.Parameters.Add("Language_Id", SqlDbType.UniqueIdentifier).Value = languageId;
+			Cmd.AddParameters("KEY", key);
+			Cmd.AddParameters("Language_Id", languageId);
 
 			DataRow data = Cmd.FindFirst();
 
@@ -233,7 +233,7 @@ namespace WebMvc.Services
                 + " VALUES(@Id,@Name,@LanguageCulture,@FlagImageFileName,@RightToLeft)";
 
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = language.Id;
+            Cmd.AddParameters("Id", language.Id);
             Cmd.AddParameters("Name", language.Name);
             Cmd.AddParameters("LanguageCulture", language.LanguageCulture);
             Cmd.AddParameters("FlagImageFileName", language.FlagImageFileName);
@@ -256,8 +256,8 @@ namespace WebMvc.Services
 
             Cmd.CommandText = "INSERT INTO [dbo].[LocaleResourceKey]([Id],[Name],[Notes],[DateAdded])"
                 + " VALUES(@Id,@Name,@Notes,@DateAdded)";
-            
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = localeResourceKey.Id;
+
+            Cmd.AddParameters("Id", localeResourceKey.Id);
             Cmd.AddParameters("Name", localeResourceKey.Name);
             Cmd.AddParameters("Notes", localeResourceKey.Notes);
             Cmd.AddParameters("DateAdded", localeResourceKey.DateAdded);
@@ -278,7 +278,7 @@ namespace WebMvc.Services
             Cmd.CommandText = "INSERT INTO [dbo].[LocaleStringResource]([Id],[ResourceValue],[LocaleResourceKey_Id],[Language_Id])"
                 + " VALUES(@Id,@ResourceValue,@LocaleResourceKey_Id,@Language_Id)";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = localeStringResource.Id;
+            Cmd.AddParameters("Id", localeStringResource.Id);
             Cmd.AddParameters("ResourceValue", localeStringResource.ResourceValue);
             Cmd.AddParameters("LocaleResourceKey_Id", localeStringResource.LocaleResourceKey_Id);
             Cmd.AddParameters("Language_Id", localeStringResource.Language_Id);
@@ -297,7 +297,7 @@ namespace WebMvc.Services
 
             Cmd.CommandText = "UPDATE [dbo].[LocaleStringResource] SET [ResourceValue] = @ResourceValue,[LocaleResourceKey_Id] = @LocaleResourceKey_Id,[Language_Id] = @Language_Id WHERE [Id] = @Id";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = localeStringResource.Id;
+            Cmd.AddParameters("Id", localeStringResource.Id);
             Cmd.AddParameters("ResourceValue", localeStringResource.ResourceValue);
             Cmd.AddParameters("LocaleResourceKey_Id", localeStringResource.LocaleResourceKey_Id);
             Cmd.AddParameters("Language_Id", localeStringResource.Language_Id);
@@ -629,8 +629,8 @@ namespace WebMvc.Services
             {
                 var Cmd = _context.CreateCommand();
                 Cmd.CommandText = "SELECT * FROM [LocaleStringResource] WHERE [Language_Id] = @Language_Id";
-                
-                Cmd.Parameters.Add("Language_Id", SqlDbType.UniqueIdentifier).Value = languageId;
+
+                Cmd.AddParameters("Language_Id", languageId);
 
                 DataTable data = Cmd.FindAll();
 
@@ -661,7 +661,7 @@ namespace WebMvc.Services
                     + " INNER JOIN [LocaleResourceKey] AS KY ON ST.LocaleResourceKey_Id = KY.Id"
                     + "  WHERE ST.[Language_Id] = @Language_Id";
 
-            Cmd.Parameters.Add("Language_Id", SqlDbType.UniqueIdentifier).Value = language.Id;
+            Cmd.AddParameters("Language_Id", language.Id);
 
             DataTable data = Cmd.FindAll();
 
@@ -798,8 +798,8 @@ namespace WebMvc.Services
 				if (!seach.IsNullEmpty())
 				{
 					Cmd.CommandText += " WHERE UPPER(RTRIM(LTRIM([Name]))) LIKE  N'%'+UPPER(RTRIM(LTRIM(@SeachKeys)))+'%'";
-					Cmd.Parameters.Add("SeachKeys", SqlDbType.NVarChar).Value = seach;
-				}
+                    Cmd.AddParameters("SeachKeys", seach);
+                }
 
 				count = (int)Cmd.command.ExecuteScalar();
 				Cmd.Close();
@@ -824,14 +824,14 @@ namespace WebMvc.Services
 				if (!seach.IsNullEmpty())
 				{
 					Cmd.CommandText += " WHERE UPPER(RTRIM(LTRIM([Name]))) LIKE  N'%'+UPPER(RTRIM(LTRIM(@SeachKeys)))+'%'";
-					Cmd.Parameters.Add("SeachKeys", SqlDbType.NVarChar).Value = seach;
-				}
+                    Cmd.AddParameters("SeachKeys", seach);
+                }
 				Cmd.CommandText += ") AS MyDerivedTable WHERE RowNum > @Offset";
 
 				//Cmd.Parameters.Add("limit", SqlDbType.Int).Value = limit;
-				Cmd.Parameters.Add("Offset", SqlDbType.Int).Value = (page - 1) * limit;
+                    Cmd.AddParameters("Offset", (page - 1) * limit);
 
-				listKey = Cmd.FindAll<LocaleResourceKey>();
+                listKey = Cmd.FindAll<LocaleResourceKey>();
 				Cmd.Close();
 
 				if (listKey == null) return null;
@@ -851,8 +851,7 @@ namespace WebMvc.Services
                
 
                 Cmd.CommandText = "SELECT * FROM  [LocaleResourceKey] WHERE [Name] = @Name";
-
-                Cmd.Parameters.Add("Name", SqlDbType.NVarChar).Value = resourceKey;
+                Cmd.AddParameters("Name", resourceKey);
 
                 DataRow data = Cmd.FindFirst();
                 Cmd.Close();
@@ -876,8 +875,7 @@ namespace WebMvc.Services
 
 
 				Cmd.CommandText = "SELECT * FROM  [LocaleResourceKey] WHERE [Id] = @Id";
-
-				Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = Id;
+                Cmd.AddParameters("Id", Id);
 
 				DataRow data = Cmd.FindFirst();
 				Cmd.Close();
@@ -902,8 +900,8 @@ namespace WebMvc.Services
                 Cmd.CommandText = "SELECT * FROM [LocaleStringResource] "
                     + "  WHERE [Language_Id] = @Language_Id AND [LocaleResourceKey_Id] = @LocaleResourceKey_Id";
 
-                Cmd.Parameters.Add("LocaleResourceKey_Id", SqlDbType.UniqueIdentifier).Value = value_Id;
-                Cmd.Parameters.Add("Language_Id", SqlDbType.UniqueIdentifier).Value = lang_id;
+                Cmd.AddParameters("LocaleResourceKey_Id", value_Id);
+                Cmd.AddParameters("Language_Id", lang_id);
 
                 DataRow data = Cmd.FindFirst();
                 if (data == null) return null;
@@ -929,8 +927,8 @@ namespace WebMvc.Services
                     + " INNER JOIN [LocaleResourceKey] AS KY ON ST.LocaleResourceKey_Id = KY.Id"
                     + "  WHERE ST.[Language_Id] = @Language_Id AND KY.[Name] = @KEY";
 
-                Cmd.Parameters.Add("KEY", SqlDbType.NVarChar).Value = resourceKey;
-                Cmd.Parameters.Add("Language_Id", SqlDbType.UniqueIdentifier).Value = lang_id;
+                Cmd.AddParameters("KEY", resourceKey);
+                Cmd.AddParameters("Language_Id", lang_id);
 
                 DataRow data = Cmd.FindFirst();
                 if (data == null) return null;
@@ -961,18 +959,18 @@ namespace WebMvc.Services
 				if (!seachkeys.IsNullEmpty())
 				{
 					Cmd.CommandText += " AND UPPER(RTRIM(LTRIM(TK.[Name]))) LIKE  N'%'+UPPER(RTRIM(LTRIM(@SeachKeys)))+'%'";
-					Cmd.Parameters.Add("SeachKeys", SqlDbType.NVarChar).Value = seachkeys;
-				}
+                Cmd.AddParameters("SeachKeys", seachkeys);
+                }
 
-				if (!seachValues.IsNullEmpty())
+                if (!seachValues.IsNullEmpty())
 				{
 					Cmd.CommandText += " AND UPPER(RTRIM(LTRIM(TV.[ResourceValue]))) LIKE  N'%'+UPPER(RTRIM(LTRIM(@SeachValues)))+'%'";
-					Cmd.Parameters.Add("SeachValues", SqlDbType.NVarChar).Value = seachValues;
-				}
+                Cmd.AddParameters("SeachValues", seachValues);
+                }
 
-				Cmd.Parameters.Add("Language_Id", SqlDbType.UniqueIdentifier).Value = langId;
+                Cmd.AddParameters("Language_Id", langId);
 
-				count = (int)Cmd.command.ExecuteScalar();
+                count = (int)Cmd.command.ExecuteScalar();
 				Cmd.Close();
 				
 				_cacheService.Set(cachekey, count, CacheTimes.OneHour);
@@ -999,20 +997,20 @@ namespace WebMvc.Services
 				if (!seachkeys.IsNullEmpty())
 				{
 					Cmd.CommandText += " AND UPPER(RTRIM(LTRIM(TK.[Name]))) LIKE  N'%'+UPPER(RTRIM(LTRIM(@SeachKeys)))+'%'";
-					Cmd.Parameters.Add("SeachKeys", SqlDbType.NVarChar).Value = seachkeys;
-				}
+                Cmd.AddParameters("SeachKeys", seachkeys);
+                }
 
-				if (!seachValues.IsNullEmpty())
+                if (!seachValues.IsNullEmpty())
 				{
 					Cmd.CommandText += " AND UPPER(RTRIM(LTRIM(TV.[ResourceValue]))) LIKE  N'%'+UPPER(RTRIM(LTRIM(@SeachValues)))+'%'";
-					Cmd.Parameters.Add("SeachValues", SqlDbType.NVarChar).Value = seachValues;
-				}
+                Cmd.AddParameters("SeachValues", seachValues);
+                }
 
-				Cmd.CommandText += ") AS MyDerivedTable WHERE RowNum > @Offset";
+                Cmd.CommandText += ") AS MyDerivedTable WHERE RowNum > @Offset";
 
-				//Cmd.Parameters.Add("limit", SqlDbType.Int).Value = limit;
-				Cmd.Parameters.Add("Offset", SqlDbType.Int).Value = (page - 1) * limit;
-				Cmd.Parameters.Add("Language_Id", SqlDbType.UniqueIdentifier).Value = langId;
+                Cmd.AddParameters("Offset", (page - 1) * limit);
+                Cmd.AddParameters("Language_Id", langId);
+                //Cmd.Parameters.Add("limit", SqlDbType.Int).Value = limit;
 
 				listKey = Cmd.FindAll<LocaleResourceViewModel>();
 				Cmd.Close();

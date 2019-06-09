@@ -1,0 +1,111 @@
+30/12/2018 12:48:11 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | A public action method 'Delete' was not found on controller 'WebMvc.Areas.Admin.Controllers.AdminMembersController'.
+30/12/2018 12:50:17 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | The view 'Edit' or its master was not found or no view engine supports the searched locations. The following locations were searched:
+~/Areas/Admin/Views/AdminMembers/Edit.cshtml
+~/Areas/Admin/Views/AdminMembers/Edit.vbhtml
+~/Areas/Admin/Views/Shared/Edit.cshtml
+~/Areas/Admin/Views/Shared/Edit.vbhtml
+~/Themes/Classiera/Views/AdminMembers/Edit.cshtml
+~/Themes/Classiera/Views/Extensions/AdminMembers/Edit.cshtml
+~/Views/Extensions/AdminMembers/Edit.cshtml
+~/Views/AdminMembers/Edit.cshtml
+~/Views/AdminMembers/Edit.vbhtml
+~/Views/Shared/Edit.cshtml
+~/Views/Shared/Edit.vbhtml
+30/12/2018 12:59:09 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | The view 'Edit' or its master was not found or no view engine supports the searched locations. The following locations were searched:
+~/Areas/Admin/Views/AdminMembers/Edit.cshtml
+~/Areas/Admin/Views/AdminMembers/Edit.vbhtml
+~/Areas/Admin/Views/Shared/Edit.cshtml
+~/Areas/Admin/Views/Shared/Edit.vbhtml
+~/Themes/Classiera/Views/AdminMembers/Edit.cshtml
+~/Themes/Classiera/Views/Extensions/AdminMembers/Edit.cshtml
+~/Views/Extensions/AdminMembers/Edit.cshtml
+~/Views/AdminMembers/Edit.cshtml
+~/Views/AdminMembers/Edit.vbhtml
+~/Views/Shared/Edit.cshtml
+~/Views/Shared/Edit.vbhtml
+30/12/2018 13:18:36 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+30/12/2018 14:36:46 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+30/12/2018 14:37:04 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | F:\IT\C#\Web\WebMvc\WebMvc\Areas\Admin\Views\AdminMembers\_UserRolesEdit.cshtml(16): error CS1001: Identifier expected
+30/12/2018 14:37:36 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | F:\IT\C#\Web\WebMvc\WebMvc\Areas\Admin\Views\AdminMembers\_UserRolesEdit.cshtml(16): error CS1001: Identifier expected
+30/12/2018 14:40:50 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | F:\IT\C#\Web\WebMvc\WebMvc\Areas\Admin\Views\AdminMembers\_UserRolesEdit.cshtml(16): error CS1001: Identifier expected
+01/01/2019 13:54:20 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+01/01/2019 14:10:53 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+01/01/2019 15:23:34 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+01/01/2019 15:23:59 | WebMvc.dll | Create | WebMvc.Areas.Admin.Controllers.AdminMembersController | 106 | SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+08/01/2019 14:44:48 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+08/01/2019 14:46:05 | WebMvc.dll | Create | WebMvc.Areas.Admin.Controllers.AdminMembersController | 106 | The parameterized query '(@Email nvarchar(4000))SELECT * FROM [MembershipUser] WHERE Emai' expects the parameter '@Email', which was not supplied.
+08/01/2019 14:46:27 | WebMvc.dll | Create | WebMvc.Areas.Admin.Controllers.AdminMembersController | 106 | Violation of PRIMARY KEY constraint 'PK__Membersh__463BA300AF22D1A0'. Cannot insert duplicate key in object 'dbo.MembershipUsersInRoles'. The duplicate key value is (7e3567cf-735c-42c6-8f95-a9cf00f378e0).
+The statement has been terminated.
+08/01/2019 14:53:07 | WebMvc.dll | Create | WebMvc.Areas.Admin.Controllers.AdminMembersController | 106 | Invalid object name 'dbo.MembershipUsersInRoles'.
+08/01/2019 14:53:30 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+08/01/2019 14:55:54 | WebMvc.dll | Create | WebMvc.Areas.Admin.Controllers.AdminMembersController | 106 | The parameterized query '(@Email nvarchar(4000))SELECT * FROM [MembershipUser] WHERE Emai' expects the parameter '@Email', which was not supplied.
+08/01/2019 14:57:08 | WebMvc.dll | Create | WebMvc.Areas.Admin.Controllers.AdminMembersController | 106 | The parameterized query '(@Email nvarchar(4000))SELECT * FROM [MembershipUser] WHERE Emai' expects the parameter '@Email', which was not supplied.
+08/01/2019 14:57:12 | WebMvc.dll | Create | WebMvc.Areas.Admin.Controllers.AdminMembersController | 106 | The parameterized query '(@Email nvarchar(4000))SELECT * FROM [MembershipUser] WHERE Emai' expects the parameter '@Email', which was not supplied.
+08/01/2019 14:57:29 | WebMvc.dll | Create | WebMvc.Areas.Admin.Controllers.AdminMembersController | 106 | The parameterized query '(@Email nvarchar(4000))SELECT * FROM [MembershipUser] WHERE Emai' expects the parameter '@Email', which was not supplied.
+08/01/2019 14:58:43 | WebMvc.dll | Create | WebMvc.Areas.Admin.Controllers.AdminMembersController | 106 | The parameterized query '(@Email nvarchar(4000))SELECT * FROM [MembershipUser] WHERE Emai' expects the parameter '@Email', which was not supplied.
+08/01/2019 14:58:45 | WebMvc.dll | Create | WebMvc.Areas.Admin.Controllers.AdminMembersController | 106 | The parameterized query '(@Email nvarchar(4000))SELECT * FROM [MembershipUser] WHERE Emai' expects the parameter '@Email', which was not supplied.
+08/01/2019 15:00:11 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+08/01/2019 15:05:04 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+08/01/2019 15:05:58 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | The view 'Edit' or its master was not found or no view engine supports the searched locations. The following locations were searched:
+~/Areas/Admin/Views/AdminMembers/Edit.cshtml
+~/Areas/Admin/Views/AdminMembers/Edit.vbhtml
+~/Areas/Admin/Views/Shared/Edit.cshtml
+~/Areas/Admin/Views/Shared/Edit.vbhtml
+~/Themes/Classiera/Views/AdminMembers/Edit.cshtml
+~/Themes/Classiera/Views/Extensions/AdminMembers/Edit.cshtml
+~/Views/Extensions/AdminMembers/Edit.cshtml
+~/Views/AdminMembers/Edit.cshtml
+~/Views/AdminMembers/Edit.vbhtml
+~/Views/Shared/Edit.cshtml
+~/Views/Shared/Edit.vbhtml
+08/01/2019 15:13:02 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+08/01/2019 15:22:27 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+08/01/2019 15:28:03 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+18/01/2019 04:04:13 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+19/01/2019 12:44:20 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+29/01/2019 15:25:23 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+29/01/2019 15:26:26 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | Object reference not set to an instance of an object.
+29/01/2019 15:28:04 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+29/01/2019 15:41:48 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+29/01/2019 15:42:34 | WebMvc.dll | NewUser | WebMvc.Services.MembershipService | 259 | Violation of UNIQUE KEY constraint 'UQ__Membersh__BC7B5FB698DDD9DB'. Cannot insert duplicate key in object 'dbo.MembershipUser'. The duplicate key value is (kaisermtv).
+The statement has been terminated.
+29/01/2019 15:43:42 | WebMvc.dll | NewUser | WebMvc.Services.MembershipService | 259 | Violation of UNIQUE KEY constraint 'UQ__Membersh__BC7B5FB698DDD9DB'. Cannot insert duplicate key in object 'dbo.MembershipUser'. The duplicate key value is (kaisermtv).
+The statement has been terminated.
+29/01/2019 15:45:45 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+29/01/2019 15:46:53 | WebMvc.dll | NewUser | WebMvc.Services.MembershipService | 259 | Add MembershipUser false
+29/01/2019 16:34:06 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+29/01/2019 16:37:22 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+29/01/2019 16:41:50 | WebMvc.dll | NewUser | WebMvc.Services.MembershipService | 267 | Add MembershipUser false
+29/01/2019 16:49:11 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+29/01/2019 16:58:22 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+30/01/2019 15:18:09 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+30/01/2019 16:05:43 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+30/01/2019 16:07:08 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | Object reference not set to an instance of an object.
+30/01/2019 16:08:01 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+30/01/2019 16:10:26 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 0 | Object reference not set to an instance of an object.
+30/01/2019 16:47:50 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+30/01/2019 17:02:43 | WebMvc.dll | Application_Start | WebMvc.MvcApplication | 24 | START APP
+30/01/2019 17:02:57 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | The view 'NewPass' or its master was not found or no view engine supports the searched locations. The following locations were searched:
+~/Areas/Admin/Views/AdminMembers/NewPass.cshtml
+~/Areas/Admin/Views/AdminMembers/NewPass.vbhtml
+~/Areas/Admin/Views/Shared/NewPass.cshtml
+~/Areas/Admin/Views/Shared/NewPass.vbhtml
+~/Themes/Classiera/Views/AdminMembers/NewPass.cshtml
+~/Themes/Classiera/Views/Extensions/AdminMembers/NewPass.cshtml
+~/Views/Extensions/AdminMembers/NewPass.cshtml
+~/Views/AdminMembers/NewPass.cshtml
+~/Views/AdminMembers/NewPass.vbhtml
+~/Views/Shared/NewPass.cshtml
+~/Views/Shared/NewPass.vbhtml
+30/01/2019 17:03:05 | WebMvc.dll | Application_Error | WebMvc.MvcApplication | 68 | The view 'NewPass' or its master was not found or no view engine supports the searched locations. The following locations were searched:
+~/Areas/Admin/Views/AdminMembers/NewPass.cshtml
+~/Areas/Admin/Views/AdminMembers/NewPass.vbhtml
+~/Areas/Admin/Views/Shared/NewPass.cshtml
+~/Areas/Admin/Views/Shared/NewPass.vbhtml
+~/Themes/Classiera/Views/AdminMembers/NewPass.cshtml
+~/Themes/Classiera/Views/Extensions/AdminMembers/NewPass.cshtml
+~/Views/Extensions/AdminMembers/NewPass.cshtml
+~/Views/AdminMembers/NewPass.cshtml
+~/Views/AdminMembers/NewPass.vbhtml
+~/Views/Shared/NewPass.cshtml
+~/Views/Shared/NewPass.vbhtml

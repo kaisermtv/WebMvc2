@@ -26,12 +26,14 @@ namespace WebMvc.Services
         private readonly WebMvcContext _context;
         private readonly CacheService _cacheService;
         private readonly LocalizationService _localizationService;
+        private readonly LoggingService _loggingService;
 
-        public MembershipService(WebMvcContext context, CacheService cacheService, LocalizationService localizationService)
+        public MembershipService(LoggingService loggingService,WebMvcContext context, CacheService cacheService, LocalizationService localizationService)
         {
             _cacheService = cacheService;
             _context = context as WebMvcContext;
             _localizationService = localizationService;
+            _loggingService = loggingService;
         }
 
         #region Status Codes
@@ -74,33 +76,6 @@ namespace WebMvc.Services
         }
         #endregion
 
-        #region DataRowToMembershipUser
-        private MembershipUser DataRowToMembershipUser(DataRow data)
-        {
-            if (data == null) return null;
-
-            MembershipUser member = new MembershipUser();
-
-            member.Id = new Guid(data["Id"].ToString());
-            member.UserName = data["UserName"].ToString();
-            member.Password = data["Password"].ToString();
-            member.PasswordSalt = data["PasswordSalt"].ToString();
-            member.Email = data["Email"].ToString();
-            member.PasswordQuestion = data["PasswordQuestion"].ToString();
-            member.PasswordAnswer = data["PasswordAnswer"].ToString();
-            member.IsApproved = (bool)data["IsApproved"];
-            member.FailedPasswordAttemptCount = (int)data["FailedPasswordAttemptCount"];
-            member.IsLockedOut = (bool)data["IsLockedOut"];
-            member.LastLockoutDate = (DateTime)data["LastLockoutDate"];
-            member.LastLoginDate = (DateTime)data["LastLoginDate"];
-            member.CreateDate = (DateTime)data["CreateDate"];
-            member.LastPasswordChangedDate = (DateTime)data["LastPasswordChangedDate"];
-            member.Slug = data["Slug"].ToString();
-
-            return member;
-        }
-        #endregion
-
         public MembershipUser SanitizeUser(MembershipUser membershipUser)
         {
             membershipUser.Avatar = StringUtils.SafePlainText(membershipUser.Avatar);
@@ -120,57 +95,86 @@ namespace WebMvc.Services
         {
             //string cachekey = string.Concat(CacheKeys.Member.StartsWith, "getSetting-", key);
 
-            var Cmd = _context.CreateCommand();
+            using (var Cmd = _context.CreateCommand())
+            {
+                bool ret = Cmd.Add<MembershipUser>(User) > 0;
+                Cmd.cacheStartsWithToClear(CacheKeys.Member.StartsWith);
 
-            Cmd.CommandText = "IF NOT EXISTS (SELECT * FROM MembershipUser WHERE Id = @Id OR UserName = @UserName OR Email = @Email)";
-            Cmd.CommandText += " BEGIN INSERT INTO MembershipUser(Id,UserName,Password,PasswordSalt,Email,CreateDate,LastLockoutDate,LastPasswordChangedDate,LastLoginDate,IsLockedOut,IsApproved,IsBanned,FailedPasswordAttemptCount,FailedPasswordAnswerAttempt,Slug)";
-            Cmd.CommandText += " VALUES(@Id,@UserName,@Password,@PasswordSalt,@Email,@CreateDate,@LastLockoutDate,@LastPasswordChangedDate,@LastLoginDate,@IsLockedOut,@IsApproved,@IsBanned,@FailedPasswordAttemptCount,@FailedPasswordAnswerAttempt,@Slug) END ";
+                if (!ret) throw new Exception("Add MembershipUser false");
+            }
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = User.Id;
-            Cmd.Parameters.Add("UserName", SqlDbType.NVarChar).Value = User.UserName;
-            Cmd.Parameters.Add("Password", SqlDbType.NVarChar).Value = User.Password;
-            Cmd.Parameters.Add("PasswordSalt", SqlDbType.NVarChar).Value = User.PasswordSalt;
-            Cmd.Parameters.Add("Email", SqlDbType.NVarChar).Value = User.Email;
-            Cmd.Parameters.Add("CreateDate", SqlDbType.DateTime).Value = User.CreateDate;
-            Cmd.Parameters.Add("LastLockoutDate", SqlDbType.DateTime).Value = User.LastLockoutDate;
-            Cmd.Parameters.Add("LastPasswordChangedDate", SqlDbType.DateTime).Value = User.LastPasswordChangedDate;
-            Cmd.Parameters.Add("LastLoginDate", SqlDbType.DateTime).Value = User.LastLoginDate;
-            Cmd.Parameters.Add("IsLockedOut", SqlDbType.Bit).Value = User.IsLockedOut;
-            Cmd.Parameters.Add("IsApproved", SqlDbType.Bit).Value = User.IsApproved;
-            Cmd.Parameters.Add("IsBanned", SqlDbType.Bit).Value = User.IsBanned;
-            Cmd.Parameters.Add("FailedPasswordAttemptCount", SqlDbType.Int).Value = User.FailedPasswordAttemptCount;
-            Cmd.Parameters.Add("FailedPasswordAnswerAttempt", SqlDbType.Int).Value = User.FailedPasswordAnswerAttempt;
-            Cmd.Parameters.Add("Slug", SqlDbType.NVarChar).Value = User.Slug;
+            //var Cmd = _context.CreateCommand();
+
+            //Cmd.CommandText = "IF NOT EXISTS (SELECT * FROM MembershipUser WHERE Id = @Id OR UserName = @UserName OR Email = @Email)";
+            //Cmd.CommandText += " BEGIN INSERT INTO MembershipUser(Id,UserName,Password,PasswordSalt,Email,CreateDate,LastLockoutDate,LastPasswordChangedDate,LastLoginDate,IsLockedOut,IsApproved,IsBanned,FailedPasswordAttemptCount,FailedPasswordAnswerAttempt,Slug)";
+            //Cmd.CommandText += " VALUES(@Id,@UserName,@Password,@PasswordSalt,@Email,@CreateDate,@LastLockoutDate,@LastPasswordChangedDate,@LastLoginDate,@IsLockedOut,@IsApproved,@IsBanned,@FailedPasswordAttemptCount,@FailedPasswordAnswerAttempt,@Slug) END ";
+
+            //Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = User.Id;
+            //Cmd.Parameters.Add("UserName", SqlDbType.NVarChar).Value = User.UserName;
+            //Cmd.Parameters.Add("Password", SqlDbType.NVarChar).Value = User.Password;
+            //Cmd.Parameters.Add("PasswordSalt", SqlDbType.NVarChar).Value = User.PasswordSalt;
+            //Cmd.AddParameters("Email", User.Email);
+            //Cmd.AddParameters("CreateDate", User.CreateDate);
+            //Cmd.AddParameters("LastLockoutDate", User.LastLockoutDate);
+            //Cmd.AddParameters("LastPasswordChangedDate", User.LastPasswordChangedDate);
+            //Cmd.AddParameters("LastLoginDate", User.LastLoginDate);
+            //Cmd.AddParameters("IsLockedOut", User.IsLockedOut);
+            //Cmd.AddParameters("IsApproved", User.IsApproved);
+            //Cmd.AddParameters("IsBanned", User.IsBanned);
+            //Cmd.AddParameters("FailedPasswordAttemptCount", User.FailedPasswordAttemptCount);
+            //Cmd.AddParameters("FailedPasswordAnswerAttempt", User.FailedPasswordAnswerAttempt);
+            //Cmd.AddParameters("Slug", User.Slug);
             
 
-            bool ret = Cmd.command.ExecuteNonQuery() > 0;
+            //bool ret = Cmd.command.ExecuteNonQuery() > 0;
 
-            Cmd.cacheStartsWithToClear(CacheKeys.Member.StartsWith);
-            Cmd.Close();
+            //Cmd.cacheStartsWithToClear(CacheKeys.Member.StartsWith);
+            //Cmd.Close();
 
-            if (ret) throw new Exception("Add MembershipUser false");
+            //if (!ret) throw new Exception("Add MembershipUser false");
+        }
+
+        public void ClearRolesByUser(MembershipUser user)
+        {
+            using (var Cmd = _context.CreateCommand())
+            {
+                Cmd.CommandText = "DELETE FROM [dbo].[MembershipUsersInRoles] WHERE UserIdentifier = @UserId";
+                Cmd.AddParameters("UserId", user.Id);
+
+                Cmd.command.ExecuteNonQuery();
+            }
+        }
+
+        public void AddRoleByUser(Guid userId,Guid roleId)
+        {
+            using (var Cmd = _context.CreateCommand())
+            {
+                Cmd.CommandText = "INSERT INTO [dbo].[MembershipUsersInRoles](UserIdentifier,RoleIdentifier) VALUES (@UserId,@RoleId) ";
+                Cmd.AddParameters("UserId", userId);
+                Cmd.AddParameters("RoleId", roleId);
+
+                Cmd.command.ExecuteNonQuery();
+            }
         }
 
         public MembershipUser Get(Guid Id,bool nocache = false)
         {
             string cachekey = string.Concat(CacheKeys.Member.StartsWith, "Get-", Id);
-            var topic = _cacheService.Get<MembershipUser>(cachekey);
-            if (topic == null || nocache)
+            var data = _cacheService.Get<MembershipUser>(cachekey);
+            if (data == null || nocache)
             {
                 var Cmd = _context.CreateCommand();
 
                 Cmd.CommandText = "SELECT * FROM [MembershipUser] WHERE Id = @Id";
 
-                Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = Id;
+                Cmd.AddParameters("Id", Id);
 
-                DataRow data = Cmd.FindFirst();
+                data = Cmd.FindFirst<MembershipUser>();
                 if (data == null) return null;
 
-                topic = DataRowToMembershipUser(data);
-
-                if(!nocache) _cacheService.Set(cachekey, topic, CacheTimes.OneDay);
+                if(!nocache) _cacheService.Set(cachekey, data, CacheTimes.OneDay);
             }
-            return topic;
+            return data;
         }
 
         public void Update(MembershipUser User)
@@ -181,12 +185,12 @@ namespace WebMvc.Services
             Cmd.CommandText = "UPDATE [dbo].[MembershipUser] SET UserName = @UserName,Password = @Password,PasswordSalt = @PasswordSalt,Email = @Email,LastLockoutDate = @LastLockoutDate,FailedPasswordAnswerAttempt = @FailedPasswordAnswerAttempt,Slug = @Slug,"
                             + "LastPasswordChangedDate = @LastPasswordChangedDate,LastLoginDate = @LastLoginDate,IsLockedOut = @IsLockedOut,IsApproved = @IsApproved,IsBanned = @IsBanned,FailedPasswordAttemptCount = @FailedPasswordAttemptCount"
                             + " WHERE [Id] = @Id";
-            
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = User.Id;
-            Cmd.Parameters.Add("UserName", SqlDbType.NVarChar).Value = User.UserName;
-            Cmd.Parameters.Add("Password", SqlDbType.NVarChar).Value = User.Password;
-            Cmd.Parameters.Add("PasswordSalt", SqlDbType.NVarChar).Value = User.PasswordSalt;
-            Cmd.Parameters.Add("Email", SqlDbType.NVarChar).Value = User.Email;
+
+            Cmd.AddParameters("Id", User.Id);
+            Cmd.AddParameters("UserName", User.UserName);
+            Cmd.AddParameters("Password", User.Password);
+            Cmd.AddParameters("PasswordSalt", User.PasswordSalt);
+            Cmd.AddParameters("Email", User.Email);
             Cmd.AddParameters("CreateDate", User.CreateDate);
             Cmd.AddParameters("LastLockoutDate", User.LastLockoutDate);
             Cmd.AddParameters("LastPasswordChangedDate", User.LastPasswordChangedDate);
@@ -257,12 +261,10 @@ namespace WebMvc.Services
                 {
                     Add(newUser);
 
-
-
-                    
                 }
-                catch
+                catch(Exception ex)
                 {
+                    _loggingService.Error(ex);
                     status = MembershipCreateStatus.UserRejected;
                 }
                 
@@ -278,16 +280,14 @@ namespace WebMvc.Services
             var cacheKey = string.Concat(CacheKeys.Member.StartsWith, "GetUserByEmail-", email);
             return _cacheService.CachePerRequest(cacheKey, () =>
             {
-                var Cmd = _context.CreateCommand();
-                Cmd.CommandText = "SELECT * FROM [MembershipUser] WHERE Email = @Email";
+                using (var Cmd = _context.CreateCommand())
+                {
+                    Cmd.CommandText = "SELECT * FROM [MembershipUser] WHERE Email = @Email";
 
-                Cmd.Parameters.Add("Email", SqlDbType.NVarChar).Value = email;
+                    Cmd.AddParameters("Email", email);
 
-                DataRow data = Cmd.FindFirst();
-
-                Cmd.Close();
-
-                return DataRowToMembershipUser(data);
+                    return Cmd.FindFirst<MembershipUser>();
+                }
             });
 
         }
@@ -298,43 +298,155 @@ namespace WebMvc.Services
             
             return _cacheService.CachePerRequest(cacheKey, () =>
             {
-                var Cmd = _context.CreateCommand();
-                Cmd.CommandText = "SELECT * FROM [MembershipUser] WHERE UserName = @UserName";
+                using (var Cmd = _context.CreateCommand())
+                {
+                    Cmd.CommandText = "SELECT * FROM [MembershipUser] WHERE UserName = @UserName";
 
-                Cmd.Parameters.Add("UserName", SqlDbType.NVarChar).Value = username;
+                    Cmd.AddParameters("UserName", username);
 
-                DataRow data = Cmd.FindFirst();
-
-                Cmd.Close();
-                
-                return DataRowToMembershipUser(data);
+                    return Cmd.FindFirst<MembershipUser>();
+                }
             });
         }
 
-        public string[] GetRolesForUser(string username)
+        #region Roles
+        public MembershipRole GetRole(Guid Id,bool iscache = true)
         {
-            username = StringUtils.SafePlainText(username);
-
-            var roles = new List<string>();
-            var user = GetUser(username);
-
-            var Cmd = _context.CreateCommand();
-            Cmd.CommandText = " SELECT RL.[RoleName] FROM [MembershipRole] AS RL INNER JOIN [MembershipUsersInRoles] AS UR ON RL.Id = UR.RoleIdentifier WHERE UR.UserIdentifier = @UserId";
-
-            Cmd.Parameters.Add("UserId", SqlDbType.UniqueIdentifier).Value = user.Id;
-
-            DataTable data = Cmd.FindAll();
-
-            Cmd.Close();
-
-            string[] ar = new string[data.Rows.Count];
-            for(int i = 0;i< data.Rows.Count;i++)
+            if (iscache)
             {
-                ar[i] = data.Rows[i]["RoleName"].ToString();
+                string cachekey = string.Concat(CacheKeys.Role.StartsWith, "GetRole-",Id);
+                var role = _cacheService.Get<MembershipRole>(cachekey);
+                if(role == null)
+                {
+                    using (var Cmd = _context.CreateCommand())
+                    {
+                        Cmd.CommandText = " SELECT * FROM [MembershipRole] WHERE [Id] = @Id";
+                        Cmd.AddParameters("Id", Id);
+
+                        role = Cmd.FindFirst<MembershipRole>();
+
+                        _cacheService.Set(cachekey, role, CacheTimes.OneDay);
+                    }
+                }
+
+                return role;
+            } else
+            {
+                using (var Cmd = _context.CreateCommand())
+                {
+                    Cmd.CommandText = " SELECT * FROM [MembershipRole] WHERE [Id] = @Id";
+                    Cmd.AddParameters("Id", Id);
+
+                    return Cmd.FindFirst<MembershipRole>();
+                }
+            }
+        }
+
+        public List<MembershipRole> GetRoles(MembershipUser user)
+        {
+            using (var Cmd = _context.CreateCommand())
+            {
+                Cmd.CommandText = " SELECT RL.* FROM [MembershipRole] AS RL INNER JOIN [MembershipUsersInRoles] AS UR ON RL.Id = UR.RoleIdentifier WHERE UR.UserIdentifier = @UserId";
+
+                Cmd.AddParameters("UserId", user.Id);
+
+                return Cmd.FindAll<MembershipRole>();
+            }
+        }
+
+        public bool UserInRole(MembershipUser user,string roleName)
+        {
+            using (var Cmd = _context.CreateCommand())
+            {
+                Cmd.CommandText = "IF EXITS( SELECT RL.* FROM [MembershipRole] AS RL INNER JOIN [MembershipUsersInRoles] AS UR ON RL.Id = UR.RoleIdentifier WHERE UR.UserIdentifier = @UserId && RL.[RoleName] = @RoleName)" +
+                    " BEGIN SELECT 1 END" +
+                    " ELSE BEGIN SELECT 0 END";
+
+                Cmd.AddParameters("UserId", user.Id);
+                Cmd.AddParameters("RoleName", roleName);
+
+                return (bool)Cmd.command.ExecuteScalar();
+            }
+        }
+
+        public List<MembershipRole> GetAllRoles()
+        {
+            string cachekey = string.Concat(CacheKeys.Role.StartsWith, "GetAllRoles");
+
+            var roles = _cacheService.Get<List<MembershipRole>>(cachekey);
+            if (roles == null)
+            {
+                using (var Cmd = _context.CreateCommand())
+                {
+                    Cmd.CommandText = " SELECT * FROM [MembershipRole] ";
+
+                    roles = Cmd.FindAll<MembershipRole>();
+                }
+                
+                _cacheService.Set(cachekey, roles, CacheTimes.OneDay);
+            }
+            return roles;
+            
+        }
+
+        public List<MembershipRole> GetAllRoles(int limit = 10, int page = 1)
+        {
+            string cachekey = string.Concat(CacheKeys.Role.StartsWith, "GetAllRoles-",limit,"-",page);
+
+            var roles = _cacheService.Get<List<MembershipRole>>(cachekey);
+            if (roles == null)
+            {
+                using (var Cmd = _context.CreateCommand())
+                {
+                    Cmd.CommandText = "SELECT TOP " + limit + " * FROM (SELECT *,(ROW_NUMBER() OVER(ORDER BY [RoleName] ASC)) AS RowNum FROM [MembershipRole]) AS MyDerivedTable WHERE RowNum > @Offset";
+
+                    Cmd.AddParameters("Offset", (page - 1) * limit);
+
+                    roles = Cmd.FindAll<MembershipRole>();
+                }
+
+                _cacheService.Set(cachekey, roles, CacheTimes.OneDay);
+            }
+            return roles;
+        }
+
+        public void Add(MembershipRole Role)
+        {
+            //string cachekey = string.Concat(CacheKeys.Member.StartsWith, "getSetting-", key);
+
+            using (var Cmd = _context.CreateCommand())
+            {
+                Cmd.CommandText = "IF NOT EXISTS (SELECT * FROM [dbo].[MembershipRole] WHERE Id = @Id OR RoleName = @RoleName)";
+                Cmd.CommandText += " BEGIN INSERT INTO [dbo].[MembershipRole](Id,RoleName) VALUES(@Id,@RoleName) END ";
+
+                Cmd.AddParameters("Id", Role.Id);
+                Cmd.AddParameters("RoleName", Role.RoleName);
+
+                bool ret = Cmd.command.ExecuteNonQuery() > 0;
+
+                Cmd.cacheStartsWithToClear(CacheKeys.Role.StartsWith);
+
+                if (!ret) throw new Exception("Add MembershipRole false");
+            }   
+        }
+
+        public void Update(MembershipRole Role)
+        {
+            using (var Cmd = _context.CreateCommand())
+            {
+                Cmd.CommandText = "UPDATE [dbo].[MembershipRole] SET RoleName = @RoleName WHERE [Id] = @Id";
+
+                Cmd.AddParameters("Id", Role.Id);
+                Cmd.AddParameters("RoleName", Role.RoleName);
+
+                bool ret = Cmd.command.ExecuteNonQuery() > 0;
+                Cmd.cacheStartsWithToClear(CacheKeys.Member.StartsWith);
+
+                if (!ret) throw new Exception("Update MembershipRole false");
             }
 
-            return ar;
         }
+        #endregion
 
         /// <summary>
         /// Return last login status
@@ -406,11 +518,11 @@ namespace WebMvc.Services
 
                 Cmd.CommandText = "UPDATE [MembershipUser] SET FailedPasswordAttemptCount = @FailedPasswordAttemptCount,IsLockedOut = @IsLockedOut,LastLockoutDate = @LastLockoutDate,LastLoginDate = @LastLoginDate  WHERE [Id] = @Id";
 
-                Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = user.Id;
-                Cmd.Parameters.Add("FailedPasswordAttemptCount", SqlDbType.Int).Value = user.FailedPasswordAttemptCount;
-                Cmd.Parameters.Add("IsLockedOut", SqlDbType.Bit).Value = user.IsLockedOut;
-                Cmd.Parameters.Add("LastLockoutDate", SqlDbType.DateTime).Value = user.LastLockoutDate;
-                Cmd.Parameters.Add("LastLoginDate", SqlDbType.DateTime).Value = user.LastLoginDate;
+                Cmd.AddParameters("Id", user.Id);
+                Cmd.AddParameters("FailedPasswordAttemptCount", user.FailedPasswordAttemptCount);
+                Cmd.AddParameters("IsLockedOut", user.IsLockedOut);
+                Cmd.AddParameters("LastLockoutDate", user.LastLockoutDate);
+                Cmd.AddParameters("LastLoginDate", user.LastLoginDate);
 
                 Cmd.command.ExecuteNonQuery();
 
@@ -428,11 +540,12 @@ namespace WebMvc.Services
 
             Cmd.CommandText = "UPDATE [MembershipUser] SET FailedPasswordAttemptCount = @FailedPasswordAttemptCount,IsLockedOut = @IsLockedOut,LastLockoutDate = @LastLockoutDate,LastLoginDate = @LastLoginDate  WHERE [Id] = @Id";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = user.Id;
-            Cmd.Parameters.Add("FailedPasswordAttemptCount", SqlDbType.Int).Value = user.FailedPasswordAttemptCount;
-            Cmd.Parameters.Add("IsLockedOut", SqlDbType.Bit).Value = user.IsLockedOut;
-            Cmd.Parameters.Add("LastLockoutDate", SqlDbType.DateTime).Value = user.LastLockoutDate;
-            Cmd.Parameters.Add("LastLoginDate", SqlDbType.DateTime).Value = user.LastLoginDate;
+
+            Cmd.AddParameters("Id", user.Id);
+            Cmd.AddParameters("FailedPasswordAttemptCount", user.FailedPasswordAttemptCount);
+            Cmd.AddParameters("IsLockedOut", user.IsLockedOut);
+            Cmd.AddParameters("LastLockoutDate", user.LastLockoutDate);
+            Cmd.AddParameters("LastLoginDate", user.LastLoginDate);
 
             Cmd.command.ExecuteNonQuery();
 
@@ -497,31 +610,24 @@ namespace WebMvc.Services
 
         public List<MembershipUser> GetList(int limit = 10, int page = 1)
         {
-            string cachekey = string.Concat(CacheKeys.Topic.StartsWith, "GetList-", limit, "-", page);
+            string cachekey = string.Concat(CacheKeys.Member.StartsWith, "GetList-", limit, "-", page);
             var list = _cacheService.Get<List<MembershipUser>>(cachekey);
             if (list == null)
             {
-                var Cmd = _context.CreateCommand();
-
-                if (page == 0) page = 1;
-
-                Cmd.CommandText = "SELECT TOP " + limit + " * FROM ( SELECT *,(ROW_NUMBER() OVER(ORDER BY UserName ASC)) AS RowNum FROM  [MembershipUser]) AS MyDerivedTable WHERE RowNum > @Offset";
-
-                //Cmd.Parameters.Add("limit", SqlDbType.Int).Value = limit;
-                Cmd.Parameters.Add("Offset", SqlDbType.Int).Value = (page - 1) * limit;
-
-                DataTable data = Cmd.FindAll();
-                Cmd.Close();
-
-                if (data == null) return null;
-
-                list = new List<MembershipUser>();
-                foreach (DataRow it in data.Rows)
+                using (var Cmd = _context.CreateCommand())
                 {
-                    list.Add(DataRowToMembershipUser(it));
-                }
+                    if (page == 0) page = 1;
 
-                _cacheService.Set(cachekey, list, CacheTimes.OneDay);
+                    Cmd.CommandText = "SELECT TOP " + limit + " * FROM ( SELECT *,(ROW_NUMBER() OVER(ORDER BY UserName ASC)) AS RowNum FROM  [MembershipUser]) AS MyDerivedTable WHERE RowNum > @Offset";
+
+                    //Cmd.Parameters.Add("limit", SqlDbType.Int).Value = limit;
+                    Cmd.AddParameters("Offset", (page - 1) * limit);
+
+                    list = Cmd.FindAll<MembershipUser>();
+                    if (list == null) return null;
+
+                    _cacheService.Set(cachekey, list, CacheTimes.OneDay);
+                }
             }
             return list;
         }

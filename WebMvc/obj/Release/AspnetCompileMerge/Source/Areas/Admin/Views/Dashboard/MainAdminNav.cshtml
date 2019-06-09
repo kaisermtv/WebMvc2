@@ -9,7 +9,7 @@
         <ul class="dropdown-menu">
             <li>
                 <a href="@Url.Action("Index", "PrivateMessage", new { area = "" })">
-                    <i class="fa fa-fw fa-envelope"></i> Private Messages
+                    <i class="fa fa-fw fa-envelope"></i> Tin nhắn riêng
                     @if (Model.PrivateMessageCount > 0)
                     {
                         <span class="badge">@Model.PrivateMessageCount</span>
@@ -17,11 +17,14 @@
                 </a>
             </li>
             <li>
-                <a href="@Url.Action("ChangePass", "AdminMembers")"><i class="fa fa-fw fa-key"></i> Change password</a>
+                <a href="@Url.Action("ChangeInfo", "AdminMembers")"><i class="fa fa-fw fa-info"></i> Đổi thông tin tài khoản</a>
+            </li>
+            <li>
+                <a href="@Url.Action("ChangePass", "AdminMembers")"><i class="fa fa-fw fa-key"></i> Đổi mật khẩu</a>
             </li>
             <li class="divider"></li>
             <li>
-                <a href="@Url.Action("Logout", "Members", new { area = "" })"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                <a href="@Url.Action("Logout", "AdminMembers")"><i class="fa fa-fw fa-power-off"></i> Đăng xuất</a>
             </li>
         </ul>
     </li>
@@ -155,43 +158,15 @@
                 <i class="fa fa-fw fa-user-plus"></i> Nhân viên
             </a>
         </li>
-        @*<li>
-            <a href="#" data-toggle="collapse" data-target="#permissions">
-                <i class="fa fa-fw fa-check-square-o"></i> Permissions <i class="fa fa-fw fa-caret-down"></i>
-            </a>
-            <ul id="permissions" class="collapse">
-                <li>
-                    <a href="@Url.Action("Index", "Permissions", new { area = "Admin" }, null)" class="@(currentController == "permissions" && currentAction == "index" ? "active" : "")">Manage Permissions</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("PermissionTypes", "Permissions", new { area = "Admin" }, null)" class="@(currentController == "permissions" && currentAction == "permissiontypes" ? "active" : "")">Add/Remove Permission Types</a>
-                </li>
-            </ul>
-        </li>*@
         <li>
-            <a href="#" data-toggle="collapse" data-target="#membership" class="@(currentController == "adminmembers" ? "active" : "")">
-                <i class="fa fa-fw fa-users"></i> Tài khoản <i class="fa fa-fw fa-caret-down"></i>
+            <a href="@Url.Action("Index", "Permissions", new { area = "Admin" }, null)" class="@(currentController == "permissions" ? "active" : "")">
+                <i class="fa fa-fw fa-check-square-o"></i> Quản lý quyền hạn
             </a>
-            <ul id="membership" class="collapse @(currentController == "adminmembers" ? "in" : "")" >
-                <li>
-                    <a href="@Url.Action("Index", "AdminMembers", new { area = "Admin" }, null)" class="@(currentController == "adminmembers" && currentAction == "index" ? "active" : "")">Quản lý tài khoản</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Create", "AdminMembers", new { area = "Admin" }, null)" class="@(currentController == "adminmembers" && currentAction == "create" ? "active" : "")">Tạo tài khoản</a>
-                </li>
-                @*<li>
-                    <a href="@Url.Action("ListAllRoles", "Account", new { area = "Admin" }, null)" class="@(currentController == "account" && currentAction == "listallroles" ? "active" : "")">Manage Roles</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("AddRole", "Account", new { area = "Admin" }, null)" class="@(currentController == "account" && currentAction == "addrole" ? "active" : "")">Add Roles</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "AdminSocial", new { area = "Admin" }, null)" class="@(currentController == "adminsocial" && currentAction == "index" ? "active" : "")">Social Logins</a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Members", "ImportExport", new { area = "Admin" }, null)" class="@(currentController == "importexport" && currentAction == "members" ? "active" : "")">Import / Export</a>
-                </li>*@
-            </ul>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "AdminMembers", new { area = "Admin" }, null)" class="@(currentController == "adminmembers" ? "active" : "")">
+                <i class="fa fa-fw fa-users"></i> Quản lý tài khoản
+            </a>
         </li>
         @*<li>
             <a href="#" data-toggle="collapse" data-target="#spam">

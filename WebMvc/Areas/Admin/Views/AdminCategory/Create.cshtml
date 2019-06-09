@@ -1,16 +1,25 @@
 ﻿@model CategoryViewModel
 @{
-    ViewBag.Title = "Create Category";
+    ModulConfig.AdminMenuItem[] _Menu;
+    if (Model.IsProduct)
+    {
+        ViewBag.Title = "Tạo nhóm sản phẩm";
+        _Menu = ModulConfig.ProductManage;
+    } else
+    {
+        ViewBag.Title = "Tạo nhóm bài viết";
+        _Menu = ModulConfig.NewsManage;
+    }
 }
 
-@Html.Partial("_CategoryNavButtons")
+@Html.Partial("_TopMenu",_Menu)
 
 <div class="panel">
     <div class="panel-heading">
         <h5>@ViewBag.Title</h5>
     </div>
     <div class="panel-content">
-        @using (Html.BeginForm("Create", "AdminCategory", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm(Model.IsProduct?"NewCatProduct":"NewCatNews", "AdminCategory", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.ValidationSummary(false)
             @Html.AntiForgeryToken()

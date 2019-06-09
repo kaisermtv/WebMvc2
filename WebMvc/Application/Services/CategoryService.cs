@@ -115,7 +115,7 @@ namespace WebMvc.Services
                 + " VALUES(@Id,@Name,@Description,@IsLocked,@ModerateTopics,@ModeratePosts,@SortOrder"
                 + ",@DateCreated,@Slug,@PageTitle,@Path,@MetaDescription,@Colour,@Image,@Category_Id,@IsProduct)";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = cat.Id;
+            Cmd.AddParameters("Id", cat.Id);
             Cmd.AddParameters("Name", cat.Name);
             Cmd.AddParameters("Description", cat.Description);
             Cmd.AddParameters("IsLocked", cat.IsLocked);
@@ -150,8 +150,8 @@ namespace WebMvc.Services
                 + "[MetaDescription] = @MetaDescription,[Colour] = @Colour,[Image] = @Image,[Category_Id] = @Category_Id, [IsProduct] = @IsProduct"
                 + " WHERE Id = @Id";
 
-
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = cat.Id;
+            Cmd.AddParameters("Id", cat.Id);
+            //Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = cat.Id;
             Cmd.AddParameters("Name", cat.Name);
             Cmd.AddParameters("Description", cat.Description);
             Cmd.AddParameters("IsLocked", cat.IsLocked);
@@ -175,13 +175,31 @@ namespace WebMvc.Services
             if (!rt) throw new Exception("Update Category false");
         }
 
+        public void UpdateSortAndParent(Guid Id, Guid? ParentId, int SortOrder)
+        {
+            using (var Cmd = _context.CreateCommand())
+            {
+                Cmd.CommandText = "UPDATE [dbo].[Category] SET [Category_Id] = @Category_Id,[SortOrder] = @SortOrder WHERE [Id] = @Id";
 
-        public void Del(Category menu)
+
+                Cmd.AddParameters("Id", Id);
+                Cmd.AddParameters("SortOrder", SortOrder);
+                Cmd.AddParameters("Category_Id", ParentId);
+
+                bool rt = Cmd.command.ExecuteNonQuery() > 0;
+                Cmd.cacheStartsWithToClear(CacheKeys.Category.StartsWith);
+
+                if (!rt) throw new Exception("UpdateSortAndParent Category false");
+            }
+        }
+
+        public void Del(Category cat)
         {
             var Cmd = _context.CreateCommand();
             Cmd.CommandText = "DELETE FROM [Category] WHERE Id = @Id";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = menu.Id;
+            Cmd.AddParameters("Id", cat.Id);
+            //Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = menu.Id;
 
             Cmd.command.ExecuteNonQuery();
             Cmd.cacheStartsWithToClear(CacheKeys.Category.StartsWith);
@@ -475,7 +493,7 @@ namespace WebMvc.Services
             var cacheKey = string.Concat(CacheKeys.Category.StartsWith, "GetCategoriesParenCatregori", "-", cat);
             return _cacheService.CachePerRequest(cacheKey, () =>
             {
-                var cats = GetAll();
+                var cats = GetList(cat.IsProduct);
                 var list = new List<Category>(cats);
                 list.Remove(cat);
 

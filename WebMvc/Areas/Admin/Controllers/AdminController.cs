@@ -15,7 +15,7 @@ using WebMvc.Services;
 
 namespace WebMvc.Areas.Admin.Controllers
 {
-    [Login(LoginOption.AdminLogin)]
+    [AdminLogin]
     //[Authorize(Roles = AppConstants.AdminRoleName)]
     public class AdminController : BaseAdminController
     {
@@ -28,6 +28,7 @@ namespace WebMvc.Areas.Admin.Controllers
         // GET: Admin/Admin
         public ActionResult Index()
         {
+            //return HttpNotFoundResult();
             return View();
         }
     }

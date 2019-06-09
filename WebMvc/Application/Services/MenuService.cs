@@ -26,29 +26,6 @@ namespace WebMvc.Services
 
 
 
-        #region DataRowToMenu
-        private Menu DataRowToMenu(DataRow data)
-        {
-            if (data == null) return null;
-
-            var menu = new Menu();
-
-            menu.Id = new Guid(data["Id"].ToString());
-            menu.Name = data["Name"].ToString();
-            menu.Description = data["Description"].ToString();
-            menu.Colour = data["Colour"].ToString();
-            menu.Image = data["Image"].ToString();
-            if(data["iType"] != DBNull.Value) menu.iType = (int)data["iType"];
-            menu.Link = data["Link"].ToString();
-            menu.Image = data["Image"].ToString();
-
-            if(data["Menu_Id"] != DBNull.Value) menu.Menu_Id = new Guid(data["Menu_Id"].ToString());
-
-            return menu;
-        }
-        #endregion
-
-
         public void Add(Menu menu)
         {
             var Cmd = _context.CreateCommand();
@@ -56,7 +33,7 @@ namespace WebMvc.Services
             Cmd.CommandText = "INSERT INTO [dbo].[Menu]([Id],[Menu_Id],[Name],[Description],[iType],[Link],[Image],[Colour],[SortOrder])"
                 + " VALUES(@Id,@Menu_Id,@Name,@Description,@iType,@Link,@Image,@Colour,@SortOrder)";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = menu.Id;
+            Cmd.AddParameters("Id", menu.Id);
             Cmd.AddParameters("Name", menu.Name);
             Cmd.AddParameters("Description", menu.Description);
             Cmd.AddParameters("Colour", menu.Colour);
@@ -82,7 +59,7 @@ namespace WebMvc.Services
                                 + "[Link] = @Link,[Image] = @Image,[Colour] = @Colour,[SortOrder] = @SortOrder WHERE [Id] = @Id";
 
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = menu.Id;
+            Cmd.AddParameters("Id", menu.Id);
             Cmd.AddParameters("Name", menu.Name);
             Cmd.AddParameters("Description", menu.Description);
             Cmd.AddParameters("Colour", menu.Colour);
@@ -98,13 +75,31 @@ namespace WebMvc.Services
 
             if (!rt) throw new Exception("Update Menu false");
         }
+
+        public void UpdateSortAndParent(Guid Id,Guid? ParentId,int SortOrder)
+        {
+            using(var Cmd = _context.CreateCommand())
+            {
+                Cmd.CommandText = "UPDATE [dbo].[Menu] SET [Menu_Id] = @Menu_Id,[SortOrder] = @SortOrder WHERE [Id] = @Id";
+
+
+                Cmd.AddParameters("Id", Id);
+                Cmd.AddParameters("SortOrder", SortOrder);
+                Cmd.AddParameters("Menu_Id", ParentId);
+
+                bool rt = Cmd.command.ExecuteNonQuery() > 0;
+                Cmd.cacheStartsWithToClear(CacheKeys.Menu.StartsWith);
+
+                if (!rt) throw new Exception("Update Menu false");
+            }
+        }
         
         public void Del(Menu menu)
         {
             var Cmd = _context.CreateCommand();
             Cmd.CommandText = "DELETE FROM [Menu] WHERE Id = @Id";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = menu.Id;
+            Cmd.AddParameters("Id", menu.Id);
 
             Cmd.command.ExecuteNonQuery();
             Cmd.cacheStartsWithToClear(CacheKeys.Menu.StartsWith);
@@ -180,32 +175,23 @@ namespace WebMvc.Services
             var allCat = _cacheService.Get<List<Menu>>(cachekey);
             if (allCat == null)
             {
-                var Cmd = _context.CreateCommand();
-
-                Cmd.CommandText = "SELECT * FROM  [dbo].[Menu] ORDER BY SortOrder ASC";
-
-                DataTable data = Cmd.FindAll();
-                Cmd.Close();
-
-                if (data == null) return null;
-
-                allCat = new List<Menu>();
-
-                foreach (DataRow it in data.Rows)
+                using (var Cmd = _context.CreateCommand())
                 {
-                    allCat.Add(DataRowToMenu(it));
-                }
+                    Cmd.CommandText = "SELECT * FROM  [dbo].[Menu] ORDER BY SortOrder ASC";
 
+                    allCat = Cmd.FindAll<Menu>();
+                    if (allCat == null) return null;
 
-                foreach (var it in allCat)
-                {
-                    if (it.Menu_Id == null)
+                    foreach (var it in allCat)
                     {
-                        SetLiveMenu(it, allCat);
+                        if (it.Menu_Id == null)
+                        {
+                            SetLiveMenu(it, allCat);
+                        }
                     }
-                }
 
-                _cacheService.Set(cachekey, allCat, CacheTimes.OneDay);
+                    _cacheService.Set(cachekey, allCat, CacheTimes.OneDay);
+                }
             }
             return allCat;
         }

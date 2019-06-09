@@ -10,7 +10,9 @@ namespace WebMvc.Application.Entities
             Id = GuidComb.GenerateComb();
         }
         public Guid Id { get; set; }
+        public Guid? PermissionId { get; set; }
         public string Name { get; set; }
         public bool IsGlobal { get; set; }
+        public bool Lock { get; set; }
     }
 }

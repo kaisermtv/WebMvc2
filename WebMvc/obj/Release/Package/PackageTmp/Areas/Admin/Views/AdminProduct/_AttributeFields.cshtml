@@ -85,8 +85,8 @@
                 {
             <tr id="FinterNum_@i">
                 <td><input name="ValueOptions[@i].Name" value="@Model.FindterNums[i].Name" class="form-control" /></td>
-                <td><input name="ValueOptions[@i].MinValue" value="@Model.FindterNums[i].MinValue" class="form-control" /></td>
-                <td><input name="ValueOptions[@i].MaxValue" value="@Model.FindterNums[i].MaxValue" class="form-control" /></td>
+                <td><input type="number" name="ValueOptions[@i].MinValue" value="@Model.FindterNums[i].MinValue" class="form-control" /></td>
+                <td><input type="number" name="ValueOptions[@i].MaxValue" value="@Model.FindterNums[i].MaxValue" class="form-control" /></td>
             </tr>
                 }
             }
@@ -106,15 +106,15 @@
         iTr.id = "FinterNum_" + FindterCount;
 
         var html = "<td><input name=\"ValueOptions[" + OptionsCount + "].Name\" value=\"\" class=\"form-control\" /></td>";
-        html += "<td><input name=\"ValueOptions[" + OptionsCount + "].MinValue\" value=\"\" class=\"form-control\" /></td>";
-        html += "<td><input name=\"ValueOptions[" + OptionsCount + "].MaxValue\" value=\"\" class=\"form-control\" /></td>";
+        html += "<td><input type=\"number\" name=\"ValueOptions[" + OptionsCount + "].MinValue\" value=\"\" class=\"form-control\" /></td>";
+        html += "<td><input type=\"number\" name=\"ValueOptions[" + OptionsCount + "].MaxValue\" value=\"\" class=\"form-control\" /></td>";
 
         iTr.innerHTML = html;
 
         var sList = document.getElementById("ContainerFindterOption");
         sList.appendChild(iTr);
 
-        OptionsCount++;
+        FindterCount++;
     }
 
     function RepmoveFindter() {

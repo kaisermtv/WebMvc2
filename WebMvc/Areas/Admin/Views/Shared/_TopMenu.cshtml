@@ -1,0 +1,9 @@
+﻿@model ModulConfig.AdminMenuItem[]
+<div class="topadminsubnav">
+    <div class="btn-group" role="group">
+        @foreach (var it in Model)
+        {
+            <a href="@Url.Content(it)" role="button" class="btn-mvc-green">@it.MenuName</a>
+        }
+    </div>
+</div>

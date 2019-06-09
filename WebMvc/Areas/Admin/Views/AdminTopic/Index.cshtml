@@ -4,8 +4,7 @@
     ViewBag.Title = "List Topic";
 }
 
-
-@Html.Partial("_TopicNavButtons")
+@Html.Partial("_TopMenu",ModulConfig.NewsManage)
 
 
 <div class="panel">
@@ -14,7 +13,7 @@
     </div>
     <div class="panel-content">
         <div id="container">
-             <div class="tablescroll">
+            <div class="tablescroll">
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
@@ -26,7 +25,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach(var it in Model.ListTopic)
+                        @foreach (var it in Model.ListTopic)
                         {
                             <tr>
                                 <td>
@@ -49,7 +48,7 @@
                     </tbody>
                 </table>
             </div>
-            @Html.Partial("_Paging",Model.Paging)
+            @Html.Partial("_Paging", Model.Paging)
         </div>
     </div>
 </div>

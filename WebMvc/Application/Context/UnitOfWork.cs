@@ -24,14 +24,8 @@ namespace WebMvc.Application.Context
         public void Commit()
         {
             transaction.Commit();
+            context.ClearCache();
         }
-
-        public void Commit(List<string> cacheStartsWithToClear, CacheService cacheService)
-        {
-            Commit();
-            cacheService.ClearStartsWith(cacheStartsWithToClear);
-        }
-        
 
         public void Dispose()
         {

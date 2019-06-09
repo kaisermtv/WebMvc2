@@ -153,7 +153,7 @@ table {
     }
 }
 
-.tablescroll { overflow-x: scroll; overflow-y: auto; margin: 0 0 20px 0;
+.tablescroll { overflow-x: auto; overflow-y: auto; margin: 0 0 20px 0;
     td { min-width: 65px; }
 }
 
@@ -328,3 +328,4 @@ footer { padding: 40px 0 0 0; }
     .tabs-below > .nav-tabs > li { width: 49%; }
     .tabs-below > .nav-tabs > .active > a { border-color: #ddd; }
 }
+

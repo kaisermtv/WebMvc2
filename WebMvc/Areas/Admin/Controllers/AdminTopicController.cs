@@ -93,12 +93,11 @@ namespace WebMvc.Areas.Admin.Controllers
         
 
         #region Create Topic
-        //[Authorize]
         public ActionResult Create()
         {
             using (UnitOfWorkManager.NewUnitOfWork())
             {
-                var cats = _categoryService.GetAllowedEditCategories(UsersRole);
+                var cats = _categoryService.GetAllowedEditCategories(UsersRole,false);
                 if (cats.Count > 0)
                 {
                     var viewModel = new AdminCreateEditTopicViewModel();
@@ -113,13 +112,12 @@ namespace WebMvc.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        //[Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create(AdminCreateEditTopicViewModel viewModel)
         {
             using (var unitOfWork = UnitOfWorkManager.NewUnitOfWork())
             {
-                var cats = _categoryService.GetAllowedEditCategories(UsersRole);
+                var cats = _categoryService.GetAllowedEditCategories(UsersRole, false);
                 if (cats.Count > 0)
                 {
                     if (ModelState.IsValid)
@@ -192,7 +190,7 @@ namespace WebMvc.Areas.Admin.Controllers
         {
             using (UnitOfWorkManager.NewUnitOfWork())
             {
-                var cats = _categoryService.GetAllowedEditCategories(UsersRole);
+                var cats = _categoryService.GetAllowedEditCategories(UsersRole,false);
                 if (cats.Count > 0)
                 {
                     var viewModel = new AdminCreateEditTopicViewModel();
@@ -244,7 +242,7 @@ namespace WebMvc.Areas.Admin.Controllers
         {
             using (var unitOfWork = UnitOfWorkManager.NewUnitOfWork())
             {
-                var cats = _categoryService.GetAllowedEditCategories(UsersRole);
+                var cats = _categoryService.GetAllowedEditCategories(UsersRole,false);
                 if (cats.Count > 0)
                 {
                     if (ModelState.IsValid)

@@ -26,6 +26,9 @@
     @Html.LabelFor(model => model.Description)
     @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @style = "resize:vertical" })
     @Html.ValidationMessageFor(model => model.Description)
+    <script>
+        CKEDITOR.replace("Description");
+    </script>
 </div>
 <div class="form-group">
     <table class="table table-bordered table-striped">
@@ -34,16 +37,19 @@
             <th>Tên thuộc tính</th>
             <th style="width:80px">Hiển thị</th>
         </tr>
-        @for (int i = 0;i< Model.AllAttribute.Count;i++)
+        @if (Model.AllAttribute != null)
         {
-        <tr>
-            <td>
-                <input type="hidden" name="AllAttribute[@i].Id" value="@Model.AllAttribute[i].Id" id="AllAttribute_@(i)_id" />
-                <input type="checkbox" value="true" name="AllAttribute[@i].IsCheck" id="AllAttribute_@(i)_IsCheck" @Html.Raw(Model.AllAttribute[i].IsCheck?"checked=\"checked\"":"") />
-            </td>
-            <td>@Model.AllAttribute[i].Name</td>
-            <td><input type="checkbox" value="true" name="AllAttribute[@i].IsShow" id="AllAttribute_@(i)_IsShow" @Html.Raw(Model.AllAttribute[i].IsShow?"checked=\"checked\"":"")  /></td>
-        </tr>
+            for (int i = 0; i < Model.AllAttribute.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <input type="hidden" name="AllAttribute[@i].Id" value="@Model.AllAttribute[i].Id" id="AllAttribute_@(i)_id" />
+                        <input type="checkbox" value="true" name="AllAttribute[@i].IsCheck" id="AllAttribute_@(i)_IsCheck" @Html.Raw(Model.AllAttribute[i].IsCheck ? "checked=\"checked\"" : "") />
+                    </td>
+                    <td>@Model.AllAttribute[i].Name</td>
+                    <td><input type="checkbox" value="true" name="AllAttribute[@i].IsShow" id="AllAttribute_@(i)_IsShow" @Html.Raw(Model.AllAttribute[i].IsShow ? "checked=\"checked\"" : "") /></td>
+                </tr>
+            }
         }
     </table>
 </div>

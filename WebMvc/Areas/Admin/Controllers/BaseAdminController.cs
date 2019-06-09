@@ -15,7 +15,7 @@ using WebMvc.Services;
 
 namespace WebMvc.Areas.Admin.Controllers
 {
-    [Login(LoginOption.AdminLogin)]
+    [AdminLogin]
     //[Authorize(Roles = AppConstants.AdminRoleName)]
     public class BaseAdminController : Controller
     {
@@ -24,6 +24,9 @@ namespace WebMvc.Areas.Admin.Controllers
         protected readonly LocalizationService LocalizationService;
         protected readonly SettingsService SettingsService;
         protected readonly LoggingService LoggingService;
+
+
+        //protected 
 
         protected Login LoginRequest => ServiceFactory.Get<Login>();
 
@@ -50,6 +53,17 @@ namespace WebMvc.Areas.Admin.Controllers
         {
             base.OnAuthentication(filterContext);
 
+            var lstMAttribute = filterContext.ActionDescriptor.GetCustomAttributes(typeof(ModulAttribute), true);
+            if (lstMAttribute.Count() == 0) lstMAttribute = this.GetType().GetCustomAttributes(typeof(ModulAttribute), true);
+            foreach (var obj in lstMAttribute)
+            {
+                if (obj is ModulAttribute)
+                {
+                    var loginatrribute = obj as ModulAttribute;
+
+                    loginatrribute.OnAuthorModul(filterContext);
+                }
+            }
 
             var lstAttribute = filterContext.ActionDescriptor.GetCustomAttributes(typeof(LoginAttribute), true);
             if (lstAttribute.Count() == 0) lstAttribute = this.GetType().GetCustomAttributes(typeof(LoginAttribute), true);

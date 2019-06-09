@@ -1,0 +1,27 @@
+﻿@model Product
+@if (Model != null)
+{
+    string link = AppHelpers.ProductUrls(Model.Category_Id, Model.Slug);
+    if (Model.Image == null)
+    {
+        Model.Image = "";
+    }
+    string[] images = Model.Image.Split('|');
+    string img1 = "";
+    if (images.Length > 0)
+    {
+        img1 = images[0];
+    }
+    <div data-ix="hoverspbc" data-w-id="@Model.Id" class="sellingproducts">
+        <div class="figure">
+            <a href="@link" title="@Model.Name">
+                <img src="@AppHelpers.ImageCropUrl(img1, 410,307)" class="image-6" alt="@Model.Name">
+            </a>
+        </div>
+        <div data-ix="new-interaction" class="contentsellingproducts">
+            <a href="@link" title="@Model.Name">
+                <h3 class="heading-6">@Model.Name</h3>
+            </a>
+        </div>
+    </div>
+}

@@ -54,7 +54,7 @@ namespace WebMvc.Services
             Cmd.CommandText = "INSERT INTO [dbo].[ShoppingCart]([Id],[Name],[Email] ,[Phone],[Addren],[ShipName],[ShipPhone] ,[ShipAddren] ,[ShipNote],[TotalMoney],[Note],[Status],[CreateDate])"
                 + " VALUES(@Id,@Name,@Email,@Phone,@Addren,@ShipName,@ShipPhone,@ShipAddren,@ShipNote,@TotalMoney,@Note,@Status,@CreateDate)";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = cat.Id;
+            Cmd.AddParameters("Id", cat.Id);
             Cmd.AddParameters("Name", cat.Name);
             Cmd.AddParameters("Email", cat.Email);
             Cmd.AddParameters("Phone", cat.Phone);
@@ -85,7 +85,7 @@ namespace WebMvc.Services
                 var Cmd = _context.CreateCommand();
 
                 Cmd.CommandText = "SELECT * FROM  [ShoppingCart] WHERE [Id] = @Id";
-                Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = Id;
+                Cmd.AddParameters("Id", Id);
 
                 DataRow data = Cmd.FindFirst();
                 if (data == null) return null;
@@ -107,7 +107,7 @@ namespace WebMvc.Services
             //Cmd.CommandText = "IF NOT EXISTS (SELECT * FROM [Topic] WHERE [Id] = @Id)";
             Cmd.CommandText = "UPDATE [dbo].[ShoppingCart] SET [Name] = @Name,[Email] = @Email,[Phone] = @Phone,[Addren] = @Addren,[ShipName] = @ShipName,[ShipPhone] =@ShipPhone,[ShipAddren] = @ShipAddren,[ShipNote] = @ShipNote,[TotalMoney] = @TotalMoney,[Note] = @Note,[Status] = @Status,[CreateDate] = @CreateDate WHERE [Id] = @Id";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = cat.Id;
+            Cmd.AddParameters("Id", cat.Id);
             Cmd.AddParameters("Name", cat.Name);
             Cmd.AddParameters("Email", cat.Email);
             Cmd.AddParameters("Phone", cat.Phone);
@@ -134,7 +134,7 @@ namespace WebMvc.Services
             var Cmd = _context.CreateCommand();
             Cmd.CommandText = "DELETE FROM [ShoppingCart] WHERE Id = @Id";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = shoppingCart.Id;
+            Cmd.AddParameters("Id", shoppingCart.Id);
 
             Cmd.command.ExecuteNonQuery();
             Cmd.cacheStartsWithToClear(CacheKeys.ShoppingCart.StartsWith);
@@ -166,24 +166,17 @@ namespace WebMvc.Services
             var list = _cacheService.Get<List<ShoppingCart>>(cachekey);
             if (list == null)
             {
-                var Cmd = _context.CreateCommand();
-
                 if (page == 0) page = 1;
 
-                Cmd.CommandText = "SELECT TOP " + limit + " * FROM ( SELECT *,(ROW_NUMBER() OVER(ORDER BY CreateDate DESC)) AS RowNum FROM  [ShoppingCart]) AS MyDerivedTable WHERE RowNum > @Offset";
-
-                //Cmd.Parameters.Add("limit", SqlDbType.Int).Value = limit;
-                Cmd.Parameters.Add("Offset", SqlDbType.Int).Value = (page - 1) * limit;
-
-                DataTable data = Cmd.FindAll();
-                Cmd.Close();
-
-                if (data == null) return null;
-
-                list = new List<ShoppingCart>();
-                foreach (DataRow it in data.Rows)
+                using (var Cmd = _context.CreateCommand())
                 {
-                    list.Add(DataRowToShoppingCart(it));
+                    Cmd.CommandText = "SELECT TOP " + limit + " * FROM ( SELECT *,(ROW_NUMBER() OVER(ORDER BY CreateDate DESC)) AS RowNum FROM  [ShoppingCart]) AS MyDerivedTable WHERE RowNum > @Offset";
+
+                    //Cmd.Parameters.Add("limit", SqlDbType.Int).Value = limit;
+                    Cmd.AddParameters("Offset", (page - 1) * limit);
+
+                    list = Cmd.FindAll<ShoppingCart>();
+                    if (list == null) return null;
                 }
 
                 _cacheService.Set(cachekey, list, CacheTimes.OneDay);

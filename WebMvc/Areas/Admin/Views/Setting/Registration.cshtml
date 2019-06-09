@@ -15,7 +15,11 @@
         </div>
         <div class="panel-collapse">
             <div class="panel-body">
-                
+                <div class="form-group">
+                    @Html.CheckBoxFor(model => model.LockRegister)
+                    @Html.LabelFor(model => model.LockRegister)
+                    @Html.ValidationMessageFor(model => model.LockRegister)
+                </div>
             </div>
         </div>
     </div>

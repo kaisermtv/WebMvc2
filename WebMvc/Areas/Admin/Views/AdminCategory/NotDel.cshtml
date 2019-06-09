@@ -1,8 +1,18 @@
 ﻿@model  Category
 @{
-    ViewBag.Title = "Xóa danh mục";
+    ModulConfig.AdminMenuItem[] _Menu;
+    if (Model.IsProduct)
+    {
+        ViewBag.Title = "Xóa nhóm sản phẩm";
+        _Menu = ModulConfig.ProductManage;
+    }
+    else
+    {
+        ViewBag.Title = "Xóa nhóm bài viết";
+        _Menu = ModulConfig.NewsManage;
+    }
 }
-@Html.Partial("_CategoryNavButtons")
+@Html.Partial("_TopMenu", _Menu)
 <div class="panel">
     <div class="panel-heading">
         <h5>@ViewBag.Title</h5>
@@ -13,6 +23,6 @@
         <div class="form-group">
             <input type="text" class="form-control" readonly="readonly" value="@Model.Name" />
         </div>
-        <a href="@Url.Action("Index")" class="btn-mvc btn-mvc-large">Trờ lại</a>
+        <a href="@Url.Action(Model.IsProduct?"Product":"News")" class="btn-mvc btn-mvc-large">Trờ lại</a>
     </div>
 </div>

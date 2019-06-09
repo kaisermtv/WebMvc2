@@ -36,7 +36,7 @@ namespace WebMvc.Services
         {
             var Cmd = _context.CreateCommand();
             Cmd.CommandText = "SELECT [VALUE] FROM tblSetting WHERE STKEY = @STKEY";
-            Cmd.Parameters.Add("STKEY", SqlDbType.NVarChar).Value = key;
+            Cmd.AddParameters("STKEY", key);
 
             var rt = Cmd.command.ExecuteScalar();
 
@@ -48,6 +48,11 @@ namespace WebMvc.Services
             return cachedSettings;
         }
 
+        public void SetSetting(string key, object value)
+        {
+            SetSetting(key, value.ToString());
+        }
+
         public void SetSetting(string key,string value)
         {
             string cachekey = string.Concat(CacheKeys.Settings.StartsWith, "getSetting-", key);
@@ -57,7 +62,7 @@ namespace WebMvc.Services
             Cmd.CommandText = "IF NOT EXISTS (SELECT * FROM tblSetting WHERE STKEY = @STKEY)";
             Cmd.CommandText += " BEGIN INSERT INTO tblSetting(STKEY,VALUE) VALUES(@STKEY,@VALUE) END ";
             Cmd.CommandText += " ELSE BEGIN UPDATE tblSetting SET [VALUE] = @VALUE WHERE STKEY = @STKEY END";
-            Cmd.Parameters.Add("STKEY", SqlDbType.NVarChar).Value = key;
+            Cmd.AddParameters("STKEY", key);
             Cmd.AddParameters("VALUE", value);
 
             bool ret = Cmd.command.ExecuteNonQuery() > 0;

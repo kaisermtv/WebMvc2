@@ -22,11 +22,18 @@
         protected readonly LoggingService LoggingService;
         protected readonly CacheService CacheService;
 
-        protected Login LoginRequest => ServiceFactory.Get<Login>();
+        private Login _LoginRequest;
+        protected Login LoginRequest {
+            get
+            {
+                if (_LoginRequest == null) _LoginRequest = ServiceFactory.Get<Login>();
+                return _LoginRequest;
+            }
+        }
 
-        protected MembershipUser LoggedOnReadOnlyUser;
-        protected MembershipUser LoginUser;
-		protected Guid UsersRole;
+        protected MembershipUser LoggedOnReadOnlyUser => LoginRequest.User;
+        protected MembershipUser LoginUser => LoginRequest.User;
+        protected Guid UsersRole;
 
         public BaseController(LoggingService loggingService, IUnitOfWorkManager unitOfWorkManager, MembershipService membershipService, SettingsService settingsService, CacheService cacheService,LocalizationService localizationService)
         {

@@ -1,0 +1,102 @@
+﻿@model  LogOnViewModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+    <!-- page content -->
+    <section class="inner-page-content border-bottom top-pad-50">
+        <div class="login-register login-register-v1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 col-md-11 col-sm-12 center-block">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="classiera-login-register-heading border-bottom text-center">
+                                    <h3 class="text-uppercase">Login</h3>
+                                </div><!--classiera-login-register-heading-->
+                                <div class="social-login border-bottom">
+                                    <h5 class="text-uppercase text-center">
+                                        Login or Signup With Social Media
+                                    </h5>
+                                    <!--Social Plugins-->
+                                    <!--AccessPress Socil Login-->
+                                    <div class='apsl-login-networks theme-1 clearfix'>
+                                        <div class='social-networks'>
+                                        </div>
+                                    </div>
+                                    <!--AccessPress Socil Login-->
+                                    <!--Social Plugins-->
+                                    <div class="social-login-or">
+                                        <span>OR</span>
+                                    </div>
+                                </div><!--social-login-->
+                            </div><!--col-lg-12-->
+                        </div><!--row-->
+                        <div class="row">
+                            <div class="col-lg-8 center-block">
+                                <form data-toggle="validator" role="form" method="POST" enctype="multipart/form-data">
+                                    @Html.AntiForgeryToken()
+                                    @Html.HiddenFor(x => x.ReturnUrl)
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-lg-3 single-label">
+                                                @*@Html.LabelFor(model => model.UserName)*@
+                                                <label for="UserName">UserName : <span class="text-danger">*</span></label>
+                                            </div><!--col-lg-3-->
+                                            <div class="col-lg-9">
+                                                <div class="inner-addon left-addon">
+                                                    <i class="left-addon form-icon fa fa-lock"></i>
+                                                    <input type="text" id="UserName" name="UserName" value="@Model.UserName" class="form-control form-control-md sharp-edge" placeholder="Your Username" data-error="UserName is required" required>
+                                                    @*<div class="help-block with-errors"></div>*@
+                                                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "help-block with-errors" })
+                                                </div>
+                                            </div><!--col-lg-9-->
+                                        </div><!--row-->
+                                    </div><!--UserName-->
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-lg-3 single-label">
+                                                <label for="Password">Password : <span class="text-danger">*</span></label>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <div class="inner-addon left-addon">
+                                                    <i class="left-addon form-icon fa fa-lock"></i>
+                                                    <input id="Password" type="Password" name="password" class="form-control form-control-md sharp-edge" placeholder="Enter Password" data-error="Password required" required>
+                                                    @*<div class="help-block with-errors"></div>*@
+                                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "help-block with-errors" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!--Password-->
+                                    <div class="col-lg-9 pull-right flip">
+                                        <div class="form-group clearfix">
+                                            <div class="checkbox pull-left flip">
+                                                <input type="checkbox" id="RememberMe" name="RememberMe" value="true">
+                                                <label for="RememberMe">Remember me</label>
+                                            </div>
+                                            <p class="forget-pass pull-right flip">
+                                                <a href="http://demo.joinwebs.com/classiera/ruby/reset-password/">Forget Password?</a>
+                                            </p>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="hidden" id="submitbtn" name="submit" value="Login" />
+                                            <button class="btn btn-primary sharp btn-md btn-style-one" id="edit-submit" name="op" value="Login" type="submit">LOGIN NOW</button>
+                                        </div>
+                                        <div class="form-group">
+                                            <p>
+                                                If you don’t have account?
+                                                <a href="http://demo.joinwebs.com/classiera/ruby/register/">Create an account.</a>
+                                            </p>
+                                        </div>
+                                    </div><!--Rememberme-->
+                                </form>
+                            </div><!--col-lg-8-->
+                        </div><!--row-->
+                    </div><!--col-lg-10-->
+                </div><!--row-->
+            </div><!--container-->
+        </div><!--login-register login-register-v1-->
+    </section>
+    <!-- page content -->
+   

@@ -8,7 +8,6 @@
     using WebMvc.Services;
     using WebMvc.ViewModels;
 
-    [Login]
     public class HomeController : BaseController
     {
         public HomeController(LoggingService loggingService, IUnitOfWorkManager unitOfWorkManager, MembershipService membershipService, SettingsService settingsService, CacheService cacheService, LocalizationService localizationService)
@@ -17,14 +16,7 @@
 
         }
 
-        [Login]
         public ActionResult Index()
-        {
-            return View();
-        }
-
-        [Login(LoginOption.Permision,"abc")]
-        public ActionResult About()
         {
             return View();
         }

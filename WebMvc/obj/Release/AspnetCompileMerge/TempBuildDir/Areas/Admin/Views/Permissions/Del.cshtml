@@ -1,0 +1,24 @@
+﻿@model  Permission
+@{
+    ViewBag.Title = "Xóa quyền hạn";
+}
+@Html.Partial("_PermissionNavButtons")
+<div class="panel">
+    <div class="panel-heading">
+        <h5>@ViewBag.Title</h5>
+    </div>
+    <div class="panel-content">
+        <h2>Xác nhận xóa quyền này?</h2>
+        <p>Quyền hạn này sẽ được xóa hoàn toàn và không thể khôi phục.</p>
+        <p>Việc xóa bỏ quyền hạn có thể ảnh hưởng đến hoạt động của hệ thống. Hãy chắc chắn rằng bạn biết mình đang làm gì?</p>
+        <div class="form-group">
+            <input type="text" class="form-control" readonly="readonly" value="@Model.Name" />
+        </div>
+        @using (Html.BeginForm("Del", "Permissions", FormMethod.Post))
+        {
+            <div class="submit-holder">
+                <input type="submit" class="btn-mvc btn-mvc-large" value="Xác nhận xóa" />
+            </div>
+        }
+    </div>
+</div>

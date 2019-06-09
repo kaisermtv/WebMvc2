@@ -1,0 +1,27 @@
+﻿<div class="widget-box">
+    <div class="widget-title"><h4>Product</h4></div>
+    <div class="widget-content">
+        @foreach (var it in AppHelpers.Products(3))
+        {
+            var cat = it.GetCatergory();
+            <div class="media footer-pr-widget-v2">
+                <div class="media-left">
+                    <a class="media-img" href="@it.GetLink()">
+                        <img class="media-object" src="@it.Image()" alt="">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <span><i class="fa fa-clock-o"></i>@it.CreateDate.ToShortDateString()</span>
+                    <h5 class="media-heading">
+                        <a href="@it.GetLink()">@it.Name</a>
+                    </h5>
+                    <p class="price">
+                        Price : <span class="color">
+                            @it.Attribute("Price").Value
+                        </span>
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -634,6 +634,11 @@ namespace WebMvc.Application
             var membershipService = ServiceFactory.Get<MembershipService>();
             return membershipService.Get(id);
         }
+
+        public static bool UserIsRole(MembershipUser user, string roleName)
+        {
+            return ServiceFactory.Get<MembershipService>().UserInRole(user, roleName);
+        }
         #endregion
 
         #region ShoppingCart
@@ -737,17 +742,20 @@ namespace WebMvc.Application
                 case 0:
                     return menu.Link;
                 case 1:
-                    //var context = HttpContext.Current.
+                    //var url = new UrlHelper(HttpContext.Current.Request.RequestContext) ;// ServiceFactory.Get<UrlHelper>();
+                    var url = ServiceFactory.Get<RequestHelpers>().Url;
                     switch (menu.Link)
                     {
                         case "0":
-                            return "/";
+                            return url.Action("Index","Home",new { area = "" });
                         case "1":
-                            return "/tin-tuc";
+                            return url.Action("Index", "Topic", new { area = "" });
                         case "2":
-                            return "/san-pham";
+                            return url.Action("Index", "Product", new { area = "" });
                         case "3":
-                            return "/lien-he";
+                            return url.Action("Index", "Contact", new { area = "" });
+                        case "4":
+                            return url.Action("Index", "About", new { area = "" });
                     }
                     break;
                 case 2:
@@ -790,6 +798,77 @@ namespace WebMvc.Application
 
 
             return "/";
+        }
+
+        public static bool CheckActiveMenu(Menu menu)
+        {
+            if (menu.Link.IsNullEmpty()) return false;
+
+            switch (menu.iType)
+            {
+                case 0:
+                    return HttpContext.Current.Request.RawUrl == menu.Link;
+                case 1:
+                    var routedata = HttpContext.Current.Request.RequestContext.RouteData;
+                    var action = routedata.GetRequiredString("action").ToLower();
+                    var controller = routedata.GetRequiredString("controller").ToLower();
+                    //var area = routedata.GetRequiredString("area").ToLower();
+                    switch (menu.Link)
+                    {
+                        case "0":
+                            return action == "index" && controller == "home";
+                        case "1":
+                            return action == "index" && controller == "topic";
+                        case "2":
+                            return action == "index" && controller == "product";
+                        case "3":
+                            return action == "index" && controller == "contact";
+                        case "4":
+                            return action == "index" && controller == "about";
+                    }
+                    break;
+                case 2:
+                    return false;
+                    //var cat = Categorie(new Guid(menu.Link));
+                    //if (cat != null)
+                    //{
+                    //    if (cat.IsProduct)
+                    //    {
+                    //        return string.Concat("/", SiteConstants.Instance.ProductUrlIdentifier, "/", cat.Slug);
+                    //    }
+                    //    return string.Concat("/", SiteConstants.Instance.CategoryUrlIdentifier, "/", cat.Slug);
+                    //}
+                    //break;
+                case 3:
+                    return false;
+                    //var news = GetTopic(new Guid(menu.Link));
+                    //if (news != null && news.Category_Id != null)
+                    //{
+                    //    var cat1 = Categorie((Guid)news.Category_Id);
+
+                    //    return string.Concat("/", SiteConstants.Instance.CategoryUrlIdentifier, "/", cat1.Slug, "/", news.Slug);
+                    //}
+                    //break;
+                case 4:
+                    return false;
+                    //var prod = GetProduct(new Guid(menu.Link));
+                    //if (prod != null && prod.Category_Id != null)
+                    //{
+                    //    var cat1 = Categorie((Guid)prod.Category_Id);
+
+                    //    return string.Concat("/", SiteConstants.Instance.ProductUrlIdentifier, "/", cat1.Slug, "/", prod.Slug);
+                    //}
+                    //break;
+                case 5:
+                    //var group = GetGroupProduct(new Guid(menu.Link));
+                    //if (group != null)
+                    //{
+                    //    return string.Concat("/", SiteConstants.Instance.GroupProductUrlIdentifier, "/", group.Slug);
+                    //}
+                    break;
+            }
+
+            return false;
         }
         #endregion
 

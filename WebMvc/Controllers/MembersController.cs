@@ -9,6 +9,7 @@
     using WebMvc.Services;
     using WebMvc.ViewModels;
 
+    [Login]
     public partial class MembersController : BaseController
     {
         public MembersController(LoggingService loggingService, IUnitOfWorkManager unitOfWorkManager, MembershipService membershipService, SettingsService settingsService, CacheService cacheService,LocalizationService localizationService)
@@ -18,7 +19,6 @@
         }
 
         // GET: Members
-        [Authorize]
         public ActionResult Index()
         {
             using (var unitOfWork = UnitOfWorkManager.NewUnitOfWork())
@@ -32,7 +32,7 @@
         }
 
         #region Register
-        [AllowAnonymous]
+        [NotLogin]
         public ActionResult Register()
         {
             if (SettingsService.GetSetting("SuspendRegistration") != "true")
@@ -59,7 +59,7 @@
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AllowAnonymous]
+        [NotLogin]
         public ActionResult Register(MemberAddViewModel userModel)
         {
             if (SettingsService.GetSetting("SuspendRegistration") != "true" && SettingsService.GetSetting("DisableStandardRegistration") != "true")
@@ -137,11 +137,9 @@
 
         #region Login
         [AllowAnonymous]
-        [Login(LoginOption.Allow)]
+        [NotLogin]
         public ActionResult Login()
         {
-			if (LoggedOnReadOnlyUser != null) return RedirectToAction("Index", "Home");
-
             LogOnViewModel viewModel = new LogOnViewModel();
 
             var returnUrl = Request["ReturnUrl"];
@@ -155,107 +153,59 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AllowAnonymous]
+        [NotLogin]
         public ActionResult Login(LogOnViewModel model)
         {
-			if (LoggedOnReadOnlyUser != null) return RedirectToAction("Index", "Home");
-
-			using (var unitOfWork = UnitOfWorkManager.NewUnitOfWork())
+            if (ModelState.IsValid)
             {
-                var username = model.UserName;
-                var password = model.Password;
-
-                try
+                switch (LoginRequest.ValidateUser(model.UserName, model.Password, model.RememberMe, Application.Login.TypeLogin.UserLogin))
                 {
-                    if (ModelState.IsValid)
-                    {
-                        var user = MembershipService.ValidateUser(username, password, System.Web.Security.Membership.MaxInvalidPasswordAttempts);
-                        if (user != null)
-                        {
-                            System.Web.Security.FormsAuthentication.SetAuthCookie(username, model.RememberMe);
-
-                            if (Url.IsLocalUrl(model.ReturnUrl) && model.ReturnUrl.Length > 1 && model.ReturnUrl.StartsWith("/")
+                    case LoginAttemptStatus.LoginSuccessful:
+                        if (Url.IsLocalUrl(model.ReturnUrl) && model.ReturnUrl.Length > 1 && model.ReturnUrl.StartsWith("/")
                                         && !model.ReturnUrl.StartsWith("//") && !model.ReturnUrl.StartsWith("/\\"))
-                            {
-                                return Redirect(model.ReturnUrl);
-                            }
-
-
-                            return RedirectToAction("Index", "Home", new { area = string.Empty });
-                        }
-                        else
                         {
-                            // get here Login failed, check the login status
-                            var loginStatus = MembershipService.LastLoginStatus;
-
-                            switch (loginStatus)
-                            {
-                                case LoginAttemptStatus.UserNotFound:
-                                case LoginAttemptStatus.PasswordIncorrect:
-                                    ModelState.AddModelError(string.Empty, LocalizationService.GetResourceString("Members.Errors.PasswordIncorrect"));
-                                    break;
-
-                                case LoginAttemptStatus.PasswordAttemptsExceeded:
-                                    ModelState.AddModelError(string.Empty, LocalizationService.GetResourceString("Members.Errors.PasswordAttemptsExceeded"));
-                                    break;
-
-                                case LoginAttemptStatus.UserLockedOut:
-                                    ModelState.AddModelError(string.Empty, LocalizationService.GetResourceString("Members.Errors.UserLockedOut"));
-                                    break;
-
-                                case LoginAttemptStatus.Banned:
-                                    ModelState.AddModelError(string.Empty, LocalizationService.GetResourceString("Members.NowBanned"));
-                                    break;
-
-                                case LoginAttemptStatus.UserNotApproved:
-                                    ModelState.AddModelError(string.Empty, LocalizationService.GetResourceString("Members.Errors.UserNotApproved"));
-                                    //user = MembershipService.GetUser(username);
-                                    //SendEmailConfirmationEmail(user);
-                                    break;
-
-                                default:
-                                    ModelState.AddModelError(string.Empty, LocalizationService.GetResourceString("Members.Errors.LogonGeneric"));
-                                    break;
-                            }
+                            return Redirect(model.ReturnUrl);
                         }
-                    }
-                }
-                //catch
-                //{
-                //    LoggingService.Error(ex);
-                //}
-                finally
-                {
-                    try
-                    {
-                        unitOfWork.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        unitOfWork.Rollback();
-                        LoggingService.Error(ex);
-                    }
 
-                }
+                        return RedirectToAction("Index", "Home");
+                    case LoginAttemptStatus.UserNotFound:
+                    case LoginAttemptStatus.PasswordIncorrect:
+                        ModelState.AddModelError(string.Empty, "Tài khoản hoặc mật khẩu không chính xác!");
+                        break;
 
-                return View(model);
+                    case LoginAttemptStatus.PasswordAttemptsExceeded:
+                        ModelState.AddModelError("Password", "Vượt quá số lần thử mật khẩu!");
+                        break;
+
+                    case LoginAttemptStatus.UserLockedOut:
+                        ModelState.AddModelError("UserName", "Tài khoản này đã bị khóa!");
+                        break;
+
+                    case LoginAttemptStatus.Banned:
+                        ModelState.AddModelError("UserName", "Tài khoản bị cấm!");
+                        break;
+
+                    case LoginAttemptStatus.UserNotApproved:
+                        ModelState.AddModelError("UserName", "Tài khoản người dùng chưa được kích hoạt!");
+                        //user = MembershipService.GetUser(username);
+                        //SendEmailConfirmationEmail(user);
+                        break;
+
+                    default:
+                        ModelState.AddModelError(string.Empty, "Lỗi đăng nhập không xác định!");
+                        break;
+                }
             }
+
+
+            return View(model);
         }
 
 
-        [AllowAnonymous]
         public ActionResult LogOut()
         {
-            using (UnitOfWorkManager.NewUnitOfWork())
-            {
-                System.Web.Security.FormsAuthentication.SignOut();
-                //ViewBag.Message = new GenericMessageViewModel
-                //{
-                //    Message = LocalizationService.GetResourceString("Members.NowLoggedOut"),
-                //    MessageType = GenericMessages.success
-                //};
-                return RedirectToAction("Index", "Home", new { area = string.Empty });
-            }
+            LoginRequest.LogOut();
+            return RedirectToAction("Index", "Home", new { area = string.Empty });
         }
 
         #endregion

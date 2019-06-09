@@ -53,6 +53,15 @@
     </div>
     @Html.ValidationMessageFor(model => model.LinkProduct)
 </div>
+<div class="form-group@(Model.iType == 5 ? "":" hidden")" id="iTypeLinkGroupProduct">
+    @Html.LabelFor(model => model.LinkGroupProduct)
+    <div style="display:table;width:100%">
+        <input id="LinkGroupProductTitle" name="TitleGroupProduct" value="@Model.TitleGroupProduct" class="form-control" style="float:left; width: calc(100% - 100px)" readonly="readonly" />
+        @Html.HiddenFor(model => model.LinkGroupProduct)
+        <button type="button" onclick="popupSelectGroupProduct('LinkGroupProduct','LinkGroupProductTitle')" class="btn btn-default" style="width:90px;float:right">Chọn</button>
+    </div>
+    @Html.ValidationMessageFor(model => model.LinkProduct)
+</div>
 <script>
     var tlink = new Array();
     tlink[0] = document.getElementById("iTypeLink");
@@ -60,6 +69,7 @@
     tlink[2] = document.getElementById("iTypeLinkCat");
     tlink[3] = document.getElementById("iTypeLinkNews");
     tlink[4] = document.getElementById("iTypeLinkProduct");
+    tlink[5] = document.getElementById("iTypeLinkGroupProduct");
     var tlinkactive = tlink[@Model.iType];
 
     function iTypeOnchang(itype) {

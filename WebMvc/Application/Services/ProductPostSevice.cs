@@ -58,20 +58,20 @@ namespace WebMvc.Services
             Cmd.CommandText += " BEGIN INSERT INTO [ProductPost]([Id],[PostContent],[DateCreated],[VoteCount],[DateEdited],[IsSolution],[IsTopicStarter],[FlaggedAsSpam],[IpAddress],[Pending],[SearchField],[InReplyTo],[Product_Id],[MembershipUser_Id])";
             Cmd.CommandText += " VALUES(@Id,@PostContent,@DateCreated,@VoteCount,@DateEdited,@IsSolution,@IsTopicStarter,@FlaggedAsSpam,@IpAddress,@Pending,@SearchField,@InReplyTo,@Product_Id,@MembershipUser_Id) END ";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = post.Id;
-            Cmd.Parameters.Add("PostContent", SqlDbType.NVarChar).Value = post.PostContent;
-            Cmd.Parameters.Add("DateCreated", SqlDbType.DateTime).Value = post.DateCreated;
-            Cmd.Parameters.Add("VoteCount", SqlDbType.Int).Value = post.VoteCount;
-            Cmd.Parameters.Add("DateEdited", SqlDbType.DateTime).Value = post.DateEdited;
-            Cmd.Parameters.Add("IsSolution", SqlDbType.Bit).Value = post.IsSolution;
+            Cmd.AddParameters("Id", post.Id);
+            Cmd.AddParameters("PostContent", post.PostContent);
+            Cmd.AddParameters("DateCreated", post.DateCreated);
+            Cmd.AddParameters("VoteCount", post.VoteCount);
+            Cmd.AddParameters("DateEdited", post.DateEdited);
+            Cmd.AddParameters("IsSolution", post.IsSolution);
             Cmd.AddParameters("IsTopicStarter", post.IsTopicStarter);
             Cmd.AddParameters("FlaggedAsSpam", post.FlaggedAsSpam);
             Cmd.AddParameters("IpAddress", post.IpAddress);
             Cmd.AddParameters("Pending", post.Pending);
             Cmd.AddParameters("SearchField", post.SearchField);
             Cmd.AddParameters("InReplyTo", post.InReplyTo);
-            Cmd.Parameters.Add("Product_Id", SqlDbType.UniqueIdentifier).Value = post.Product_Id;
-            Cmd.Parameters.Add("MembershipUser_Id", SqlDbType.UniqueIdentifier).Value = post.MembershipUser_Id;
+            Cmd.AddParameters("Product_Id", post.Product_Id);
+            Cmd.AddParameters("MembershipUser_Id", post.MembershipUser_Id);
 
             bool ret = Cmd.command.ExecuteNonQuery() > 0;
 
@@ -91,20 +91,20 @@ namespace WebMvc.Services
                             + " [FlaggedAsSpam] = @FlaggedAsSpam, [IpAddress] = @IpAddress, [Pending] = @Pending, [SearchField] = @SearchField, [InReplyTo] = @InReplyTo, [Product_Id] = @Product_Id, [MembershipUser_Id] = @MembershipUser_Id "
                             + " WHERE [Id] = @Id";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = post.Id;
-            Cmd.Parameters.Add("PostContent", SqlDbType.NVarChar).Value = post.PostContent;
-            Cmd.Parameters.Add("DateCreated", SqlDbType.DateTime).Value = post.DateCreated;
-            Cmd.Parameters.Add("VoteCount", SqlDbType.Int).Value = post.VoteCount;
-            Cmd.Parameters.Add("DateEdited", SqlDbType.DateTime).Value = post.DateEdited;
-            Cmd.Parameters.Add("IsSolution", SqlDbType.Bit).Value = post.IsSolution;
+            Cmd.AddParameters("Id", post.Id);
+            Cmd.AddParameters("PostContent", post.PostContent);
+            Cmd.AddParameters("DateCreated", post.DateCreated);
+            Cmd.AddParameters("VoteCount", post.VoteCount);
+            Cmd.AddParameters("DateEdited", post.DateEdited);
+            Cmd.AddParameters("IsSolution", post.IsSolution);
             Cmd.AddParameters("IsTopicStarter", post.IsTopicStarter);
             Cmd.AddParameters("FlaggedAsSpam", post.FlaggedAsSpam);
             Cmd.AddParameters("IpAddress", post.IpAddress);
             Cmd.AddParameters("Pending", post.Pending);
             Cmd.AddParameters("SearchField", post.SearchField);
             Cmd.AddParameters("InReplyTo", post.InReplyTo);
-            Cmd.Parameters.Add("Product_Id", SqlDbType.UniqueIdentifier).Value = post.Product_Id;
-            Cmd.Parameters.Add("MembershipUser_Id", SqlDbType.UniqueIdentifier).Value = post.MembershipUser_Id;
+            Cmd.AddParameters("Product_Id", post.Product_Id);
+            Cmd.AddParameters("MembershipUser_Id", post.MembershipUser_Id);
 
             bool ret = Cmd.command.ExecuteNonQuery() > 0;
             Cmd.cacheStartsWithToClear(CacheKeys.ProductPost.StartsWith);
@@ -124,7 +124,7 @@ namespace WebMvc.Services
 
                 Cmd.CommandText = "SELECT * FROM [ProductPost] WHERE Id = @Id";
 
-                Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = Id;
+                Cmd.AddParameters("Id", Id);
 
                 DataRow data = Cmd.FindFirst();
                 if (data == null) return null;
@@ -142,7 +142,7 @@ namespace WebMvc.Services
             var Cmd = _context.CreateCommand();
             Cmd.CommandText = "DELETE FROM [ProductPost] WHERE Id = @Id";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = post.Id;
+            Cmd.AddParameters("Id", post.Id);
 
             Cmd.command.ExecuteNonQuery();
             Cmd.cacheStartsWithToClear(CacheKeys.ProductPost.StartsWith);
@@ -160,7 +160,7 @@ namespace WebMvc.Services
             var Cmd = _context.CreateCommand();
             Cmd.CommandText = "DELETE FROM [ProductPost] WHERE Product_Id = @Id";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = Id;
+            Cmd.AddParameters("Id", Id);
 
             Cmd.command.ExecuteNonQuery();
             Cmd.cacheStartsWithToClear(CacheKeys.ProductPost.StartsWith);

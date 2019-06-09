@@ -13,10 +13,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/30/2018 20:12:22</publishTime>
     </File>
     <File Include="App_Data/App.config">
-      <publishTime>07/01/2018 16:34:28</publishTime>
+      <publishTime>09/05/2018 10:57:09</publishTime>
     </File>
     <File Include="App_Data/Database.sql">
-      <publishTime>08/22/2018 16:10:24</publishTime>
+      <publishTime>11/18/2018 15:43:05</publishTime>
     </File>
     <File Include="App_Data/vi-VN.csv">
       <publishTime>07/01/2018 16:34:28</publishTime>
@@ -180,23 +180,44 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Areas/Admin/Views/AdminLanguage/_LanguageOptions.cshtml">
       <publishTime>08/03/2018 14:36:03</publishTime>
     </File>
+    <File Include="Areas/Admin/Views/AdminMembers/AddRole.cshtml">
+      <publishTime>11/26/2018 22:22:30</publishTime>
+    </File>
     <File Include="Areas/Admin/Views/AdminMembers/ChangeInfo.cshtml">
       <publishTime>07/13/2018 16:16:52</publishTime>
     </File>
     <File Include="Areas/Admin/Views/AdminMembers/ChangePass.cshtml">
-      <publishTime>07/12/2018 13:42:21</publishTime>
+      <publishTime>01/31/2019 00:12:53</publishTime>
     </File>
     <File Include="Areas/Admin/Views/AdminMembers/Create.cshtml">
-      <publishTime>07/18/2018 13:10:38</publishTime>
+      <publishTime>12/30/2018 21:37:34</publishTime>
+    </File>
+    <File Include="Areas/Admin/Views/AdminMembers/Edit.cshtml">
+      <publishTime>01/31/2019 00:01:41</publishTime>
+    </File>
+    <File Include="Areas/Admin/Views/AdminMembers/EditRole.cshtml">
+      <publishTime>11/27/2018 21:06:20</publishTime>
     </File>
     <File Include="Areas/Admin/Views/AdminMembers/Index.cshtml">
-      <publishTime>07/01/2018 16:55:26</publishTime>
+      <publishTime>01/30/2019 23:47:31</publishTime>
+    </File>
+    <File Include="Areas/Admin/Views/AdminMembers/Login.cshtml">
+      <publishTime>11/17/2018 23:39:20</publishTime>
+    </File>
+    <File Include="Areas/Admin/Views/AdminMembers/NewPass.cshtml">
+      <publishTime>01/31/2019 00:11:49</publishTime>
     </File>
     <File Include="Areas/Admin/Views/AdminMembers/NewPassword.cshtml">
       <publishTime>07/12/2018 13:32:30</publishTime>
     </File>
+    <File Include="Areas/Admin/Views/AdminMembers/Roles.cshtml">
+      <publishTime>12/30/2018 21:05:29</publishTime>
+    </File>
     <File Include="Areas/Admin/Views/AdminMembers/_MembersNavButtons.cshtml">
-      <publishTime>07/01/2018 13:53:57</publishTime>
+      <publishTime>11/27/2018 19:40:55</publishTime>
+    </File>
+    <File Include="Areas/Admin/Views/AdminMembers/_UserRolesEdit.cshtml">
+      <publishTime>12/30/2018 21:43:14</publishTime>
     </File>
     <File Include="Areas/Admin/Views/AdminMenu/Create.cshtml">
       <publishTime>07/01/2018 16:55:38</publishTime>
@@ -208,19 +229,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/01/2018 16:55:50</publishTime>
     </File>
     <File Include="Areas/Admin/Views/AdminMenu/GetMainMenus.cshtml">
-      <publishTime>07/01/2018 16:55:55</publishTime>
+      <publishTime>11/27/2018 19:48:01</publishTime>
     </File>
     <File Include="Areas/Admin/Views/AdminMenu/Index.cshtml">
-      <publishTime>07/01/2018 13:53:57</publishTime>
+      <publishTime>11/22/2018 19:36:20</publishTime>
     </File>
     <File Include="Areas/Admin/Views/AdminMenu/List.cshtml">
-      <publishTime>07/01/2018 16:56:01</publishTime>
+      <publishTime>11/22/2018 19:09:40</publishTime>
     </File>
     <File Include="Areas/Admin/Views/AdminMenu/NotDel.cshtml">
       <publishTime>07/01/2018 16:56:11</publishTime>
     </File>
     <File Include="Areas/Admin/Views/AdminMenu/_MenuFields.cshtml">
-      <publishTime>07/07/2018 15:00:00</publishTime>
+      <publishTime>10/14/2018 16:20:17</publishTime>
     </File>
     <File Include="Areas/Admin/Views/AdminMenu/_MenuNavButtons.cshtml">
       <publishTime>07/01/2018 13:53:57</publishTime>
@@ -262,13 +283,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/03/2018 11:13:33</publishTime>
     </File>
     <File Include="Areas/Admin/Views/AdminProduct/_AttributeFields.cshtml">
-      <publishTime>08/22/2018 16:15:47</publishTime>
+      <publishTime>08/24/2018 17:00:21</publishTime>
     </File>
     <File Include="Areas/Admin/Views/AdminProduct/_FieldsCreateEditProduct.cshtml">
-      <publishTime>08/22/2018 17:42:40</publishTime>
+      <publishTime>08/30/2018 10:29:01</publishTime>
     </File>
     <File Include="Areas/Admin/Views/AdminProduct/_ProductClassFields.cshtml">
-      <publishTime>08/03/2018 17:44:15</publishTime>
+      <publishTime>09/05/2018 17:42:33</publishTime>
     </File>
     <File Include="Areas/Admin/Views/AdminProduct/_ProductNavButtons.cshtml">
       <publishTime>07/01/2018 13:53:57</publishTime>
@@ -295,7 +316,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/07/2018 15:13:57</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Dashboard/MainAdminNav.cshtml">
-      <publishTime>07/16/2018 22:42:19</publishTime>
+      <publishTime>12/30/2018 20:01:42</publishTime>
     </File>
     <File Include="Areas/Admin/Views/ImportExport/Index.cshtml">
       <publishTime>07/01/2018 13:53:57</publishTime>
@@ -306,8 +327,23 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Areas/Admin/Views/Log/Index.cshtml">
       <publishTime>07/01/2018 16:58:32</publishTime>
     </File>
+    <File Include="Areas/Admin/Views/Permissions/Create.cshtml">
+      <publishTime>11/26/2018 23:23:24</publishTime>
+    </File>
+    <File Include="Areas/Admin/Views/Permissions/Del.cshtml">
+      <publishTime>11/27/2018 19:35:01</publishTime>
+    </File>
+    <File Include="Areas/Admin/Views/Permissions/Edit.cshtml">
+      <publishTime>11/26/2018 23:49:46</publishTime>
+    </File>
+    <File Include="Areas/Admin/Views/Permissions/Index.cshtml">
+      <publishTime>11/26/2018 22:47:25</publishTime>
+    </File>
+    <File Include="Areas/Admin/Views/Permissions/_PermissionNavButtons.cshtml">
+      <publishTime>11/26/2018 22:39:16</publishTime>
+    </File>
     <File Include="Areas/Admin/Views/Setting/Business.cshtml">
-      <publishTime>07/10/2018 09:37:59</publishTime>
+      <publishTime>08/31/2018 17:23:38</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Setting/CustomCode.cshtml">
       <publishTime>07/10/2018 09:37:45</publishTime>
@@ -322,7 +358,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/10/2018 09:39:30</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Setting/Registration.cshtml">
-      <publishTime>07/10/2018 09:40:04</publishTime>
+      <publishTime>02/14/2019 20:03:01</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Setting/TermsConditions.cshtml">
       <publishTime>07/10/2018 09:40:42</publishTime>
@@ -352,7 +388,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/17/2018 19:48:32</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Shared/_Footer.cshtml">
-      <publishTime>07/10/2018 10:00:13</publishTime>
+      <publishTime>11/22/2018 19:32:07</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Shared/_GenericMessage.cshtml">
       <publishTime>07/01/2018 17:01:33</publishTime>
@@ -406,13 +442,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/30/2018 20:12:22</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>08/24/2018 16:49:20</publishTime>
+      <publishTime>06/05/2019 14:58:24</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>08/24/2018 16:49:20</publishTime>
+      <publishTime>06/05/2019 14:58:24</publishTime>
+    </File>
+    <File Include="bin/DataLib.dll">
+      <publishTime>06/05/2019 14:57:56</publishTime>
+    </File>
+    <File Include="bin/DataLib.dll.config">
+      <publishTime>02/08/2019 15:36:22</publishTime>
+    </File>
+    <File Include="bin/DataLib.pdb">
+      <publishTime>06/05/2019 14:57:56</publishTime>
     </File>
     <File Include="bin/EcmaScript.NET.dll">
       <publishTime>03/09/2012 14:44:18</publishTime>
+    </File>
+    <File Include="bin/Helpers.dll">
+      <publishTime>06/05/2019 14:57:56</publishTime>
+    </File>
+    <File Include="bin/Helpers.pdb">
+      <publishTime>06/05/2019 14:57:56</publishTime>
     </File>
     <File Include="bin/HtmlAgilityPack.dll">
       <publishTime>05/26/2018 22:40:54</publishTime>
@@ -458,6 +509,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>07/25/2012 11:48:56</publishTime>
+    </File>
+    <File Include="bin/MySql.Data.dll">
+      <publishTime>04/26/2018 23:48:14</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>02/18/2018 09:44:54</publishTime>
@@ -664,16 +718,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/23/2014 13:57:34</publishTime>
     </File>
     <File Include="bin/WebMvc.dll">
-      <publishTime>08/24/2018 16:49:10</publishTime>
+      <publishTime>06/05/2019 14:58:02</publishTime>
     </File>
     <File Include="bin/WebMvc.pdb">
-      <publishTime>08/24/2018 16:49:10</publishTime>
+      <publishTime>06/05/2019 14:58:02</publishTime>
     </File>
     <File Include="bin/Yahoo.Yui.Compressor.dll">
       <publishTime>08/02/2013 00:17:08</publishTime>
     </File>
     <File Include="Content/admin/Admin.css">
-      <publishTime>07/01/2018 13:51:41</publishTime>
+      <publishTime>01/30/2019 23:54:02</publishTime>
     </File>
     <File Include="Content/admin/Admin.css.map">
       <publishTime>07/01/2018 13:51:41</publishTime>
@@ -682,7 +736,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/01/2018 13:51:41</publishTime>
     </File>
     <File Include="Content/admin/Admin.scss">
-      <publishTime>07/01/2018 13:51:41</publishTime>
+      <publishTime>01/08/2019 21:57:45</publishTime>
     </File>
     <File Include="Content/admin/Images/admin-n3o-logo.png">
       <publishTime>07/01/2018 13:51:41</publishTime>
@@ -2229,8 +2283,29 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/admin/Imports.css">
       <publishTime>07/01/2018 13:51:43</publishTime>
     </File>
+    <File Include="Content/admin/login.css">
+      <publishTime>11/17/2018 23:41:47</publishTime>
+    </File>
+    <File Include="Content/admin/login.js">
+      <publishTime>11/17/2018 19:08:26</publishTime>
+    </File>
+    <File Include="Content/admin/Menu.css">
+      <publishTime>11/22/2018 19:20:33</publishTime>
+    </File>
+    <File Include="Content/admin/Menu.js">
+      <publishTime>11/21/2018 19:43:24</publishTime>
+    </File>
+    <File Include="Content/admin/normalize.min.css">
+      <publishTime>11/17/2018 19:07:19</publishTime>
+    </File>
+    <File Include="Content/admin/prefixfree.min.js">
+      <publishTime>11/17/2018 19:07:51</publishTime>
+    </File>
     <File Include="Content/admin/sb-admin.css">
       <publishTime>07/01/2018 13:51:43</publishTime>
+    </File>
+    <File Include="Content/all.css">
+      <publishTime>11/21/2018 21:57:40</publishTime>
     </File>
     <File Include="Content/badges/jedi.png">
       <publishTime>07/01/2018 13:51:43</publishTime>
@@ -2544,6 +2619,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/Images/mail-delete.png">
       <publishTime>07/01/2018 13:51:48</publishTime>
     </File>
+    <File Include="Content/Images/product/shoes.png">
+      <publishTime>02/23/2019 14:30:34</publishTime>
+    </File>
     <File Include="Content/Images/rss-icon.png">
       <publishTime>07/01/2018 13:51:48</publishTime>
     </File>
@@ -2673,6 +2751,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/Images/social-icons/youtube.png">
       <publishTime>07/01/2018 13:51:48</publishTime>
     </File>
+    <File Include="Content/Images/tintuc/09.jpg">
+      <publishTime>02/25/2019 21:38:34</publishTime>
+    </File>
+    <File Include="Content/jquery.nestable.min.js">
+      <publishTime>11/21/2018 21:06:54</publishTime>
+    </File>
     <File Include="Content/jstree/jstree.js">
       <publishTime>07/01/2018 13:51:48</publishTime>
     </File>
@@ -2748,6 +2832,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/jstree/themes/proton/throbber.gif">
       <publishTime>07/01/2018 13:51:49</publishTime>
     </File>
+    <File Include="Content/open-iconic-bootstrap.min.css">
+      <publishTime>11/21/2018 21:06:54</publishTime>
+    </File>
     <File Include="Content/OwlCarousel/ajax-loader.gif">
       <publishTime>07/11/2018 22:31:41</publishTime>
     </File>
@@ -2783,6 +2870,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/slideoutpanel.css">
       <publishTime>07/01/2018 13:51:49</publishTime>
+    </File>
+    <File Include="Content/Sortable.min.js">
+      <publishTime>11/21/2018 21:06:54</publishTime>
     </File>
     <File Include="Content/spectrum/i18n/jquery.spectrum-de.js">
       <publishTime>07/01/2018 13:51:49</publishTime>
@@ -2928,6 +3018,15 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="favicon.ico">
       <publishTime>06/30/2018 20:11:41</publishTime>
     </File>
+    <File Include="fonts/fa-regular-400.woff">
+      <publishTime>11/21/2018 21:05:54</publishTime>
+    </File>
+    <File Include="fonts/fa-regular-400.woff2">
+      <publishTime>11/21/2018 21:05:54</publishTime>
+    </File>
+    <File Include="fonts/fa-solid-900.woff2">
+      <publishTime>11/21/2018 21:05:54</publishTime>
+    </File>
     <File Include="fonts/fontawesome-webfont.eot">
       <publishTime>07/01/2018 13:50:49</publishTime>
     </File>
@@ -2958,14 +3057,26 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="fonts/glyphicons-halflings-regular.woff2">
       <publishTime>06/30/2018 20:12:06</publishTime>
     </File>
+    <File Include="fonts/open-iconic.eot">
+      <publishTime>11/21/2018 21:05:54</publishTime>
+    </File>
+    <File Include="fonts/open-iconic.otf">
+      <publishTime>11/21/2018 21:05:54</publishTime>
+    </File>
+    <File Include="fonts/open-iconic.svg">
+      <publishTime>11/21/2018 21:05:54</publishTime>
+    </File>
+    <File Include="fonts/open-iconic.woff">
+      <publishTime>11/21/2018 21:05:54</publishTime>
+    </File>
     <File Include="Global.asax">
       <publishTime>06/30/2018 20:11:41</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>08/24/2018 16:49:14</publishTime>
+      <publishTime>06/05/2019 14:58:17</publishTime>
     </File>
     <File Include="Scripts/admin/Admin.js">
-      <publishTime>07/01/2018 17:03:13</publishTime>
+      <publishTime>08/31/2018 17:30:44</publishTime>
     </File>
     <File Include="Scripts/admin/FadeOutMessage.js">
       <publishTime>07/01/2018 17:03:13</publishTime>
@@ -4945,7 +5056,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/05/2018 01:00:10</publishTime>
     </File>
     <File Include="Scripts/fileman/js/directory.js">
-      <publishTime>07/04/2018 18:29:22</publishTime>
+      <publishTime>02/23/2019 14:24:09</publishTime>
     </File>
     <File Include="Scripts/fileman/js/file.js">
       <publishTime>07/04/2018 23:59:00</publishTime>
@@ -4970,6 +5081,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Scripts/fileman/js/jquery-ui-1.10.4.custom.min.js">
       <publishTime>07/04/2018 01:48:40</publishTime>
+    </File>
+    <File Include="Scripts/fileman/js/jquery.min.js">
+      <publishTime>02/23/2019 13:55:01</publishTime>
     </File>
     <File Include="Scripts/fileman/js/main.js">
       <publishTime>07/18/2018 12:00:57</publishTime>
@@ -5882,6 +5996,405 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Scripts/topic-post.js">
       <publishTime>07/01/2018 17:03:24</publishTime>
+    </File>
+    <File Include="Themes/Classiera/config.json">
+      <publishTime>02/13/2019 21:46:10</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/animate.min.css">
+      <publishTime>02/11/2019 23:29:01</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/bootstrap-dropdownhover.min.css">
+      <publishTime>02/11/2019 23:29:15</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/bootstrap-slider.css">
+      <publishTime>02/11/2019 23:30:18</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/bootstrap.css">
+      <publishTime>02/11/2019 23:28:54</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/classiera-components.css">
+      <publishTime>02/14/2019 21:57:45</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/classiera-map.css">
+      <publishTime>02/11/2019 23:30:12</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/classiera.css">
+      <publishTime>02/11/2019 23:29:32</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/font-awesome.css">
+      <publishTime>02/11/2019 23:29:39</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/font-awesome.min.css">
+      <publishTime>02/11/2019 23:26:26</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/frontend.css">
+      <publishTime>02/11/2019 23:27:54</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/imgareaselect.css">
+      <publishTime>02/11/2019 23:28:34</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/jquery-ui.min.css">
+      <publishTime>02/11/2019 23:28:47</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/material-design-iconic-font.css">
+      <publishTime>02/11/2019 23:29:46</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/owl.carousel.min.css">
+      <publishTime>02/11/2019 23:29:52</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/owl.theme.default.min.css">
+      <publishTime>02/11/2019 23:29:59</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/responsive.css">
+      <publishTime>02/11/2019 23:30:06</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/select2.min.css">
+      <publishTime>02/11/2019 23:28:39</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/style.css">
+      <publishTime>02/12/2019 23:26:41</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/style.min.css">
+      <publishTime>02/11/2019 23:26:02</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/woocommerce-layout.css">
+      <publishTime>02/11/2019 23:28:10</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/woocommerce-smallscreen.css">
+      <publishTime>02/11/2019 23:28:18</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/css/woocommerce.css">
+      <publishTime>02/11/2019 23:28:25</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/fonts/fontawesome-webfont.ttf">
+      <publishTime>02/11/2019 23:16:03</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/fonts/fontawesome-webfont.woff">
+      <publishTime>02/11/2019 23:15:22</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/fonts/fontawesome-webfont.woff2">
+      <publishTime>02/11/2019 23:13:58</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/fonts/Material-Design-Iconic-Font.ttf">
+      <publishTime>02/11/2019 23:16:16</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/fonts/Material-Design-Iconic-Font.woff">
+      <publishTime>02/11/2019 23:15:37</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/fonts/Material-Design-Iconic-Font.woff2">
+      <publishTime>02/11/2019 23:14:16</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/fonts/star.eot">
+      <publishTime>02/21/2019 14:29:52</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/fonts/star.svg">
+      <publishTime>02/21/2019 14:29:52</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/fonts/star.ttf">
+      <publishTime>02/21/2019 14:29:52</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/fonts/star.woff">
+      <publishTime>02/21/2019 14:29:52</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/fonts/WooCommerce.eot">
+      <publishTime>02/21/2019 14:29:52</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/fonts/WooCommerce.svg">
+      <publishTime>02/21/2019 14:29:52</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/fonts/WooCommerce.ttf">
+      <publishTime>02/21/2019 14:29:52</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/fonts/WooCommerce.woff">
+      <publishTime>02/21/2019 14:29:52</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/images/loadingAnimation.gif">
+      <publishTime>02/12/2019 00:05:49</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/add-to-cart.min.js">
+      <publishTime>02/11/2019 23:54:16</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/api-request.min.js">
+      <publishTime>02/11/2019 23:55:36</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/backbone.min.js">
+      <publishTime>02/11/2019 23:54:45</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/bootstrap-dropdownhover.js">
+      <publishTime>02/11/2019 23:56:34</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/bootstrap.min.js">
+      <publishTime>02/11/2019 23:56:30</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/cart-fragments.min.js">
+      <publishTime>02/11/2019 23:54:31</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/classiera-map.js">
+      <publishTime>02/11/2019 23:57:35</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/classiera.js">
+      <publishTime>02/11/2019 23:57:15</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/core.min.js">
+      <publishTime>02/11/2019 23:55:12</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/frontend.js">
+      <publishTime>02/11/2019 23:42:24</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/frontend1.js">
+      <publishTime>02/11/2019 23:53:59</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/infinitescroll.js">
+      <publishTime>02/11/2019 23:56:55</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/jquery-migrate.min.js">
+      <publishTime>02/11/2019 23:42:17</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/jquery-ui.min.js">
+      <publishTime>02/11/2019 23:57:21</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/jquery.blockUI.min.js">
+      <publishTime>02/11/2019 23:54:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/jquery.js">
+      <publishTime>02/11/2019 23:42:09</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/jquery.matchHeight.js">
+      <publishTime>02/11/2019 23:56:50</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/jquery.min.js">
+      <publishTime>02/11/2019 23:56:25</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/js.cookie.min.js">
+      <publishTime>02/11/2019 23:54:20</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/json2.min.js">
+      <publishTime>02/11/2019 23:42:47</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/masonry.pkgd.min.js">
+      <publishTime>02/11/2019 23:57:05</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/media-audiovideo.min.js">
+      <publishTime>02/11/2019 23:56:20</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/media-editor.min.js">
+      <publishTime>02/11/2019 23:56:16</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/media-models.min.js">
+      <publishTime>02/11/2019 23:55:01</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/media-views.min.js">
+      <publishTime>02/11/2019 23:56:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/mediaelement-and-player.min.js">
+      <publishTime>02/11/2019 23:42:56</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/mediaelement-migrate.min.js">
+      <publishTime>02/11/2019 23:43:02</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/mouse.min.js">
+      <publishTime>02/11/2019 23:55:22</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/moxie.min.js">
+      <publishTime>02/11/2019 23:42:36</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/owl.carousel.min.js">
+      <publishTime>02/11/2019 23:56:45</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/plupload.min.js">
+      <publishTime>02/11/2019 23:42:43</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/select2.min.js">
+      <publishTime>02/11/2019 23:57:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/shortcode.min.js">
+      <publishTime>02/11/2019 23:54:40</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/single-product.min.js">
+      <publishTime>02/23/2019 15:12:08</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/sortable.min.js">
+      <publishTime>02/11/2019 23:55:26</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/style.js">
+      <publishTime>02/11/2019 23:50:41</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/thickbox.js">
+      <publishTime>02/11/2019 23:53:30</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/underscore.min.js">
+      <publishTime>02/11/2019 23:54:36</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/utils.min.js">
+      <publishTime>02/11/2019 23:42:30</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/validator.min.js">
+      <publishTime>02/11/2019 23:56:39</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/widget.min.js">
+      <publishTime>02/11/2019 23:55:16</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/woocommerce.min.js">
+      <publishTime>02/11/2019 23:54:25</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/wp-backbone.min.js">
+      <publishTime>02/11/2019 23:54:55</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/wp-embed.min.js">
+      <publishTime>02/11/2019 23:57:40</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/wp-mediaelement.min.js">
+      <publishTime>02/11/2019 23:55:30</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/wp-plupload.min.js">
+      <publishTime>02/11/2019 23:55:07</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/js/wp-util.min.js">
+      <publishTime>02/11/2019 23:54:51</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Content/Logo/favicon-ruby.png">
+      <publishTime>02/11/2019 23:39:08</publishTime>
+    </File>
+    <File Include="Themes/Classiera/route.json">
+      <publishTime>11/20/2018 22:51:45</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/About/Index.cshtml">
+      <publishTime>02/12/2019 21:31:34</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Cart/Commit.cshtml">
+      <publishTime>10/21/2018 22:11:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Cart/Index.cshtml">
+      <publishTime>10/21/2018 22:11:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Cart/Success.cshtml">
+      <publishTime>10/21/2018 22:11:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Category/Index.cshtml">
+      <publishTime>02/12/2019 21:54:10</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Category/ListCategorySideMenu.cshtml">
+      <publishTime>10/21/2018 22:11:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Category/Show.cshtml">
+      <publishTime>10/21/2018 22:11:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Category/ShowBySlug.cshtml">
+      <publishTime>10/21/2018 22:11:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Category/ShowBySlugProduct.cshtml">
+      <publishTime>10/21/2018 22:11:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Category/_CatTopNews.cshtml">
+      <publishTime>10/21/2018 22:11:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Category/_ProductItem.cshtml">
+      <publishTime>10/21/2018 22:11:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Contact/Index.cshtml">
+      <publishTime>02/12/2019 21:45:51</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Home/Index.cshtml">
+      <publishTime>02/12/2019 21:16:16</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Members/Index.cshtml">
+      <publishTime>02/12/2019 22:27:36</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Members/Login.cshtml">
+      <publishTime>02/12/2019 22:41:03</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Members/Register.cshtml">
+      <publishTime>02/12/2019 22:27:36</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Product/AjaxProductForClass.cshtml">
+      <publishTime>10/21/2018 22:11:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Product/index.cshtml">
+      <publishTime>02/23/2019 13:46:34</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Product/ShowByGroupSlug.cshtml">
+      <publishTime>10/21/2018 22:11:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Product/ShowBySlug.cshtml">
+      <publishTime>02/23/2019 16:44:39</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Product/_Paging1.cshtml">
+      <publishTime>10/21/2018 22:11:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Product/_ProductItem.cshtml">
+      <publishTime>10/21/2018 22:11:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Product/_ProductItem2.cshtml">
+      <publishTime>10/21/2018 22:11:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Shared/_Breadcrumb.cshtml">
+      <publishTime>02/17/2019 22:12:58</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Shared/_Footer.cshtml">
+      <publishTime>02/26/2019 23:09:35</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Shared/_FooterBottom.cshtml">
+      <publishTime>02/11/2019 22:51:18</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Shared/_FooterScript.cshtml">
+      <publishTime>02/23/2019 15:13:03</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Shared/_Header.cshtml">
+      <publishTime>02/26/2019 23:03:33</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Shared/_HtmlScript.cshtml">
+      <publishTime>02/11/2019 23:02:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Shared/_JavaScript.cshtml">
+      <publishTime>02/24/2019 15:30:22</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Shared/_Layout.cshtml">
+      <publishTime>02/24/2019 15:17:41</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Shared/_Menu.cshtml">
+      <publishTime>10/21/2018 22:11:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Shared/_Paging.cshtml">
+      <publishTime>10/21/2018 22:11:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Shared/_ProductItem.cshtml">
+      <publishTime>10/21/2018 22:11:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Shared/_Sidebar.cshtml">
+      <publishTime>02/26/2019 22:44:20</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Shared/_StyleSheets.cshtml">
+      <publishTime>02/12/2019 22:54:33</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Shared/_WidgetFeaturedAds.cshtml">
+      <publishTime>02/26/2019 22:22:52</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Shared/_WidgetProduct.cshtml">
+      <publishTime>02/26/2019 23:08:17</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Shared/_WidgetProduct2.cshtml">
+      <publishTime>02/26/2019 23:09:27</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Shared/_WidgetShare.cshtml">
+      <publishTime>02/26/2019 22:47:39</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Shared/_WidgetTopic.cshtml">
+      <publishTime>02/26/2019 22:21:32</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Topic/Create.cshtml">
+      <publishTime>10/21/2018 22:11:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Topic/Index.cshtml">
+      <publishTime>02/26/2019 22:49:21</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Topic/ShowBySlug.cshtml">
+      <publishTime>02/26/2019 22:44:43</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/Web.config">
+      <publishTime>10/21/2018 22:11:11</publishTime>
+    </File>
+    <File Include="Themes/Classiera/Views/_ViewStart.cshtml">
+      <publishTime>10/21/2018 22:11:11</publishTime>
     </File>
     <File Include="Themes/Gland/config.json">
       <publishTime>08/24/2018 16:36:41</publishTime>
@@ -7660,13 +8173,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/01/2018 13:52:02</publishTime>
     </File>
     <File Include="Views/FileManager/Index.cshtml">
-      <publishTime>07/04/2018 21:02:19</publishTime>
+      <publishTime>02/23/2019 13:55:21</publishTime>
     </File>
     <File Include="Views/FileManager/Upload.cshtml">
       <publishTime>07/04/2018 23:24:09</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
-      <publishTime>07/01/2018 13:52:02</publishTime>
+      <publishTime>02/12/2019 21:20:31</publishTime>
     </File>
     <File Include="Views/Home/Contact.cshtml">
       <publishTime>06/30/2018 20:11:41</publishTime>
@@ -7723,7 +8236,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/01/2018 13:52:02</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/02/2018 11:05:17</publishTime>
+      <publishTime>06/05/2019 14:58:07</publishTime>
     </File>
   </ItemGroup>
 </Project>

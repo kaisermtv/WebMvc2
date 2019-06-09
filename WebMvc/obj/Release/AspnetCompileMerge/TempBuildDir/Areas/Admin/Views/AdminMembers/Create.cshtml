@@ -32,6 +32,8 @@
                 @Html.ValidationMessageFor(model => model.Password2, "", new { @class = "text-danger" })
             </div>
             <hr />
+            @Html.Partial("_UserRolesEdit",Model.Roles)
+            <hr />
             <div class="form-group">
                 @Html.LabelFor(model => model.Avatar)
                 @Html.EditorFor(model => model.Avatar, new { htmlAttributes = new { @class = "form-control" } })

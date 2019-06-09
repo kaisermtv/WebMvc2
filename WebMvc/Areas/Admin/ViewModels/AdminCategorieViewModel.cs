@@ -12,6 +12,7 @@ namespace WebMvc.Areas.Admin.ViewModels
 {
     public class ListCategoriesViewModel
     {
+        public bool isProduct { get; set; }
         public List<Category> Categories { get; set; }
     }
 

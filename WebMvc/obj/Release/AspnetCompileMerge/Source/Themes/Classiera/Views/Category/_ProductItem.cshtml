@@ -1,0 +1,52 @@
+﻿@model Product
+@if (Model != null)
+{
+    string link = AppHelpers.ProductUrls(Model.Category_Id, Model.Slug);
+    var val = AppHelpers.ProductValues(Model);
+    string price = "Liên hệ";
+    string Price = "0";
+
+    if (val.ContainsKey("Price"))
+    {
+        Price = val["Price"].ToString();
+        try
+        {
+            price = int.Parse(Price).ToString("N0").Replace(",", ".") + " <sup>đ</sup>";
+        }
+        catch { }
+    }
+
+
+    if (Model.Image == null)
+    {
+        Model.Image = "";
+    }
+    string[] images = Model.Image.Split('|');
+    string img1 = "";
+    if (images.Length > 0)
+    {
+        img1 = images[0];
+    }
+    <div class="pd0 w-col w-col-4 bottom20">
+        <div class="boxprdlist">
+            <div class="boder1 figure">
+                <a href="@link" title="@Model.Name" class="box-img-scaledown">
+                    <img src="@AppHelpers.ImageCropUrl(img1, 414,312)" class="image-18" alt="@Model.Name">
+                </a>
+            </div>
+            <div class="contentboxl">
+                <a href="@link" title="@Model.Name">
+                    <h3 class="heading-10">@Model.Name</h3>
+                </a>
+                <div class="pricecontentboxl">
+                    @*<div class="div-block-6">
+            <h4 class="heading-12">@price <sup>đ</sup></h4>
+        </div>*@
+                    <div class="div-block-5">
+                        <h4 class="heading-11">@Html.Raw(price)</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

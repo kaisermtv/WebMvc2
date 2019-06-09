@@ -8,6 +8,7 @@ using System.Web.Mvc.Filters;
 using WebMvc.Application;
 using WebMvc.Application.Context;
 using WebMvc.Application.Entities;
+using WebMvc.Application.Extensions;
 using WebMvc.Application.Interfaces;
 using WebMvc.Application.Lib;
 using WebMvc.Areas.Admin.ViewModels;
@@ -24,188 +25,17 @@ namespace WebMvc.Areas.Admin.Controllers
 
         }
 
-        public ActionResult index()
-        {
-            return General();
-        }
-
-        #region General Setting
-        public ActionResult General()
-        {
-            var model = new AdminGeneralSettingViewModel
-            {
-                WebsiteName = SettingsService.GetSetting("WebsiteName"),
-                WebsiteUrl = SettingsService.GetSetting("WebsiteUrl"),
-                PageTitle = SettingsService.GetSetting("PageTitle"),
-                MetaDesc = SettingsService.GetSetting("MetaDesc"),
-            };
-
-            return View("General", model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult General(AdminGeneralSettingViewModel setting)
-        {
-            if (ModelState.IsValid)
-            {
-                using (var unitOfWork = UnitOfWorkManager.NewUnitOfWork())
-                {
-                    try
-                    {
-                        SettingsService.SetSetting("WebsiteName", setting.WebsiteName);
-                        SettingsService.SetSetting("WebsiteUrl", setting.WebsiteUrl);
-                        SettingsService.SetSetting("PageTitle", setting.PageTitle);
-                        SettingsService.SetSetting("MetaDesc", setting.MetaDesc);
-
-
-                        unitOfWork.Commit();
-                        TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
-                        {
-                            Message = LocalizationService.GetResourceString("Cập nhật thành công!"),
-                            MessageType = GenericMessages.success
-                        };
-                    }
-                    catch (Exception ex)
-                    {
-                        unitOfWork.Rollback();
-                        LoggingService.Error(ex);
-                    }
-                }
-
-            }
-
-
-
-            return View("General", setting);
-        }
-
-        #endregion General Setting
-
-        #region company information
-        public ActionResult Business()
-        {
-            var model = new AdminBusinessSettingViewModel 
-            {
-                BusinessName = SettingsService.GetSetting("BusinessName"),
-                RepresentAtive = SettingsService.GetSetting("RepresentAtive"),
-                RepresentPosition = SettingsService.GetSetting("RepresentPosition"),
-                Introduce = SettingsService.GetSetting("Introduce"),
-                Greeting = SettingsService.GetSetting("Greeting"),
-
-                Fanpage = SettingsService.GetSetting("Fanpage"),
-                FanChat = SettingsService.GetSetting("FanChat"),
-                Hotline = SettingsService.GetSetting("Hotline"),
-                HotlineImg = SettingsService.GetSetting("HotlineImg"),
-                Addrens = new List<AdminShowroomSettingViewModel>(),
-
-                BankID = SettingsService.GetSetting("BankID"),
-                BankName = SettingsService.GetSetting("BankName"),
-                BankUser = SettingsService.GetSetting("BankUser"),
-                BankPay = SettingsService.GetSetting("BankPay"),
-            };
-
-            var ShowroomCount = SettingsService.GetSetting("ShowroomCount");
-            int count = 0;
-            try
-            {
-                count = int.Parse(ShowroomCount);
-            }
-            catch { }
-
-            for(int i = 0; i < count; i++)
-            {
-                model.Addrens.Add(new AdminShowroomSettingViewModel {
-                   Addren = SettingsService.GetSetting("Showroom["+i+"].Address"),
-                   iFrameMap = SettingsService.GetSetting("Showroom[" + i + "].iFrameMap"),
-                   Tel = SettingsService.GetSetting("Showroom[" + i + "].Tel"),
-                   Hotline = SettingsService.GetSetting("Showroom[" + i + "].Hotline"),
-                   Name = SettingsService.GetSetting("Showroom[" + i + "].Name"),
-				});
-            }
-
-            return View( model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Business(AdminBusinessSettingViewModel setting)
-        {
-            if (ModelState.IsValid)
-            {
-                using (var unitOfWork = UnitOfWorkManager.NewUnitOfWork())
-                {
-                    try
-                    {
-                        SettingsService.SetSetting("BusinessName", setting.BusinessName);
-                        SettingsService.SetSetting("Introduce", setting.Introduce);
-                        SettingsService.SetSetting("Greeting", setting.Greeting); 
-                        SettingsService.SetSetting("Fanpage", setting.Fanpage);
-                        SettingsService.SetSetting("FanChat", setting.FanChat);
-                        SettingsService.SetSetting("Hotline", setting.Hotline);
-                        SettingsService.SetSetting("HotlineImg", setting.HotlineImg);
-                        
-                        SettingsService.SetSetting("BankID", setting.BankID);
-                        SettingsService.SetSetting("BankName", setting.BankName);
-                        SettingsService.SetSetting("BankUser", setting.BankUser);
-
-                        if (setting.Addrens != null)
-                        {
-                            int count = setting.Addrens.Count;
-                            SettingsService.SetSetting("ShowroomCount", count.ToString());
-
-                            for (int i = 0; i < count; i++)
-                            {
-                                SettingsService.SetSetting("Showroom[" + i + "].Address", setting.Addrens[i].Addren);
-                                SettingsService.SetSetting("Showroom[" + i + "].iFrameMap", setting.Addrens[i].iFrameMap);
-                                SettingsService.SetSetting("Showroom[" + i + "].Tel", setting.Addrens[i].Tel);
-                                SettingsService.SetSetting("Showroom[" + i + "].Hotline", setting.Addrens[i].Hotline);
-                                SettingsService.SetSetting("Showroom[" + i + "].Name", setting.Addrens[i].Name);
-							}
-                        }
-                        else
-                        {
-                            SettingsService.SetSetting("ShowroomCount", "0");
-                            setting.Addrens = new List<AdminShowroomSettingViewModel>();
-                        }
-                        
-
-                        unitOfWork.Commit();
-                        TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
-                        {
-                            Message = LocalizationService.GetResourceString("Cập nhật thành công!"),
-                            MessageType = GenericMessages.success
-                        };
-                    }
-                    catch (Exception ex)
-                    {
-                        unitOfWork.Rollback();
-                        LoggingService.Error(ex);
-                    }
-                }
-
-            }
-
-
-
-            return View(setting);
-        }
-        #endregion
-
-        #region TermsConditions Setting
-        public ActionResult TermsConditions()
-        {
-
-            return View();
-        }
-        #endregion TermsConditions Setting
+        //public ActionResult index()
+        //{
+        //    return General();
+        //}
 
         #region Email Setting
         public ActionResult Email()
         {
             var viewModel = new AdminEmailSettingViewModel
             {
-                InEmail = SettingsService.GetSetting("InEmail"),
+                InEmail = SettingsService.GetSetting(AppConstants.STInEmail),
             };
             return View(viewModel);
         }
@@ -220,7 +50,7 @@ namespace WebMvc.Areas.Admin.Controllers
                 {
                     try
                     {
-                        SettingsService.SetSetting("InEmail", setting.InEmail);
+                        SettingsService.SetSetting(AppConstants.STInEmail, setting.InEmail);
 
 
                         unitOfWork.Commit();
@@ -246,8 +76,48 @@ namespace WebMvc.Areas.Admin.Controllers
         #region Registration Setting
         public ActionResult Registration()
         {
+            var model = new AdminRegistrationSettingViewModel
+            {
+                LockRegister = SettingsService.GetSetting(AppConstants.STLockRegister).ToBool(),
+                //WebsiteName = SettingsService.GetSetting("WebsiteName"),
+                //WebsiteUrl = SettingsService.GetSetting("WebsiteUrl"),
+                //PageTitle = SettingsService.GetSetting("PageTitle"),
+                //MetaDesc = SettingsService.GetSetting("MetaDesc"),
+            };
 
-            return View();
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Registration(AdminRegistrationSettingViewModel setting)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var unitOfWork = UnitOfWorkManager.NewUnitOfWork())
+                {
+                    try
+                    {
+                        SettingsService.SetSetting(AppConstants.STLockRegister, setting.LockRegister);
+
+
+                        unitOfWork.Commit();
+                        TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = LocalizationService.GetResourceString("Cập nhật thành công!"),
+                            MessageType = GenericMessages.success
+                        };
+                    }
+                    catch (Exception ex)
+                    {
+                        unitOfWork.Rollback();
+                        LoggingService.Error(ex);
+                    }
+                }
+
+            }
+
+            return View(setting);
         }
         #endregion Registration Setting
 

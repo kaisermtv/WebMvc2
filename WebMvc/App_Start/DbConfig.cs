@@ -19,6 +19,8 @@ namespace WebMvc
 
         public string DbName => "testdblib";
 
+        public SqlType SqlType => ConfigurationManager.ConnectionStrings["WebMvcContext"].ProviderName== "System.Data.SqlClient"? SqlType.SqlServer:SqlType.MySql;
+
         public void DataConfig()
         {
             throw new NotImplementedException();
@@ -57,17 +59,17 @@ namespace WebMvc
                 .AddColumn("IsApproved", SqlDbType.Bit).Required().Default("0")
                 .AddColumn("IsLockedOut", SqlDbType.Bit).Required().Default("1")
                 .AddColumn("IsBanned", SqlDbType.Bit).Required().Default("0")
-                .AddColumn("CreateDate", SqlDbType.DateTime).Required().Default("GETDATE()")
-                .AddColumn("LastLoginDate", SqlDbType.DateTime).Required().Default("GETDATE()")
-                .AddColumn("LastPasswordChangedDate", SqlDbType.DateTime).Required().Default("GETDATE()")
-                .AddColumn("LastLockoutDate", SqlDbType.DateTime).Required().Default("GETDATE()")
+                .AddColumn("CreateDate", SqlDbType.DateTime).Required().Default("GETUTCDATE()")
+                .AddColumn("LastLoginDate", SqlDbType.DateTime).Required().Default("GETUTCDATE()")
+                .AddColumn("LastPasswordChangedDate", SqlDbType.DateTime).Required().Default("GETUTCDATE()")
+                .AddColumn("LastLockoutDate", SqlDbType.DateTime).Required().Default("GETUTCDATE()")
                 .AddColumn("LastActivityDate", SqlDbType.DateTime)
                 .AddColumn("FailedPasswordAttemptCount", SqlDbType.Int).Required().Default("0")
                 .AddColumn("FailedPasswordAnswerAttempt", SqlDbType.Int).Required().Default("0")
                 .AddColumn("PasswordResetToken", SqlDbType.NVarChar).MaxLength(150)
                 .AddColumn("PasswordResetTokenCreatedAt", SqlDbType.DateTime)
                 .AddColumn("Comment", SqlDbType.NVarChar)
-                .AddColumn("Slug", SqlDbType.NVarChar).Required().MaxLength(256)
+                .AddColumn("Slug", SqlDbType.NVarChar).Required().MaxLength(256).Unique()
                 .AddColumn("Signature", SqlDbType.NVarChar).MaxLength(1000)
                 .AddColumn("Age", SqlDbType.Int)
                 .AddColumn("Location", SqlDbType.NVarChar).MaxLength(100)
@@ -95,21 +97,34 @@ namespace WebMvc
                 .AddColumn("Latitude", SqlDbType.NVarChar).MaxLength(40)
                 .AddColumn("Longitude", SqlDbType.NVarChar).MaxLength(40)
                 .Insert(@"INSERT [dbo].[MembershipUser] ([Id], [UserName], [Password], [PasswordSalt], [Email], [PasswordQuestion], [PasswordAnswer], [IsApproved], [IsLockedOut], [IsBanned], [CreateDate], [LastLoginDate], [LastPasswordChangedDate], [LastLockoutDate], [LastActivityDate], [FailedPasswordAttemptCount], [FailedPasswordAnswerAttempt], [PasswordResetToken], [PasswordResetTokenCreatedAt], [Comment], [Slug], [Signature], [Age], [Location], [Website], [Twitter], [Facebook], [Avatar], [FacebookAccessToken], [FacebookId], [TwitterAccessToken], [TwitterId], [GoogleAccessToken], [GoogleId], [MicrosoftAccessToken], [MicrosoftId], [IsExternalAccount], [TwitterShowFeed], [LoginIdExpires], [MiscAccessToken], [DisableEmailNotifications], [DisablePosting], [DisablePrivateMessages], [DisableFileUploads], [HasAgreedToTermsAndConditions], [Latitude], [Longitude]) "
-                         +   @"VALUES(N'687abc70-f93d-49d4-985c-a8af00dccdad', N'admin', N'wIJuGJDB9b/EvK1firQp/gTtjPBEpUy7G+RyJmXUfbY=', N'IBAqGIIeeKFo8TFbVf8M+V9lgSGKH2Et', N'admin@yahoo.com', NULL, NULL, 1, 0, 0, CAST(N'2018-03-26 13:23:55.370' AS DateTime), CAST(N'2018-03-27 09:14:56.693' AS DateTime), CAST(N'2018-03-26 13:23:55.370' AS DateTime), CAST(N'1753-01-01 00:00:00.000' AS DateTime), NULL, 0, 0, NULL, NULL, NULL, N'kaisermtv', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)");
+                         +   @"VALUES(N'687abc70-f93d-49d4-985c-a8af00dccdad', N'admin', N'wIJuGJDB9b/EvK1firQp/gTtjPBEpUy7G+RyJmXUfbY=', N'IBAqGIIeeKFo8TFbVf8M+V9lgSGKH2Et', N'admin@yahoo.com', NULL, NULL, 1, 0, 0, CAST(N'2018-03-26 13:23:55.370' AS DateTime), CAST(N'2018-03-27 09:14:56.693' AS DateTime), CAST(N'2018-03-26 13:23:55.370' AS DateTime), CAST(N'1753-01-01 00:00:00.000' AS DateTime), NULL, 0, 0, NULL, NULL, NULL, N'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)");
 
             tablesConfig.AddTable("MembershipRole")
                 .AddColumn("Id", SqlDbType.UniqueIdentifier).PrimaryKey().Required()
                 .AddColumn("RoleName", SqlDbType.NVarChar).MaxLength(250).Required().Unique()
-                .Insert(@"INSERT INTO [dbo].[MembershipRole]([Id],[RoleName])VALUES('1D42BBBA-834F-457F-AF32-A827003B2D1F','Admin')")
-                .Insert(@"INSERT INTO [dbo].[MembershipRole]([Id],[RoleName])VALUES('FD95507D-4002-4C5B-8A64-A827003B2D22','Standard Members')")
-                .Insert(@"INSERT INTO [dbo].[MembershipRole]([Id],[RoleName])VALUES('3D2B6D1C-74F4-4ABF-9378-A827003B2D24','Guest')");
-
+                .AddColumn("Description", SqlDbType.NVarChar)
+                .AddColumn("Lock",SqlDbType.Bit).Required().Default("0")
+                .Insert(@"INSERT INTO [dbo].[MembershipRole]([Id],[RoleName],[Description],[Lock])VALUES('1D42BBBA-834F-457F-AF32-A827003B2D1F','Admin',N'Quản trị viên',1)")
+                .Insert(@"INSERT INTO [dbo].[MembershipRole]([Id],[RoleName],[Description],[Lock])VALUES('FD95507D-4002-4C5B-8A64-A827003B2D22','Standard Members',N'Thành viên tiêu chuẩn',1)")
+                .Insert(@"INSERT INTO [dbo].[MembershipRole]([Id],[RoleName],[Description],[Lock])VALUES('3D2B6D1C-74F4-4ABF-9378-A827003B2D24','Guest',N'Khách vãng lai',1)");
 
 
             tablesConfig.AddTable("MembershipUsersInRoles")
-                .AddColumn("UserIdentifier", SqlDbType.UniqueIdentifier).PrimaryKey().Required()
+                .AddColumn("UserIdentifier", SqlDbType.UniqueIdentifier).Required()
                 .AddColumn("RoleIdentifier", SqlDbType.UniqueIdentifier).Required()
                 .Insert(@"INSERT [dbo].[MembershipUsersInRoles] ([UserIdentifier], [RoleIdentifier]) VALUES (N'687abc70-f93d-49d4-985c-a8af00dccdad', N'1d42bbba-834f-457f-af32-a827003b2d1f')");
+
+            tablesConfig.AddTable("Permission")
+                .AddColumn("Id", SqlDbType.UniqueIdentifier).PrimaryKey().Required()
+                .AddColumn("PermissionId", SqlDbType.UniqueIdentifier)
+                .AddColumn("Name", SqlDbType.NVarChar).Required().MaxLength(150).Unique()
+                .AddColumn("IsGlobal", SqlDbType.Bit).Required().Default("0")
+                .AddColumn("Lock",SqlDbType.Bit).Required().Default("0");
+
+            tablesConfig.AddTable("PermissionsInRoles")
+                .AddColumn("Id", SqlDbType.UniqueIdentifier).PrimaryKey().Required()
+                .AddColumn("PermissionId", SqlDbType.UniqueIdentifier).Required()
+                .AddColumn("RoleId", SqlDbType.UniqueIdentifier).Required();
 
 
             tablesConfig.AddTable("Language")
@@ -224,7 +239,9 @@ namespace WebMvc
                 .AddColumn("ValueFindter", SqlDbType.NText)
                 .AddColumn("IsShowFindter", SqlDbType.Bit).Required().Default("0")
                 .AddColumn("IsNull", SqlDbType.Bit).Required().Default("0")
-                .AddColumn("IsLock", SqlDbType.Bit).Required().Default("0");
+                .AddColumn("IsLock", SqlDbType.Bit).Required().Default("0")
+                .Insert("INSERT [dbo].[ProductAttribute] ([Id], [LangName], [ValueType], [ValueOption], [ValueFindter], [IsShowFindter], [IsNull], [IsLock]) VALUES (N'944e407a-320f-4b47-b98f-a9f9010994a6', N'Price', 0, N'null', N'null', 0, 1, 1)")
+                .Insert("INSERT [dbo].[ProductAttribute] ([Id], [LangName], [ValueType], [ValueOption], [ValueFindter], [IsShowFindter], [IsNull], [IsLock]) VALUES (N'46eb0aae-90da-436f-9018-a9f90109f90e', N'Promotion', 1, N'null', N'null', 0, 1, 1)");
 
             tablesConfig.AddTable("ProductClassAttribute")
                 .AddColumn("Id", SqlDbType.UniqueIdentifier).PrimaryKey().Required()
@@ -270,11 +287,7 @@ namespace WebMvc
                 .AddColumn("Product_Id", SqlDbType.UniqueIdentifier).Required()
                 .AddColumn("MembershipUser_Id", SqlDbType.UniqueIdentifier).Required();
 
-            tablesConfig.AddTable("Permission")
-                .AddColumn("Id", SqlDbType.UniqueIdentifier).PrimaryKey().Required()
-                .AddColumn("Name", SqlDbType.NVarChar).Required().MaxLength(150)
-                .AddColumn("IsGlobal", SqlDbType.Bit).Required().Default("0");
-
+           
             tablesConfig.AddTable("Contact")
                 .AddColumn("Id", SqlDbType.UniqueIdentifier).PrimaryKey().Required()
                 .AddColumn("Name", SqlDbType.NVarChar).MaxLength(150)

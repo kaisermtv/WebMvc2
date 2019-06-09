@@ -49,24 +49,32 @@ namespace WebMvc.Services
 
         public void Add(Carousel menu)
         {
-            var Cmd = _context.CreateCommand();
+            using (var Cmd = _context.CreateCommand())
+            {
+                bool rt = Cmd.Add<Carousel>(menu) > 0;
 
-            Cmd.CommandText = "INSERT INTO [dbo].[Carousel]([Id],[Carousel_Id],[Name],[Description],[Link],[Image],[SortOrder])"
-                + " VALUES(@Id,@Carousel_Id,@Name,@Description,@Link,@Image,@SortOrder)";
+                Cmd.cacheStartsWithToClear(CacheKeys.Carousel.StartsWith);
+                if (!rt) throw new Exception("Add Carousel false");
+            }
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = menu.Id;
-            Cmd.AddParameters("Name", menu.Name);
-            Cmd.AddParameters("Description", menu.Description);
-            Cmd.AddParameters("Link", menu.Link);
-            Cmd.AddParameters("Image", menu.Image);
-            Cmd.AddParameters("SortOrder", menu.SortOrder);
-            Cmd.AddParameters("Carousel_Id", menu.Carousel_Id);
+            //    var Cmd = _context.CreateCommand();
 
-            bool rt = Cmd.command.ExecuteNonQuery() > 0;
-            Cmd.cacheStartsWithToClear(CacheKeys.Carousel.StartsWith);
-            Cmd.Close();
+            //Cmd.CommandText = "INSERT INTO [dbo].[Carousel]([Id],[Carousel_Id],[Name],[Description],[Link],[Image],[SortOrder])"
+            //    + " VALUES(@Id,@Carousel_Id,@Name,@Description,@Link,@Image,@SortOrder)";
 
-            if (!rt) throw new Exception("Add Carousel false");
+            //Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = menu.Id;
+            //Cmd.AddParameters("Name", menu.Name);
+            //Cmd.AddParameters("Description", menu.Description);
+            //Cmd.AddParameters("Link", menu.Link);
+            //Cmd.AddParameters("Image", menu.Image);
+            //Cmd.AddParameters("SortOrder", menu.SortOrder);
+            //Cmd.AddParameters("Carousel_Id", menu.Carousel_Id);
+
+            //bool rt = Cmd.command.ExecuteNonQuery() > 0;
+            //Cmd.cacheStartsWithToClear(CacheKeys.Carousel.StartsWith);
+            //Cmd.Close();
+
+            //if (!rt) throw new Exception("Add Carousel false");
         }
 
 
@@ -78,7 +86,7 @@ namespace WebMvc.Services
                                 + "[Link] = @Link,[Image] = @Image,[SortOrder] = @SortOrder WHERE [Id] = @Id";
 
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = menu.Id;
+            Cmd.AddParameters("Id", menu.Id);
             Cmd.AddParameters("Name", menu.Name);
             Cmd.AddParameters("Description", menu.Description);
             Cmd.AddParameters("Link", menu.Link);
@@ -98,7 +106,8 @@ namespace WebMvc.Services
             var Cmd = _context.CreateCommand();
             Cmd.CommandText = "DELETE FROM [dbo].[Carousel] WHERE Id = @Id";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = menu.Id;
+            Cmd.AddParameters("Id", menu.Id);
+            //Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = menu.Id;
 
             Cmd.command.ExecuteNonQuery();
             Cmd.cacheStartsWithToClear(CacheKeys.Carousel.StartsWith);

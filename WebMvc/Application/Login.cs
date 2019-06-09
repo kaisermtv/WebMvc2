@@ -22,6 +22,7 @@ namespace WebMvc.Application
         protected HttpCookieCollection Cookies => Request.Cookies;
         protected MembershipLoginService LoginService => ServiceFactory.Get<MembershipLoginService>();
         protected MembershipService MembershipService => ServiceFactory.Get<MembershipService>();
+        protected PermissionService PermissionService => ServiceFactory.Get<PermissionService>();
         protected MembershipLoginService MembershipLogin => ServiceFactory.Get<MembershipLoginService>();
         protected IUnitOfWorkManager UnitOfWorkManager => ServiceFactory.Get<IUnitOfWorkManager>();
         protected LoggingService LoggingService => ServiceFactory.Get<LoggingService>();
@@ -81,7 +82,9 @@ namespace WebMvc.Application
                     MembershipLogin.Del(LoginKey);
                     return;
                 }
-                
+
+                MembershipLogin.UpdateOnline(LoginKey);
+
                 Type = (TypeLogin)login.TypeLogin;
             }
             catch(Exception ex)
@@ -113,16 +116,63 @@ namespace WebMvc.Application
             SuperLogin
         }
 
+        #region Roles
+        private List<MembershipRole> _Roles;
+        public List<MembershipRole> Roles
+        {
+            get
+            {
+                if (_Roles != null) return _Roles;
+                if (User == null) return null;
 
+                _Roles = MembershipService.GetRoles(User);
+
+                return _Roles;
+            }
+        }
 
         public bool IsInRole(string role)
         {
-            return true;
-        }
+            foreach (var it in Roles)
+            {
+                if (it.RoleName == role) return true;
+            }
 
+            return false;
+        }
+        #endregion
+
+        #region Permisions
+        private List<Permission> _Permisions;
+        public List<Permission> Permisions
+        {
+            get
+            {
+                if (_Permisions != null) return _Permisions;
+                if (Roles == null) return null;
+
+                _Permisions = PermissionService.GetPermissions(Roles);
+
+                return _Permisions;
+            }
+        }
         public bool IsInPermision(string permision)
         {
-            return true;
+            if (IsInRole(AppConstants.AdminRoleName)) return true;
+            
+            foreach (var it in Permisions)
+            {
+                if (it.Name == permision) return true;
+            }
+
+            return false;
+        }
+        #endregion
+
+        public bool IsSuperAccount()
+        {
+            if (User.UserName == AppConstants.AdminUsername) return true;
+            return false;
         }
 
         public void LogOut()

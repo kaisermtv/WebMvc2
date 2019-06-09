@@ -15,10 +15,11 @@ using WebMvc.Application.Lib;
 using System.IO.Compression;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
+using WebMvc.Application.Attribute;
 
 namespace WebMvc.Controllers
 {
-    [Authorize]
+    [Login]
     public class FileManagerController : BaseController
     {
         public FileManagerController(LoggingService loggingService, IUnitOfWorkManager unitOfWorkManager, MembershipService membershipService, SettingsService settingsService, CacheService cacheService, LocalizationService localizationService)
@@ -807,7 +808,7 @@ namespace WebMvc.Controllers
             var lst = new ArrayList();
 
 
-            lst.AddRange(GetListFolder("My file",string.Concat("/Content/UserFile/", LoggedOnReadOnlyUser.Id), type, true));
+            lst.AddRange(GetListFolder("My file",string.Concat("/Content/UserFile/", LoginUser.Id), type, true));
 
 
             bool uploadRoler = false;

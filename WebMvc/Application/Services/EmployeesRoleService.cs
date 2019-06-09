@@ -43,7 +43,7 @@ namespace WebMvc.Services
             Cmd.CommandText = "INSERT INTO [EmployeesRole]([Id],[Name],[Description])"
                 + " VALUES(@Id,@Name,@Description)";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = role.Id;
+            Cmd.AddParameters("Id", role.Id);
             Cmd.AddParameters("Name", role.Name);
             Cmd.AddParameters("Description", role.Description);
 
@@ -59,8 +59,8 @@ namespace WebMvc.Services
             var Cmd = _context.CreateCommand();
 
             Cmd.CommandText = "UPDATE [dbo].[EmployeesRole] SET [Name] = @Name, [Description] = @Description WHERE [Id] = @Id";
-            
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = role.Id;
+
+            Cmd.AddParameters("Id", role.Id);
             Cmd.AddParameters("Name", role.Name);
             Cmd.AddParameters("Description", role.Description);
 
@@ -77,7 +77,7 @@ namespace WebMvc.Services
             var Cmd = _context.CreateCommand();
             Cmd.CommandText = "DELETE FROM [EmployeesRole] WHERE Id = @Id";
 
-            Cmd.Parameters.Add("Id", SqlDbType.UniqueIdentifier).Value = emp.Id;
+            Cmd.AddParameters("Id", emp.Id);
 
             Cmd.command.ExecuteNonQuery();
             Cmd.cacheStartsWithToClear(CacheKeys.EmployeesRole.StartsWith);

@@ -1,17 +1,25 @@
 ﻿@model  CategoryViewModel
-
 @{
-    ViewBag.Title = "Edit Category";
+    ModulConfig.AdminMenuItem[] _Menu;
+    if (Model.IsProduct)
+    {
+        ViewBag.Title = "Sửa nhóm sản phẩm";
+        _Menu = ModulConfig.ProductManage;
+    } else
+    {
+        ViewBag.Title = "Sửa nhóm bài viết";
+        _Menu = ModulConfig.NewsManage;
+    }
 }
 
-@Html.Partial("_CategoryNavButtons")
+@Html.Partial("_TopMenu",_Menu)
 
 <div class="panel">
     <div class="panel-heading">
         <h5>@ViewBag.Title</h5>
     </div>
     <div class="panel-content">
-        @using (Html.BeginForm("Edit", "AdminCategory", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm(Model.IsProduct?"EditCatProduct":"EditCatNews", "AdminCategory", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
 
