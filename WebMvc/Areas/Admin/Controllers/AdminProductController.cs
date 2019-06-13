@@ -37,14 +37,16 @@ namespace WebMvc.Areas.Admin.Controllers
         public ActionResult PopupSelect(string seach, string cat, int? p)
         {
             int limit = 10;
-            var count = _productSevice.GetCount();
+
+            var finder = _productSevice.GetFinder().SeachText(seach);
+            var count = finder.Count();
 
             var Paging = CalcPaging(limit, p, count);
 
             var viewModel = new AdminProductViewModel
             {
                 Paging = Paging,
-                ListProduct = _productSevice.GetList(limit, Paging.Page)
+                ListProduct = finder.ToPage(limit, Paging.Page)
             };
             return PartialView(viewModel);
         }
@@ -283,29 +285,122 @@ namespace WebMvc.Areas.Admin.Controllers
             return View(model);
         }
 
+        #region delete
+        public ActionResult Del(Guid id)
+        {
+            var model = _productSevice.GetProductClass(id);
+            if (model == null)
+            {
+                TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "Loại sản phẩm không tồn tại",
+                    MessageType = GenericMessages.warning
+                };
+
+                return RedirectToAction("index");
+            }
+
+            var subProductCount = _productSevice.GetFinder().SeachProductClass(model.Id).Count();
+            if (subProductCount > 0)
+            {
+                return View("NotDel", model);
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("Del")]
+        public ActionResult Del1(Guid id)
+        {
+            var model = _productSevice.GetProductClass(id);
+            if (model == null)
+            {
+                TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "Loại sản phẩm không tồn tại",
+                    MessageType = GenericMessages.warning
+                };
+
+                return RedirectToAction("index");
+            }
+
+            var subProductCount = _productSevice.GetFinder().SeachProductClass(model.Id).Count();
+            if (subProductCount > 0)
+            {
+                return View("NotDel", model);
+            }
+
+            using (var unitOfWork = UnitOfWorkManager.NewUnitOfWork())
+            {
+                try
+                {
+                    _productSevice.Del(model);
+
+
+                    unitOfWork.Commit();
+
+                    TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "Xóa loại sản phẩm thành công",
+                        MessageType = GenericMessages.success
+                    };
+                    return RedirectToAction("index");
+                }
+                catch (Exception ex)
+                {
+                    LoggingService.Error(ex.Message);
+                    unitOfWork.Rollback();
+
+                    TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "Có lỗi xảy ra khi xóa loại sản phẩm",
+                        MessageType = GenericMessages.warning
+                    };
+                }
+            }
+
+
+            return View(model);
+        }
+        #endregion
         #endregion
 
         #region Product
-        public ActionResult Product(Guid id,int? p)
+        public ActionResult Product(Guid? id,Guid? catid,string seach = null,int? p = 1)
         {
-			var group = _productSevice.GetProductClass(id);
-			if (group == null)
-			{
-				return RedirectToAction("index");
-			}
-			
-			int limit = 10;
-			var count = _productSevice.GetCount(group);
+            int limit = 10;
 
-			var Paging = CalcPaging(limit, p, count);
+            Category cat = null;
+            if (catid != null)
+            {
+                cat = _categoryService.Get((Guid)catid);
+            }
 
-			var model = new AdminProductViewModel
-			{
-				ProductClass = group,
-				Paging = Paging,
-				ListProduct = _productSevice.GetList(group, limit, Paging.Page)
-			};
-			
+            ProductClass group = null;
+            if (id != null)
+            {
+                group = _productSevice.GetProductClass((Guid)id);
+                if (group == null)
+                {
+                    return RedirectToAction("index");
+                }
+            }
+
+            var finder = _productSevice.GetFinder().SeachProductClass(group).SeachCategory(cat).SeachText(seach);
+
+            var count = finder.Count();
+            var Paging = CalcPaging(limit, p, count);
+
+            var model = new AdminProductViewModel
+            {
+                Seach = seach,
+                ProductClass = group,
+                Cat = cat,
+                Paging = Paging,
+                ListProduct = finder.ToPage(limit, Paging.Page)
+            };
+
             return View(model);
         }
 
@@ -708,7 +803,7 @@ namespace WebMvc.Areas.Admin.Controllers
                     MessageType = GenericMessages.warning
                 };
 
-                return RedirectToAction("index");
+                return RedirectToAction("Product");
             }
 
             return View(model);
@@ -727,7 +822,7 @@ namespace WebMvc.Areas.Admin.Controllers
                     MessageType = GenericMessages.warning
                 };
 
-                return RedirectToAction("index");
+                return RedirectToAction("Product");
             }
 
             using (var unitOfWork = UnitOfWorkManager.NewUnitOfWork())
@@ -745,7 +840,7 @@ namespace WebMvc.Areas.Admin.Controllers
                         Message = "Xóa sản phẩm thành công",
                         MessageType = GenericMessages.success
                     };
-                    return RedirectToAction("index");
+                    return RedirectToAction("Product");
                 }
                 catch (Exception ex)
                 {

@@ -33,7 +33,7 @@ namespace WebMvc.Areas.Admin.Controllers
             _postSevice = postSevice;
         }
 		// GET: Admin/AdminTopic
-		public ActionResult Index(int? p, Guid? catid)
+		public ActionResult Index(int? p, Guid? catid,string seach = null)
 		{
 			Category cat = null;
 			if (catid != null)
@@ -41,35 +41,36 @@ namespace WebMvc.Areas.Admin.Controllers
 				cat = _categoryService.Get((Guid)catid);
 			}
 
-			int count = 0;
-			int limit = 10;
-			if (cat != null)
-			{
-				count = _topicServic.GetCount(cat.Id);
-			}
-			else
-			{
-				count = _topicServic.GetCount();
-			}
+			int count = _topicServic.GetCount(cat?.Id,seach);
+            int limit = 10;
+			//if (cat != null)
+			//{
+			//	count = _topicServic.GetCount(cat.Id);
+			//}
+			//else
+			//{
+			//	count = _topicServic.GetCount();
+			//}
 			var Paging = CalcPaging(limit, p, count);
 
-			List<Topic> lst;
-			if (cat != null)
-			{
-				lst = _topicServic.GetList(cat.Id, limit, Paging.Page);
+			List<Topic> lst = _topicServic.GetList(cat?.Id,seach,limit,Paging.Page);
+			//if (cat != null)
+			//{
+			//	lst = _topicServic.GetList(cat.Id, limit, Paging.Page);
 
-			}
-			else
-			{
-				lst = _topicServic.GetList(limit, Paging.Page);
-			}
+			//}
+			//else
+			//{
+			//	lst = _topicServic.GetList(limit, Paging.Page);
+			//}
 
 			var model = new AdminTopicListViewModel
 			{
-				Cat = cat,
+                Seach = seach,
+                Cat = cat,
 				Paging = Paging,
 				ListTopic = lst,
-				AllCategories = _categoryService.GetBaseSelectListCategories(_categoryService.GetList(false))
+				//AllCategories = _categoryService.GetBaseSelectListCategories(_categoryService.GetList(false))
 			};
 
 			return View(model);

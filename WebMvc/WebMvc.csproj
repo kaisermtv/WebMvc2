@@ -1610,6 +1610,8 @@
     <Content Include="Areas\Admin\Views\Overview\General.cshtml" />
     <Content Include="Areas\Admin\Views\AdminCategory\TreeCategory.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_TopMenu.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminProduct\NotDel.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminProduct\Del.cshtml" />
     <None Include="Properties\PublishProfiles\aquaticshome - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\aquaticshome - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />

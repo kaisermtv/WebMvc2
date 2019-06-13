@@ -338,6 +338,75 @@ namespace WebMvc.Services
             return list;
         }
 
+        public int GetCount(Guid? catid, string seach)
+        {
+            string cachekey = string.Concat(CacheKeys.Topic.StartsWith, "GetCount-", catid, "-", seach);
+            var count = _cacheService.Get<int?>(cachekey);
+            if (count == null)
+            {
+                var Cmd = _context.CreateCommand();
+
+                Cmd.CommandText = "SELECT COUNT(*) FROM  [Topic] WHERE 1=1 ";
+
+                if(catid != null)
+                {
+                    Cmd.CommandText += " AND Category_Id = @Category_Id";
+                    Cmd.AddParameters("Category_Id", catid);
+                }
+
+                if (!seach.IsNullEmpty())
+                {
+                    Cmd.CommandText += " AND [Name] LIKE N'%'+UPPER(RTRIM(LTRIM(@Seach)))+'%'";
+                    Cmd.AddParameters("Seach", seach);
+                }
+
+                count = (int)Cmd.command.ExecuteScalar();
+                Cmd.Close();
+
+                _cacheService.Set(cachekey, count, CacheTimes.OneDay);
+            }
+            return (int)count;
+        }
+
+        public List<Topic> GetList(Guid? catid,string seach, int limit = 10, int page = 1)
+        {
+            //string cachekey = string.Concat(CacheKeys.Topic.StartsWith, "GetList.seach-", seach, "-", limit, "-", page);
+            //var list = _cacheService.Get<List<Topic>>(cachekey);
+            //if (list == null)
+            //{
+            var Cmd = _context.CreateCommand();
+
+            if (page == 0) page = 1;
+
+            Cmd.CommandText = "SELECT TOP " + limit + " * FROM ( SELECT *,(ROW_NUMBER() OVER(ORDER BY CreateDate DESC)) AS RowNum FROM  [Topic] WHERE 1=1 ";
+
+            if (catid != null)
+            {
+                Cmd.CommandText += " AND Category_Id = @Category_Id";
+                Cmd.AddParameters("Category_Id", catid);
+            }
+
+            if (!seach.IsNullEmpty())
+            {
+                Cmd.CommandText += " AND [Name] LIKE N'%'+UPPER(RTRIM(LTRIM(@Seach)))+'%'";
+                Cmd.AddParameters("Seach", seach);
+            }
+
+            Cmd.CommandText += ") AS MyDerivedTable WHERE RowNum > @Offset";
+
+
+            //Cmd.Parameters.Add("limit", SqlDbType.Int).Value = limit;
+            Cmd.AddParameters("Offset", (page - 1) * limit);
+
+            var list = Cmd.FindAll<Topic>();
+
+            //if (list == null) return null;
+
+            //   _cacheService.Set(cachekey, list, CacheTimes.OneDay);
+            //}
+            return list;
+        }
+
 
         public void Del(Topic topic)
         {

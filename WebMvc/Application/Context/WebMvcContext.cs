@@ -22,6 +22,14 @@ namespace WebMvc.Application.Context
             //constr = ConfigurationManager.ConnectionStrings["WebMvcContext"].ToString();
         }
 
+        public bool IsOpen
+        {
+            get
+            {
+                return (transaction != null);
+            }
+        }
+
         public SQLTrans BeginTransaction()
         {
             if (transaction == null)

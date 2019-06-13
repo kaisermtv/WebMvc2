@@ -12,6 +12,7 @@ namespace WebMvc.Areas.Admin.ViewModels
 {
     public class AdminTopicListViewModel
     {
+        public string Seach;
         public Category Cat;
         public List<Topic> ListTopic;
         public AdminPagingViewModel Paging;

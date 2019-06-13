@@ -511,35 +511,31 @@ namespace WebMvc.Application
         {
             var productService = ServiceFactory.Get<ProductSevice>();
 
-            return productService.GetList(limit);
+            return productService.GetFinder().ToPage(limit);
         }
 
         public static List<Product> Products(Category cat, int limit)
         {
             var productService = ServiceFactory.Get<ProductSevice>();
-
-            return productService.GetList(cat, limit);
+            return productService.GetFinder().SeachCategory(cat).ToPage(limit);
         }
 
 		public static List<Product> Products(List<Category> cats, int limit)
 		{
 			var productService = ServiceFactory.Get<ProductSevice>();
-
-			return productService.GetList(cats, limit);
+            return productService.GetFinder().SeachCategory(cats.ToArray()).ToPage(limit);
 		}
 
 		public static List<Product> HostProducts(Category cat, int limit)
         {
             var productService = ServiceFactory.Get<ProductSevice>();
-
-            return productService.GetList(cat, limit);
+            return productService.GetFinder().SeachCategory(cat).ToPage(limit);
         }
 
         public static List<Product> SellingProducts(Category cat, int limit)
         {
             var productService = ServiceFactory.Get<ProductSevice>();
-
-            return productService.GetList(cat, limit);
+            return productService.GetFinder().SeachCategory(cat).ToPage(limit);
         }
 
         //public static List<Product> Products(List<Category> cats, int limit)

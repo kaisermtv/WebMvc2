@@ -192,305 +192,305 @@ namespace WebMvc.Services
             return topic;
         }
 
-        
-        public List<Product> GetList(Guid Id, int limit = 10, int page = 1)
+        public ProductFinder GetFinder()
         {
-            if (page == 0) page = 1;
-            using (var Cmd = _context.CreateCommand())
-            {
-                Cmd.CommandText = "SELECT TOP " + limit + " * FROM ( SELECT *,(ROW_NUMBER() OVER(ORDER BY CreateDate DESC)) AS RowNum FROM  [Product] WHERE [ProductClassId] = @ProductClassId) AS MyDerivedTable WHERE RowNum > @Offset";
-
-                Cmd.AddParameters("ProductClassId", Id);
-                //Cmd.AddParameters("limit", SqlDbType.Int).Value = limit;
-                Cmd.AddParameters("Offset", (page - 1) * limit);
-
-                return Cmd.FindAll<Product>();
-            }
+            return new ProductFinder(_context, _cacheService);
         }
 
-		public int GetCount(List<Category> cats)
-		{
-			if (cats.Count == 0) return 0;
-
-			string cachekey = string.Concat(CacheKeys.Product.StartsWith, "GetCountForCatergories-", cats.GetHashCode());
-			var count = _cacheService.Get<int?>(cachekey);
-			if (count == null)
-			{
-				var Cmd = _context.CreateCommand();
-
-				Cmd.CommandText = "SELECT COUNT(*) FROM  [dbo].[Product] WHERE Category_Id IN ('";
-				for(int i = 0; i < cats.Count;i++)
-				{
-					if(i != 0) Cmd.CommandText += "','";
-					Cmd.CommandText += cats[i].Id;
-				}
-
-				Cmd.CommandText += "')";
-				
-
-				count = (int)Cmd.command.ExecuteScalar();
-				Cmd.Close();
-
-
-				_cacheService.Set(cachekey, count, CacheTimes.OneDay);
-			}
-			return (int)count;
-		}
-		public List<Product> GetList(List<Category> cats, int limit = 10, int page = 1)
-		{
-            if (page == 0) page = 1;
-
-            using (var Cmd = _context.CreateCommand())
-            {
-
-                Cmd.CommandText = "SELECT TOP " + limit + " * FROM ( SELECT *,(ROW_NUMBER() OVER(ORDER BY CreateDate DESC)) AS RowNum FROM  [Product] WHERE [Category_Id] IN ('";
-                for (int i = 0; i < cats.Count; i++)
-                {
-                    if (i != 0) Cmd.CommandText += "','";
-                    Cmd.CommandText += cats[i].Id;
-                }
-                Cmd.CommandText += "') ) AS MyDerivedTable WHERE RowNum > @Offset";
-
-                Cmd.AddParameters("Offset", (page - 1) * limit);
-
-
-                return Cmd.FindAll<Product>();
-            }
-		}
-
-		public int GetCount(List<Category> cats, List<Guid> groups)
-		{
-			if (cats.Count == 0) return 0;
-
-			var Cmd = _context.CreateCommand();
-
-			Cmd.CommandText = "SELECT COUNT(*) FROM  [dbo].[Product] WHERE Category_Id IN ('";
-			for (int i = 0; i < cats.Count; i++)
-			{
-				if (i != 0) Cmd.CommandText += "','";
-				Cmd.CommandText += cats[i].Id;
-			}
-
-			if (groups != null && groups.Count > 0)
-			{
-				Cmd.CommandText += "') AND ProductClassId IN ('";
-				for (int i = 0; i < groups.Count; i++)
-				{
-					if (i != 0) Cmd.CommandText += "','";
-					Cmd.CommandText += groups[i];
-				}
-			}
-
-			Cmd.CommandText += "')";
-			int count = (int)Cmd.command.ExecuteScalar();
-			Cmd.Close();
-
-
-			return count;
-		}
-
-		public List<Product> GetList(List<Category> cats, List<Guid> groups, int limit = 10, int page = 1)
+        public class ProductFinder 
         {
-            if (page == 0) page = 1;
-            using (var Cmd = _context.CreateCommand())
+            private readonly WebMvcContext _context;
+            private readonly CacheService _cacheService;
+
+            public ProductFinder(WebMvcContext context, CacheService cacheService)
             {
+                _cacheService = cacheService;
+                _context = context;
+            }
 
-                Cmd.CommandText = "SELECT TOP " + limit + " * FROM ( SELECT *,(ROW_NUMBER() OVER(ORDER BY CreateDate DESC)) AS RowNum FROM  [Product] WHERE [Category_Id] IN ('";
-                for (int i = 0; i < cats.Count; i++)
+            private string sqlRowNum
+            {
+                get
                 {
-                    if (i != 0) Cmd.CommandText += "','";
-                    Cmd.CommandText += cats[i].Id;
-                }
-
-                if (groups != null && groups.Count > 0)
-                {
-                    Cmd.CommandText += "') AND ProductClassId IN ('";
-                    for (int i = 0; i < groups.Count; i++)
+                    string odr = OderByField;
+                    if (odr.IsNullEmpty())
                     {
-                        if (i != 0) Cmd.CommandText += "','";
-                        Cmd.CommandText += groups[i];
+                        odr = "CreateDate";
+                    }
+                    return string.Concat("(ROW_NUMBER() OVER(ORDER BY ", odr, " ", Asc ? "ASC" : "DESC", ")) AS RowNum");
+                }
+            }
+
+            private string SelectString
+            {
+                get
+                {
+                    return string.Concat("SELECT *,", sqlRowNum, " FROM [dbo].[Product]");
+                }
+            }
+
+            private string SelectCount
+            {
+                get
+                {
+                    return string.Concat("SELECT COUNT(*) FROM [dbo].[Product]");
+                }
+            }
+
+            private string sqlWhere
+            {
+                get
+                {
+                    string txt = "";
+                    if(CountProductClass > 0)
+                    {
+                        if(CountProductClass == 1)
+                        {
+                            txt = string.Format("ProductClassId = '{0}'", stringProductClass);
+                        } else
+                        {
+                            txt = string.Concat("ProductClassId IN ({0})", stringProductClass);
+                        }
+                    }
+
+
+                    if (CountCategory > 0)
+                    {
+                        if (txt != "") txt += " AND ";
+
+                        if (CountCategory == 1)
+                        {
+                            txt += string.Format("Category_Id = '{0}'", stringCategory);
+                        }
+                        else
+                        {
+                            txt += string.Concat("Category_Id IN ({0})", stringCategory);
+                        }
+                    }
+
+                    if (!Seach.IsNullEmpty())
+                    {
+                        if (txt != "") txt += " AND ";
+
+                        txt += "[Name] LIKE  N'%'+UPPER(RTRIM(LTRIM(@Seach)))+'%'";
+                    }
+
+                    return txt.IsNullEmpty() ? "" : string.Concat("WHERE ",txt);
+                }
+            }
+
+            private string CommandText
+            {
+                get
+                {
+                    return string.Concat(SelectString," ", sqlWhere);
+                }
+            }
+
+            private string stringProductClass;
+            private int CountProductClass = 0;
+            public ProductFinder SeachProductClass(params Guid[] Id)
+            {
+                foreach (var it in Id)
+                {
+                    if (it == null) continue;
+                    CountProductClass++;
+                    if(CountProductClass == 1)
+                    {
+                        stringProductClass += it.ToString();
+                    } else
+                    {
+                        stringProductClass += string.Concat(",",it);
                     }
                 }
 
-                Cmd.CommandText += "') ) AS MyDerivedTable WHERE RowNum > @Offset";
-
-                Cmd.AddParameters("Offset", (page - 1) * limit);
-
-                return Cmd.FindAll<Product>();
+                return this;
             }
-		}
 
-
-		public int GetCount(Category cat)
-        {
-            string cachekey = string.Concat(CacheKeys.Product.StartsWith, "GetCountForCatergory-", cat.Id);
-            var count = _cacheService.Get<int?>(cachekey);
-            if (count == null)
+            public ProductFinder SeachProductClass(params ProductClass[] group)
             {
-                var Cmd = _context.CreateCommand();
-
-                Cmd.CommandText = "SELECT COUNT(*) FROM  [dbo].[Product] WHERE Category_Id = @Category_Id";
-
-                Cmd.AddParameters("Category_Id", cat.Id);
-
-                count = (int)Cmd.command.ExecuteScalar();
-                Cmd.Close();
-
-
-                _cacheService.Set(cachekey, count, CacheTimes.OneDay);
-            }
-            return (int)count;
-        }
-        public List<Product> GetList(Category cat, int limit = 10, int page = 1)
-        {
-            if (page == 0) page = 1;
-            using (var Cmd = _context.CreateCommand())
-            {
-
-                Cmd.CommandText = "SELECT TOP " + limit + " * FROM ( SELECT *,(ROW_NUMBER() OVER(ORDER BY CreateDate DESC)) AS RowNum FROM  [Product] WHERE [Category_Id] = @Category_Id) AS MyDerivedTable WHERE RowNum > @Offset";
-
-                Cmd.AddParameters("Category_Id", cat.Id);
-                //Cmd.AddParameters("limit", SqlDbType.Int).Value = limit;
-                Cmd.AddParameters("Offset", (page - 1) * limit);
-
-                return Cmd.FindAll<Product>();
-            }
-        }
-
-        public List<Product> GetListForCategory(Guid Id, int limit = 10, int page = 1)
-        {
-            if (page == 0) page = 1;
-
-            using (var Cmd = _context.CreateCommand())
-            {
-                Cmd.CommandText = "SELECT TOP " + limit + " * FROM ( SELECT *,(ROW_NUMBER() OVER(ORDER BY CreateDate DESC)) FROM  [Product] WHERE Category_Id = @Category_Id) AS MyDerivedTable WHERE RowNum > @Offset";
-
-                Cmd.AddParameters("Category_Id", Id);
-                //Cmd.AddParameters("limit", SqlDbType.Int).Value = limit;
-                Cmd.AddParameters("Offset", (page - 1) * limit);
-
-                return Cmd.FindAll<Product>();
-            }
-        }
-
-        public List<Product> GetListForClass(Guid Id, int limit = 10, int page = 1)
-        {
-            string cachekey = string.Concat(CacheKeys.Product.StartsWith, "GetListForClass-", Id,"-page", page,"-limit", limit);
-            var list = _cacheService.Get<List<Product>>(cachekey);
-            if (list == null)
-            {
-                if (page == 0) page = 1;
-                using (var Cmd = _context.CreateCommand())
+                foreach (var it in group)
                 {
-
-                    Cmd.CommandText = "SELECT TOP " + limit + " * FROM ( SELECT *,(ROW_NUMBER() OVER(ORDER BY CreateDate DESC)) AS RowNum FROM  [Product] WHERE ProductClassId = @ProductClassId) AS MyDerivedTable WHERE RowNum > @Offset";
-
-                    Cmd.AddParameters("ProductClassId", Id);
-                    //Cmd.AddParameters("limit", SqlDbType.Int).Value = limit;
-                    Cmd.AddParameters("Offset", (page - 1) * limit);
-
-                    list = Cmd.FindAll<Product>();
-                    if (list == null) return null;
+                    if (it == null) continue;
+                    CountProductClass++;
+                    if (CountProductClass == 1)
+                    {
+                        stringProductClass += it.Id.ToString();
+                    }
+                    else
+                    {
+                        stringProductClass += string.Concat(",", it.Id);
+                    }
                 }
 
-                _cacheService.Set(cachekey, list, CacheTimes.OneHour);
+                return this;
             }
-            return list;
-        }
 
-        public int GetCount(ProductClass productClass)
-        {
-            string cachekey = string.Concat(CacheKeys.Product.StartsWith, "GetCountForClass-", productClass.Id);
-            var count = _cacheService.Get<int?>(cachekey);
-            if (count == null)
+
+            
+            private String stringCategory;
+            private int CountCategory = 0;
+            public ProductFinder SeachCategory(params Guid[] Id)
             {
-                var Cmd = _context.CreateCommand();
+                foreach (var it in Id)
+                {
+                    CountCategory++;
+                    if (CountCategory == 1)
+                    {
+                        stringCategory += it.ToString();
+                    }
+                    else
+                    {
+                        stringCategory += string.Concat(",", it);
+                    }
+                }
 
-                Cmd.CommandText = "SELECT COUNT(*) FROM  [dbo].[Product] WHERE ProductClassId = @ProductClassId";
-
-                Cmd.AddParameters("ProductClassId", productClass.Id);
-
-                count = (int)Cmd.command.ExecuteScalar();
-                Cmd.Close();
-
-
-                _cacheService.Set(cachekey, count, CacheTimes.OneDay);
+                return this;
             }
-            return (int)count;
-        }
-        public List<Product> GetList(ProductClass productClass, int limit = 10, int page = 1)
-        {
-            return GetListForClass(productClass.Id, limit, page);
-        }
 
-        public int GetCount()
-        {
-            string cachekey = string.Concat(CacheKeys.Product.StartsWith, "GetCount");
-            var count = _cacheService.Get<int?>(cachekey);
-            if (count == null)
+            public ProductFinder SeachCategory(params Category[] Cats)
             {
-                var Cmd = _context.CreateCommand();
+                foreach (var it in Cats)
+                {
+                    if (it == null) continue;
+                    CountCategory++;
+                    if (CountCategory == 1)
+                    {
+                        stringCategory += it.Id.ToString();
+                    }
+                    else
+                    {
+                        stringCategory += string.Concat(",", it.Id);
+                    }
+                }
 
-                Cmd.CommandText = "SELECT COUNT(*) FROM  [dbo].[Product]";
-                
-                count = (int)Cmd.command.ExecuteScalar();
-                Cmd.Close();
-
-
-                _cacheService.Set(cachekey, count, CacheTimes.OneDay);
+                return this;
             }
-            return (int)count;
-        }
-        public List<Product> GetList(int limit = 10, int page = 1)
-        {
-            if (page == 0) page = 1;
-            using (var Cmd = _context.CreateCommand())
+
+            private string Seach;
+            public ProductFinder SeachText(string seach)
             {
+                Seach = seach;
 
-                Cmd.CommandText = "SELECT TOP " + limit + " * FROM ( SELECT *,(ROW_NUMBER() OVER(ORDER BY CreateDate DESC)) AS RowNum FROM  [Product]) AS MyDerivedTable WHERE RowNum > @Offset";
-
-                //Cmd.AddParameters("limit", SqlDbType.Int).Value = limit;
-                Cmd.AddParameters("Offset", (page - 1) * limit);
-
-                return Cmd.FindAll<Product>();
+                return this;
             }
-        }
 
-        public int GetCount(string seach)
-        {
-            if (seach.IsNullEmpty()) return GetCount();
-
-            string cachekey = string.Concat(CacheKeys.Product.StartsWith, "GetCountForCatergory-seach-", seach);
-            var count = _cacheService.Get<int?>(cachekey);
-            if (count == null)
+            private string OderByField;
+            private bool Asc = true;
+            public ProductFinder OderBy(string field,bool asc = true)
             {
-                var Cmd = _context.CreateCommand();
+                Asc = asc;
+                OderByField = field;
 
-                Cmd.CommandText = "SELECT COUNT(*) FROM  [dbo].[Product] WHERE [Name] LIKE  N'%'+UPPER(RTRIM(LTRIM(@Seach)))+'%'";
-                Cmd.AddParameters("Seach", seach);
-
-                count = (int)Cmd.command.ExecuteScalar();
-                Cmd.Close();
-
-
-                _cacheService.Set(cachekey, count, CacheTimes.OneMinute);
+                return this;
             }
-            return (int)count;
-        }
-        public List<Product> GetList(string seach, int limit = 10, int page = 1)
-        {
-            if (seach.IsNullEmpty()) return GetList(limit, page);
 
-            if (page == 0) page = 1;
-            using (var Cmd = _context.CreateCommand())
+            private int _Count(string where)
             {
+                using (var Cmd = _context.CreateCommand())
+                {
+                    Cmd.CommandText = string.Concat(SelectCount, " ", where);
+                    if (!Seach.IsNullEmpty())
+                    {
+                        Cmd.AddParameters("Seach", Seach);
+                    }
 
-                Cmd.CommandText = "SELECT TOP " + limit + " * FROM ( SELECT *,(ROW_NUMBER() OVER(ORDER BY CreateDate DESC)) AS RowNum FROM  [Product] WHERE [Name] LIKE  N'%'+UPPER(RTRIM(LTRIM(@Seach)))+'%') AS MyDerivedTable WHERE RowNum > @Offset";
+                    return (int)Cmd.command.ExecuteScalar();
+                }
+            }
+            public int Count()
+            {
+                if (Seach.IsNullEmpty() && !_context.IsOpen)
+                {
+                    string where = sqlWhere;
+                    string cachekey = string.Concat(CacheKeys.Product.StartsWith, "ProductFinder-GetCount:", where);
+                    var count = _cacheService.Get<int?>(cachekey);
+                    if (count == null)
+                    {
+                        count = _Count(sqlWhere);
 
-                Cmd.AddParameters("Seach", seach);
-                Cmd.AddParameters("Offset", (page - 1) * limit);
+                        _cacheService.Set(cachekey, count, CacheTimes.OneDay);
+                    }
+                    return (int)count;
+                }
+                else
+                {
+                    return _Count(sqlWhere);
+                }
+            }
 
-                return Cmd.FindAll<Product>();
+            public List<Product> _ToList(string where)
+            {
+                using (var Cmd = _context.CreateCommand())
+                {
+                    Cmd.CommandText = string.Concat(SelectString, " ", where);
+                    if (!Seach.IsNullEmpty())
+                    {
+                        Cmd.AddParameters("Seach", Seach);
+                    }
+
+                    return Cmd.FindAll<Product>();
+                }
+            }
+            public List<Product> ToList()
+            {
+                if (Seach.IsNullEmpty() && !_context.IsOpen)
+                {
+                    string where = sqlWhere;
+                    string cachekey = string.Concat(CacheKeys.Product.StartsWith, "ProductFinder-ToList:", where);
+                    var lst = _cacheService.Get<List<Product>>(cachekey);
+                    if (lst == null)
+                    {
+                        lst = _ToList(sqlWhere);
+
+                        _cacheService.Set(cachekey, lst, CacheTimes.OneDay);
+                    }
+                    return lst;
+                }
+                else
+                {
+                    return _ToList(sqlWhere);
+                }
+            }
+
+            public List<Product> _ToPage(string where,int limit = 10, int page = 1)
+            {
+                if (page == 0) page = 1;
+
+                using (var Cmd = _context.CreateCommand())
+                {
+                    string text = string.Concat(SelectString, " ", where);
+
+                    Cmd.CommandText = string.Concat("SELECT TOP " , limit , " * FROM(", text, ") AS MyDerivedTable WHERE RowNum > @Offset");
+                    if (!Seach.IsNullEmpty())
+                    {
+                        Cmd.AddParameters("Seach", Seach);
+                    }
+
+                    Cmd.AddParameters("Offset", (page - 1) * limit);
+
+                    return Cmd.FindAll<Product>();
+                }
+            }
+            public List<Product> ToPage(int limit = 10,int page = 1)
+            {
+                if (Seach.IsNullEmpty() && !_context.IsOpen)
+                {
+                    string where = sqlWhere;
+                    string cachekey = string.Concat(CacheKeys.Product.StartsWith, "ProductFinder-ToPage:", where);
+                    var lst = _cacheService.Get<List<Product>>(cachekey);
+                    if (lst == null)
+                    {
+                        lst = _ToPage(sqlWhere,limit,page);
+
+                        _cacheService.Set(cachekey, lst, CacheTimes.OneDay);
+                    }
+                    return lst;
+                }
+                else
+                {
+                    return _ToPage(sqlWhere, limit, page);
+                }
             }
         }
 
@@ -1058,6 +1058,19 @@ namespace WebMvc.Services
             }
 
             return cachedSettings;
+        }
+
+        public void Del(ProductClass product)
+        {
+            using (var Cmd = _context.CreateCommand())
+            {
+                Cmd.CommandText = "DELETE FROM [ProductClass] WHERE Id = @Id";
+
+                Cmd.AddParameters("Id", product.Id);
+
+                Cmd.command.ExecuteNonQuery();
+                Cmd.cacheStartsWithToClear(CacheKeys.Product.ProductClass);
+            }
         }
         #endregion
 

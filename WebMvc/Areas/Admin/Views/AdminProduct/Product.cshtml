@@ -9,10 +9,41 @@
 <div class="panel">
     <div class="panel-heading">
         <h5>@ViewBag.Title</h5>
-        <a class="btn btn-mvc-green" href="@Url.Action("CreateProduct",new { g = Model.ProductClass.Id })" style="float:right;">Thêm sản phẩm</a>
+        @if (Model.ProductClass != null)
+        {
+            <a class="btn btn-mvc-green" href="@Url.Action("CreateProduct",new { g = Model.ProductClass.Id })" style="float:right;">Thêm sản phẩm</a>
+        }
     </div>
     <div class="panel-content">
         <div id="container">
+            <form method="get" action="@Url.Action("Product","AdminProduct",new { area = "admin",id="" })">
+                <div class="row">
+                    <div class="col-xs-4" style="margin-bottom:10px">
+                        <select name="catid" class="form-control">
+                            <option value="">Tất cả nhóm sản phẩm</option>
+                            @foreach (var it in AppHelpers.Categories(true))
+                            {
+                                <option value="@it.Id" @(Model.Cat?.Id == it.Id ? "selected=selected" : "")>@it.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-xs-3" style="margin-bottom:10px">
+                        <select name="id" class="form-control">
+                            <option value="">Tất cả loại sản phẩm</option>
+                            @foreach (var it in AppHelpers.GroupProducts())
+                            {
+                                <option value="@it.Id" @(Model.ProductClass?.Id == it.Id ? "selected=selected" : "")>@it.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-xs-3" style="margin-bottom:10px">
+                        <input name="seach" class="form-control" value="@Model.Seach" placeholder="Nhập từ khóa tìm kiếm" />
+                    </div>
+                    <div class="col-xs-2" style="margin-bottom:10px">
+                        <input type="submit" class="btn btn-primary" style="width:100%" value="Tìm kiếm" />
+                    </div>
+                </div>
+            </form>
             <div class="tablescroll">
                 <table class="table table-bordered table-striped">
                     <thead>

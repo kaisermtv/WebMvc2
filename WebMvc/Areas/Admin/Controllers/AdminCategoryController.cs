@@ -93,7 +93,7 @@ namespace WebMvc.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Product(string JsonText)
         {
-            return TreeCategory(false, JsonText);
+            return TreeCategory(true, JsonText);
         }
 
         public ActionResult ListCatProduct()
@@ -127,14 +127,14 @@ namespace WebMvc.Areas.Admin.Controllers
 
         public ActionResult DelCatProduct(Guid id)
         {
-            return Delete(false, id);
+            return Delete(true, id);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DelCatProduct1(Guid id)
         {
-            return Delete1(false, id);
+            return Delete1(true, id);
         }
         #endregion
 
@@ -528,12 +528,11 @@ namespace WebMvc.Areas.Admin.Controllers
             }
 
             var _productService = ServiceFactory.Get<ProductSevice>();
-            var subproduct = _productService.GetList(model.Id);
-            if (subnews.Count > 0)
+            var subProductCount = _productService.GetFinder().SeachCategory(model.Id).Count();
+            if (subProductCount > 0)
             {
                 return View("NotDel", model);
             }
-
 
             return View("Delete",model);
         }
@@ -582,8 +581,8 @@ namespace WebMvc.Areas.Admin.Controllers
             }
 
             var _productService = ServiceFactory.Get<ProductSevice>();
-            var subproduct = _productService.GetList(model.Id);
-            if (subnews.Count > 0)
+            var subProductCount = _productService.GetFinder().SeachProductClass(model.Id).Count();
+            if (subProductCount > 0)
             {
                 return View("NotDel", model);
             }

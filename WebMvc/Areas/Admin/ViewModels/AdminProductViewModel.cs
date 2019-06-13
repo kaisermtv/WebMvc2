@@ -71,6 +71,8 @@ namespace WebMvc.Areas.Admin.ViewModels
 
     public class AdminProductViewModel
     {
+        public string Seach { get; set; }
+        public Category Cat;
         public ProductClass ProductClass { get; set; }
         public List<Product> ListProduct { get; set; }
         public AdminPagingViewModel Paging { get; set; }

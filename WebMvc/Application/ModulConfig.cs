@@ -131,7 +131,7 @@ namespace WebMvc.Application
                     new AdminMenuItem
                     {
                         isHidden = true,
-                        MenuName = "Sửa bài viết",
+                        MenuName = "Sửa nhóm bài viết",
 
                         ActionName = "EditCatNews",
                         ControllerName = "AdminCategory",
@@ -158,7 +158,69 @@ namespace WebMvc.Application
                     {
                         MenuName = "Danh sách sản phẩm",
 
+                        ActionName = "Product",
+                        ControllerName = "AdminProduct",
+                        RouterValues = new { area = "Admin"},
+                    },
+                    new AdminMenuItem
+                    {
+                        isHidden = true,
+                        MenuName = "Thêm sản phẩm",
+
+                        ActionName = "CreateProduct",
+                        ControllerName = "AdminProduct",
+                        RouterValues = new { area = "Admin"},
+                    },
+                    new AdminMenuItem
+                    {
+                        isHidden = true,
+                        MenuName = "Chỉnh sửa sản phẩm",
+
+                        ActionName = "EditProduct",
+                        ControllerName = "AdminProduct",
+                        RouterValues = new { area = "Admin"},
+                    },
+                    new AdminMenuItem
+                    {
+                        isHidden = true,
+                        MenuName = "Xóa sản phẩm",
+
+                        ActionName = "DelProduct",
+                        ControllerName = "AdminProduct",
+                        RouterValues = new { area = "Admin"},
+                    },
+                    new AdminMenuItem
+                    {
+                        MenuName = "Quản lý loại sản phẩm",
+
                         ActionName = "Index",
+                        ControllerName = "AdminProduct",
+                        RouterValues = new { area = "Admin"},
+                    },
+                    new AdminMenuItem
+                    {
+                        isHidden = true,
+                        MenuName = "Thêm loại sản phẩm",
+
+                        ActionName = "Create",
+                        ControllerName = "AdminProduct",
+                        RouterValues = new { area = "Admin"},
+                    },
+                    new AdminMenuItem
+                    {
+                        isHidden = true,
+                        MenuName = "Chỉnh sửa loại sản phẩm",
+
+                        ActionName = "Edit",
+                        ControllerName = "AdminProduct",
+                        RouterValues = new { area = "Admin"},
+                    },
+                    new AdminMenuItem
+                    {
+                        isHidden = true,
+                        MenuName = "Xóa loại sản phẩm",
+
+                        ActionName = "Del",
                         ControllerName = "AdminProduct",
                         RouterValues = new { area = "Admin"},
                     },
@@ -167,6 +229,33 @@ namespace WebMvc.Application
                         MenuName = "Quản lý nhóm sản phẩm",
 
                         ActionName = "Product",
+                        ControllerName = "AdminCategory",
+                        RouterValues = new { area = "Admin"},
+                    },
+                    new AdminMenuItem
+                    {
+                        isHidden = true,
+                        MenuName = "Thêm nhóm sản phẩm",
+
+                        ActionName = "NewCatProduct",
+                        ControllerName = "AdminCategory",
+                        RouterValues = new { area = "Admin"},
+                    },
+                    new AdminMenuItem
+                    {
+                        isHidden = true,
+                        MenuName = "Sửa nhóm sản phẩm",
+
+                        ActionName = "EditCatProduct",
+                        ControllerName = "AdminCategory",
+                        RouterValues = new { area = "Admin"},
+                    },
+                    new AdminMenuItem
+                    {
+                        isHidden = true,
+                        MenuName = "Xóa nhóm sản phẩm",
+
+                        ActionName = "DelCatProduct",
                         ControllerName = "AdminCategory",
                         RouterValues = new { area = "Admin"},
                     },

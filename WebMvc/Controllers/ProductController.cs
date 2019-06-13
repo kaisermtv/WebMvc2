@@ -27,14 +27,16 @@
         public ActionResult Index(string s, int? p,bool isSale = false,bool isSelling = false)
         {
             int limit = 12;
-            var count = _productSevice.GetCount(s);
+
+            var finder = _productSevice.GetFinder().SeachText(s);
+            var count = finder.Count();
 
             var Paging = CalcPaging(limit, p, count);
 
             var model = new CategoryProductListViewModel
             {
                 Paging = Paging,
-                ListProduct = _productSevice.GetList(s,limit, Paging.Page)
+                ListProduct = finder.ToPage(limit, Paging.Page)
             };
 
             return View(model);
@@ -108,7 +110,8 @@
             if (pcls == null) return HttpNotFound();
 
             int limit = 12;
-            var count = _productSevice.GetCount(pcls);
+            var finder = _productSevice.GetFinder().SeachProductClass(pcls.Id);
+            var count = finder.Count(); 
             
             var Paging = CalcPaging(limit, page, count);
 
@@ -117,7 +120,7 @@
 				Step = step,
 				ProductClass = pcls,
                 Paging = Paging,
-                ListProduct = _productSevice.GetList(pcls, limit, Paging.Page)
+                ListProduct = finder.ToPage(limit, Paging.Page)
             };
             
             return PartialView("AjaxProductForClass",model);
@@ -125,7 +128,7 @@
         
         public ActionResult AjaxGetSearch(string search)
         {
-            var lst = _productSevice.GetList(search);
+            var lst = _productSevice.GetFinder().SeachText(search).ToPage();
             List<ProductAjaxItem> rlst = new List<ProductAjaxItem>();
             if (lst != null)
             {

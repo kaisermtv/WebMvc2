@@ -1,0 +1,18 @@
+﻿@model  ProductClass
+@{
+    ViewBag.Title = "Xóa loại sản phẩm";
+}
+@Html.Partial("_TopMenu", ModulConfig.ProductManage)
+<div class="panel">
+    <div class="panel-heading">
+        <h5>@ViewBag.Title</h5>
+    </div>
+    <div class="panel-content">
+        <h2>Không thể xóa!</h2>
+        <p>Bạn cần xóa hoặc di chuyển các sản phẩm trong mục này trước khi xóa.</p>
+        <div class="form-group">
+            <input type="text" class="form-control" readonly="readonly" value="@Model.Name" />
+        </div>
+        <a href="Index" class="btn-mvc btn-mvc-large">Trờ lại</a>
+    </div>
+</div>

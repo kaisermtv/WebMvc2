@@ -13,15 +13,35 @@
     </div>
     <div class="panel-content">
         <div id="container">
+            <form method="get">
+                <div class="row">
+                    <div class="col-xs-5" style="margin-bottom:10px">
+                        <select name="catid" class="form-control">
+                            <option value="">Tất cả nhóm tin</option>
+                            @foreach (var it in AppHelpers.Categories(false))
+                            {
+                                <option value="@it.Id" @(Model.Cat?.Id == it.Id?"selected=selected":"")>@it.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-xs-5" style="margin-bottom:10px">
+                        <input name="seach" class="form-control" value="@Model.Seach" placeholder="Nhập từ khóa tìm kiếm" />
+                    </div>
+                    <div class="col-xs-2" style="margin-bottom:10px">
+                        <input type="submit" class="btn btn-primary" style="width:100%" value="Tìm kiếm" />
+                    </div>
+                </div>
+            </form>
             <div class="tablescroll">
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped" style="min-width:800px;">
                     <thead>
                         <tr>
-                            <th style="width:50px">Edit</th>
+                            <th style="width:50px">Sửa</th>
                             <th>Title</th>
-                            <th style="width:150px">Create date</th>
-                            <th style="width:250px">User post</th>
-                            <th style="width:50px">Delete</th>
+                            <th style="width:130px">Nhóm tin</th>
+                            <th style="width:130px">Ngày đăng</th>
+                            <th style="width:110px">Người đăng</th>
+                            <th style="width:50px">Xóa</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,6 +56,7 @@
                                     </span>
                                 </td>
                                 <td>@it.Name</td>
+                                <td>@(it.GetCatergory()?.Name)</td>
                                 <td>@it.CreateDate.ToString("hh:mm dd/MM/yyyy")</td>
                                 <td>@AppHelpers.GetMembersAccount((Guid)it.MembershipUser_Id)</td>
                                 <td>
