@@ -40,7 +40,9 @@
         @Html.AntiForgeryToken()
         <input type="hidden" id="JsonText" name="JsonText" />
 
-        <header class="card-header border-bottom-0"> @ViewBag.Title </header><!-- .nestable -->
+        <header class="card-header border-bottom-0"> @ViewBag.Title 
+            <a class="btn btn-mvc-green" href="@Url.Action("CreateAttribute")" style="float:right;">@(Model.isProduct?"Thêm nhóm sản phẩm":"Thêm nhóm bài viêt")</a>
+        </header><!-- .nestable -->
         <div id="nestable02" class="dd" data-toggle="nestable" data-group="1">
             <!-- .dd-list -->
             <ol class="dd-list">

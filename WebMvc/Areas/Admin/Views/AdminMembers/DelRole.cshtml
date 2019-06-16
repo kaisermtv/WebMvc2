@@ -1,0 +1,23 @@
+﻿@model MembershipRole
+@{
+    ViewBag.Title = "Xóa chức vụ";
+}
+@Html.Partial("_MembersNavButtons")
+<div class="panel">
+    <div class="panel-heading">
+        <h5>@ViewBag.Title</h5>
+    </div>
+    <div class="panel-content">
+        <h2>Xác nhận xóa chức vụ?</h2>
+        <p>Chức vụ sẽ được xóa hoàn toàn và không thể khôi phục.</p>
+        <div class="form-group">
+            <input type="text" class="form-control" readonly="readonly" value="@Model.RoleName" />
+        </div>
+        @using (Html.BeginForm("DelRole", "AdminMembers", FormMethod.Post))
+        {
+            <div class="submit-holder">
+                <input type="submit" class="btn-mvc btn-mvc-large" value="Xác nhận xóa" />
+            </div>
+        }
+    </div>
+</div>

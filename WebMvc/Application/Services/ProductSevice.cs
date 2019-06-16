@@ -764,10 +764,23 @@ namespace WebMvc.Services
 				Between
 			}
 		}
-		#endregion
 
-		#region ProductAttributeValue
-		public void Add(ProductAttributeValue cat)
+        public void DelAllProductAttributeValueForAttribute(Guid guid)
+        {
+            using (var Cmd = _context.CreateCommand())
+            {
+                Cmd.CommandText = "DELETE FROM [dbo].[ProductAttributeValue] WHERE [ProductAttributeId] = @ProductAttributeId";
+
+                Cmd.AddParameters("ProductAttributeId", guid);
+
+                Cmd.command.ExecuteNonQuery();
+                Cmd.cacheStartsWithToClear(CacheKeys.Product.StartsWith);
+            }  
+        }
+        #endregion
+
+        #region ProductAttributeValue
+        public void Add(ProductAttributeValue cat)
         {
             var Cmd = _context.CreateCommand();
 
@@ -892,6 +905,29 @@ namespace WebMvc.Services
             if (!rt) throw new Exception("Add ProductAttribute false");
         }
 
+        public int GetCountProductClassAttributeForAttributeId(Guid id)
+        {
+            string cachekey = string.Concat(CacheKeys.Product.ProductClassAttribute, "AttributeId-", id, "-GetCountProductClassAttributeForAttributeId");
+            var count = _cacheService.Get<int?>(cachekey);
+            if (count == null)
+            {
+                using (var Cmd = _context.CreateCommand())
+                {
+
+                    Cmd.CommandText = "SELECT COUNT(*) FROM  [dbo].[ProductClassAttribute] WHERE [ProductAttributeId] = @ProductAttributeId ";
+
+                    Cmd.AddParameters("ProductAttributeId", id);
+
+                    count = (int?)Cmd.command.ExecuteScalar();
+                    if (count == null) return 0;
+                }
+
+                _cacheService.Set(cachekey, count, CacheTimes.OneDay);
+            }
+
+            return (int)count;
+        }
+
         public List<ProductClassAttribute> GetListProductClassAttributeForProductClassId(Guid id)
         {
             string cachekey = string.Concat(CacheKeys.Product.ProductClassAttribute, "ProductClassId-", id ,"-GetListProductClassAttributeForProductClassId");
@@ -951,6 +987,8 @@ namespace WebMvc.Services
             Cmd.cacheStartsWithToClear(string.Concat(CacheKeys.Product.ProductClassAttribute, "ProductClassId-", guid));
             Cmd.Close();
         }
+
+        
         #endregion
 
         #region ProductClass
@@ -1220,9 +1258,23 @@ namespace WebMvc.Services
 			//}
 
 		}
-		#endregion
+
+        public void Del(ProductAttribute attribute)
+        {
+            var Cmd = _context.CreateCommand();
+            Cmd.CommandText = "DELETE FROM [ProductAttribute] WHERE Id = @Id";
+
+            Cmd.AddParameters("Id", attribute.Id);
+
+            Cmd.command.ExecuteNonQuery();
+            Cmd.cacheStartsWithToClear(CacheKeys.Product.Attribute);
+            Cmd.cacheStartsWithToClear(CacheKeys.Product.ProductClassAttribute);
+            Cmd.Close();
+
+        }
+        #endregion
 
 
 
-	}
+    }
 }

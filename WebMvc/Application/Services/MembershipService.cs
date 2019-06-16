@@ -446,6 +446,19 @@ namespace WebMvc.Services
             }
 
         }
+
+        public void Del(MembershipRole Role)
+        {
+            using (var Cmd = _context.CreateCommand())
+            {
+                Cmd.CommandText = "DELETE FROM [dbo].[MembershipRole] WHERE [Id] = @Id";
+
+                Cmd.AddParameters("Id", Role.Id);
+
+                Cmd.command.ExecuteNonQuery();
+                Cmd.cacheStartsWithToClear(CacheKeys.Member.StartsWith);
+            }
+        }
         #endregion
 
         /// <summary>
@@ -630,6 +643,20 @@ namespace WebMvc.Services
                 }
             }
             return list;
+        }
+
+        public int GetCount(MembershipRole role)
+        {
+            using (var Cmd = _context.CreateCommand())
+            {
+                Cmd.CommandText = "SELECT COUNT(*) FROM  [dbo].[MembershipUser] AS U "
+                    + " INNER JOIN [dbo].[MembershipUsersInRoles] AS UR ON U.Id = UR.UserIdentifier "
+                    + " WHERE UR.RoleIdentifier = @RoleId";
+
+                Cmd.AddParameters("RoleId", role.Id);
+
+                return (int)Cmd.command.ExecuteScalar();
+            }
         }
     }
 }

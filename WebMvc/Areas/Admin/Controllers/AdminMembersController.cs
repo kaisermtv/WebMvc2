@@ -737,6 +737,96 @@ namespace WebMvc.Areas.Admin.Controllers
 
             return View(viewModel);
         }
+
+
+        #region delete
+        public ActionResult DelRole(Guid id)
+        {
+            var model = MembershipService.GetRole(id);
+            if (model == null)
+            {
+                TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "Chức vụ không tồn tại",
+                    MessageType = GenericMessages.warning
+                };
+
+                return RedirectToAction("Roles");
+            }
+
+            if (model.Lock)
+            {
+                return View("NotDelRole", model);
+            }
+
+            var accountCount = MembershipService.GetCount(model);
+            if (accountCount > 0)
+            {
+                return View("NotDelRole", model);
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("DelRole")]
+        public ActionResult DelRole1(Guid id)
+        {
+            var model = MembershipService.GetRole(id);
+            if (model == null)
+            {
+                TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "Chức vụ không tồn tại",
+                    MessageType = GenericMessages.warning
+                };
+
+                return RedirectToAction("Roles");
+            }
+
+            if (model.Lock)
+            {
+                return View("NotDelRole", model);
+            }
+
+            var accountCount = MembershipService.GetCount(model);
+            if (accountCount > 0)
+            {
+                return View("NotDelRole", model);
+            }
+
+            using (var unitOfWork = UnitOfWorkManager.NewUnitOfWork())
+            {
+                try
+                {
+                    MembershipService.Del(model);
+
+                    unitOfWork.Commit();
+
+                    TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "Xóa chức vụ thành công",
+                        MessageType = GenericMessages.success
+                    };
+                    return RedirectToAction("Attribute");
+                }
+                catch (Exception ex)
+                {
+                    LoggingService.Error(ex.Message);
+                    unitOfWork.Rollback();
+
+                    TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "Có lỗi xảy ra khi xóa chức vụ",
+                        MessageType = GenericMessages.warning
+                    };
+                }
+            }
+
+
+            return View(model);
+        }
+        #endregion
         #endregion
 
         #region Private Function

@@ -47,7 +47,7 @@
         POPUPSELECT.GetNews();
         $("#PopupSelect").modal();
     }
-    
+
     function popupSelectProduct(id, titlle) {
         POPUPSELECT.SelectInputId = id;
         POPUPSELECT.SelectInputName = titlle;
@@ -62,6 +62,18 @@
         $("#PopupSelect").modal();
     }
 
+    function createProduct() {
+        //POPUPSELECT.SelectInputId = id;
+        //POPUPSELECT.SelectInputName = titlle;
+
+        POPUPSELECT.CallBackFunc = function (id, name) {
+            document.location.href = "@Url.Action("CreateProduct","AdminProduct")?g=" + id;
+        }
+        POPUPSELECT.GetGroupProduct();
+        $("#PopupSelect").modal();
+    }
+
+
     function ButtonInjectChooseImage(id, img) {
         var url = "/FileManager?integration=buttoninject&output=" + encodeURI(id);
         if (img && img != "") {
@@ -73,7 +85,7 @@
 
     function ButtonInjectChooseImageCallback(callbackname) {
         var url = "/FileManager?integration=buttoninject&callback=" + callbackname;
-        
+
         window.open(url, "MsgWindow", "width=830,height=600");
     }
 

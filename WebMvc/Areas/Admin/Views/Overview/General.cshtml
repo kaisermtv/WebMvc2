@@ -47,14 +47,14 @@
                     @Html.ValidationMessageFor(m => m.IsClosed)
                 </div>*@
 
-                <div class="checkbox">
+                @*<div class="checkbox">
                     @using (Html.BeginLabelFor(m => m.DisableStandardRegistration, new { @class = "checkbox" }))
                     {
                         @Html.CheckBoxFor(m => m.DisableStandardRegistration)
                     }
                     <p class="help-block">Điều này sẽ vô hiệu hóa biểu mẫu đăng ký chuẩn, hoàn hảo cho những người chỉ muốn sử dụng đăng nhập Xã hội</p>
                     @Html.ValidationMessageFor(m => m.DisableStandardRegistration)
-                </div>
+                </div>*@
 
                 @*<div class="checkbox">
                     @using (Html.BeginLabelFor(m => m.EnableRSSFeeds, new { @class = "checkbox" }))

@@ -336,6 +336,7 @@ namespace WebMvc.Areas.Admin.Controllers
                 try
                 {
                     _productSevice.Del(model);
+                    _productSevice.DelAllAttributeForProductClass(model.Id);
 
 
                     unitOfWork.Commit();
@@ -788,8 +789,6 @@ namespace WebMvc.Areas.Admin.Controllers
 
             return View(model);
         }
-        #endregion
-
 
         #region delete
         public ActionResult DelProduct(Guid id)
@@ -859,6 +858,10 @@ namespace WebMvc.Areas.Admin.Controllers
             return View(model);
         }
         #endregion
+        #endregion
+
+
+
 
 
         #region Attribute
@@ -1036,6 +1039,86 @@ namespace WebMvc.Areas.Admin.Controllers
             return View(model);
         }
 
+        #region delete
+        public ActionResult DelAttribute(Guid id)
+        {
+            var model = _productSevice.GetAttribute(id);
+            if (model == null)
+            {
+                TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "Thuộc tính sản phẩm không tồn tại",
+                    MessageType = GenericMessages.warning
+                };
+
+                return RedirectToAction("Attribute");
+            }
+
+            var subProductCount = _productSevice.GetCountProductClassAttributeForAttributeId(model.Id);
+            if (subProductCount > 0)
+            {
+                return View("NotDelAttribute", model);
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("DelAttribute")]
+        public ActionResult DelAttribute1(Guid id)
+        {
+            var model = _productSevice.GetAttribute(id);
+            if (model == null)
+            {
+                TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                {
+                    Message = "Thuộc tính sản phẩm không tồn tại",
+                    MessageType = GenericMessages.warning
+                };
+
+                return RedirectToAction("Attribute");
+            }
+
+            var subProductCount = _productSevice.GetCountProductClassAttributeForAttributeId(model.Id);
+            if (subProductCount > 0)
+            {
+                return View("NotDelAttribute", model);
+            }
+
+            using (var unitOfWork = UnitOfWorkManager.NewUnitOfWork())
+            {
+                try
+                {
+                    _productSevice.Del(model);
+                    _productSevice.DelAllProductAttributeValueForAttribute(model.Id);
+
+
+                    unitOfWork.Commit();
+
+                    TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "Xóa thuộc tính sản phẩm thành công",
+                        MessageType = GenericMessages.success
+                    };
+                    return RedirectToAction("Attribute");
+                }
+                catch (Exception ex)
+                {
+                    LoggingService.Error(ex.Message);
+                    unitOfWork.Rollback();
+
+                    TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                    {
+                        Message = "Có lỗi xảy ra khi xóa thuộc tính sản phẩm",
+                        MessageType = GenericMessages.warning
+                    };
+                }
+            }
+
+
+            return View(model);
+        }
+        #endregion
         #endregion
     }
 }

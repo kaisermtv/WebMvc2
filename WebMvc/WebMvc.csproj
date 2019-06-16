@@ -1612,6 +1612,10 @@
     <Content Include="Areas\Admin\Views\Shared\_TopMenu.cshtml" />
     <Content Include="Areas\Admin\Views\AdminProduct\NotDel.cshtml" />
     <Content Include="Areas\Admin\Views\AdminProduct\Del.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminProduct\DelAttribute.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminProduct\NotDelAttribute.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminMembers\DelRole.cshtml" />
+    <Content Include="Areas\Admin\Views\AdminMembers\NotDelRole.cshtml" />
     <None Include="Properties\PublishProfiles\aquaticshome - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\aquaticshome - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />

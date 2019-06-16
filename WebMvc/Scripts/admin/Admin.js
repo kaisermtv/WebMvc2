@@ -692,6 +692,7 @@ function ResponsiveTable() {
 POPUPSELECT = {
     SelectInputId: "",
     SelectInputName: "",
+    CallBackFunc: null,
 
     Catergory : "",
     SeachText: "",
@@ -699,8 +700,9 @@ POPUPSELECT = {
     DataType: "",
 
     Select: function (id, name) {
-        $("#" + this.SelectInputId).val(id);
-        $("#" + this.SelectInputName).val(name);
+        if (this.SelectInputId != "") $("#" + this.SelectInputId).val(id);
+        if (this.SelectInputName != "") $("#" + this.SelectInputName).val(name);
+        if (this.CallBackFunc != null) this.CallBackFunc(id, name);
 
         $("#PopupSelect").modal("hide");
     },

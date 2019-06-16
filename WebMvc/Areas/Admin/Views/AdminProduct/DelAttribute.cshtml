@@ -1,15 +1,15 @@
 ﻿@model  Product
 @{
-    ViewBag.Title = "Xóa sản phẩm";
+    ViewBag.Title = "Xóa thuộc tính sản phẩm";
 }
-@Html.Partial("_TopMenu", ModulConfig.ProductManage)
+@Html.Partial("_TopMenu",ModulConfig.ProductManage)
 <div class="panel">
     <div class="panel-heading">
         <h5>@ViewBag.Title</h5>
     </div>
     <div class="panel-content">
-        <h2>Xác nhận xóa sản phẩm?</h2>
-        <p>Sản phẩm sẽ được xóa hoàn toàn và không thể khôi phục.</p>
+        <h2>Xác nhận xóa thuộc tính sản phẩm?</h2>
+        <p>Thuộc tính sản phẩm sẽ được xóa hoàn toàn và không thể khôi phục.</p>
         <div class="form-group">
             <input type="text" class="form-control" readonly="readonly" value="@Model.Name" />
         </div>

@@ -38,7 +38,7 @@
         {
             if (menu.isHidden) { continue; }
         <li>
-            @if (menu.SubMenu == null)
+            @if (menu.SubMenu == null || menu.SubViewMenuCount() < 1)
             {
                 <a href="@Url.Content(menu)" @(menu.IsActive(currentController,currentAction) ? "class=active" : "")>
                     <i class="fa fa-fw @menu.IconMenu"></i> @menu.MenuName

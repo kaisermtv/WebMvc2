@@ -1,14 +1,15 @@
 ﻿@model  AdminProductAttributeViewModel
 @{
-    ViewBag.Title = "Attribute Product Manage";
+    ViewBag.Title = "Các thuộc tính sản phẩm";
 }
 
-@Html.Partial("_ProductNavButtons")
+@Html.Partial("_TopMenu", ModulConfig.ProductManage)
 
 
 <div class="panel">
     <div class="panel-heading">
-        <h5>List Attribute</h5>
+        <h5>@ViewBag.Title</h5>
+        <a class="btn btn-mvc-green" href="@Url.Action("CreateAttribute")" style="float:right;">Thêm thuộc tính</a>
     </div>
     <div class="panel-content">
         <div id="container">
@@ -34,9 +35,9 @@
                                     </span>
                                 </td>
                                 <td>@it.LangName</td>
-                                <td>@it.ValueType.ToString().Replace("0","Text").Replace("1","Number").Replace("2", "Option")</td>
+                                <td>@it.ValueType.ToString().Replace("0", "Text").Replace("1", "Number").Replace("2", "Option")</td>
                                 <td>
-                                    <a href="@Url.Action("DeleteAttribute", new { id = it.Id })" class="btn-mvc">
+                                    <a href="@Url.Action("DelAttribute", new { id = it.Id })" class="btn-mvc">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </td>

@@ -3,12 +3,13 @@
     ViewBag.Title = "Quản lý nhóm sản phẩm";
 }
 
-@Html.Partial("_ProductNavButtons")
+@Html.Partial("_TopMenu", ModulConfig.ProductManage)
 
 
 <div class="panel">
     <div class="panel-heading">
         <h5>@ViewBag.Title</h5>
+        <a class="btn btn-mvc-green" href="@Url.Action("Create")" style="float:right;">Thêm loại sản phẩm</a>
     </div>
     <div class="panel-content">
         <div id="container">

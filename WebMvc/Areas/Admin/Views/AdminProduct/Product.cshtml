@@ -3,7 +3,7 @@
     ViewBag.Title = "Quản lý sản phẩm";
 }
 
-@Html.Partial("_ProductNavButtons")
+@Html.Partial("_TopMenu", ModulConfig.ProductManage)
 
 
 <div class="panel">
@@ -12,6 +12,10 @@
         @if (Model.ProductClass != null)
         {
             <a class="btn btn-mvc-green" href="@Url.Action("CreateProduct",new { g = Model.ProductClass.Id })" style="float:right;">Thêm sản phẩm</a>
+        }
+        else
+        {
+            <a class="btn btn-mvc-green" href="javascript:createProduct()" style="float:right;">Thêm sản phẩm</a>
         }
     </div>
     <div class="panel-content">
@@ -48,10 +52,10 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th style="width:50px">Edit</th>
-                            <th>Name</th>
-                            <th style="width:150px">Create Date</th>
-                            <th style="width:50px">Delete</th>
+                            <th style="width:50px">Sửa</th>
+                            <th>Tên sản phẩm</th>
+                            <th style="width:150px">Ngày đăng</th>
+                            <th style="width:50px">Xóa</th>
                         </tr>
                     </thead>
                     <tbody>

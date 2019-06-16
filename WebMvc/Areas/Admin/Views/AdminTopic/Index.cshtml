@@ -1,7 +1,7 @@
 ﻿@model  AdminTopicListViewModel
 
 @{
-    ViewBag.Title = "List Topic";
+    ViewBag.Title = "Danh sách bài viết";
 }
 
 @Html.Partial("_TopMenu",ModulConfig.NewsManage)
@@ -9,7 +9,8 @@
 
 <div class="panel">
     <div class="panel-heading">
-        <h5>List Topic</h5>
+        <h5>@ViewBag.Title</h5>
+        <a class="btn btn-mvc-green" href="@Url.Action("Create")" style="float:right;">Đăng bài</a>
     </div>
     <div class="panel-content">
         <div id="container">
@@ -37,7 +38,7 @@
                     <thead>
                         <tr>
                             <th style="width:50px">Sửa</th>
-                            <th>Title</th>
+                            <th>Tiêu đề</th>
                             <th style="width:130px">Nhóm tin</th>
                             <th style="width:130px">Ngày đăng</th>
                             <th style="width:110px">Người đăng</th>

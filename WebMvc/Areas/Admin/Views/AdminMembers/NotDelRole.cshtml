@@ -1,0 +1,18 @@
+﻿@model  MembershipRole
+@{
+    ViewBag.Title = "Xóa chức vụ";
+}
+@Html.Partial("_MembersNavButtons")
+<div class="panel">
+    <div class="panel-heading">
+        <h5>@ViewBag.Title</h5>
+    </div>
+    <div class="panel-content">
+        <h2>Không thể xóa!</h2>
+        <p>Bạn cần hủy bỏ chức vụ này của các tài khoản liên quan trước khi xóa.</p>
+        <div class="form-group">
+            <input type="text" class="form-control" readonly="readonly" value="@Model.RoleName" />
+        </div>
+        <a href="Roles" class="btn-mvc btn-mvc-large">Trờ lại</a>
+    </div>
+</div>
