@@ -273,7 +273,7 @@ namespace WebMvc
 
             tablesConfig.AddTable("ProductPost")
                 .AddColumn("Id", SqlDbType.UniqueIdentifier).PrimaryKey().Required()
-                .AddColumn("PostContent", SqlDbType.NVarChar).Required()
+                .AddColumn("PostContent", SqlDbType.NVarChar)
                 .AddColumn("DateCreated", SqlDbType.DateTime).Required().Default("GETDATE()")
                 .AddColumn("VoteCount", SqlDbType.Int).Required().Default("0")
                 .AddColumn("DateEdited", SqlDbType.DateTime).Required().Default("GETDATE()")

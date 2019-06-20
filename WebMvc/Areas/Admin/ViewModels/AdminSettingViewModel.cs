@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebMvc.Application;
 
 namespace WebMvc.Areas.Admin.ViewModels
 {
@@ -22,14 +23,57 @@ namespace WebMvc.Areas.Admin.ViewModels
     public class AdminGeneralSettingViewModel
     {
         [DisplayName("Tên trang web")]
-        [Required]
+        //[Required]
         [StringLength(200)]
         public string WebsiteName { get; set; }
 
         [DisplayName("Tên miền trang web")]
-        [Required]
+        //[Required]
         [StringLength(200)]
         public string WebsiteUrl { get; set; }
+
+        [DisplayName("Hình ảnh")]
+        [Description("Hình ảnh hiển thị mặc định khi chia sẻ liên kết")]
+        public string WebSiteImage { get; set; }
+
+        [DisplayName("Keyword")]
+        [Description("Các từ khóa tìm kiếm")]
+        public string Keyword { get; set; }
+
+        [DisplayName("Page Title")]
+        [MaxLength(80)]
+        public string PageTitle { get; set; }
+
+        [DisplayName("Meta Desc")]
+        [MaxLength(200)]
+        public string MetaDesc { get; set; }
+
+        [DisplayName("Website Footer")]
+        [UIHint(AppConstants.EditorType), AllowHtml]
+        public string WebsiteFooter { get; set; }
+
+
+        [DisplayName("Facebook")]
+        public string Facebook { get; set; }
+
+        [DisplayName("Twister")]
+        public string Twister { get; set; }
+
+        [DisplayName("Instagram")]
+        public string Instagram { get; set; }
+
+        [DisplayName("Linker")]
+        public string Linker { get; set; }
+
+        [DisplayName("Skype")]
+        public string Skype { get; set; }
+
+        [DisplayName("YouTube")]
+        public string YouTube { get; set; }
+
+        [DisplayName("Google+")]
+        public string Google { get; set; }
+
 
         [DisplayName("Đóng trang web")]
         [Description("Đóng trang web để bảo trì")]
@@ -87,13 +131,15 @@ namespace WebMvc.Areas.Admin.ViewModels
         [DisplayName("Vô hiệu hóa đăng ký chuẩn")]
         public bool DisableStandardRegistration { get; set; }
         
-        [DisplayName("Page Title")]
-        [MaxLength(80)]
-        public string PageTitle { get; set; }
+    }
 
-        [DisplayName("Meta Desc")]
-        [MaxLength(200)]
-        public string MetaDesc { get; set; }
+    public class AdminContactInformationSettingViewModel
+    {
+        [DisplayName("Địa chỉ chính")]
+        public string MainAddress { get; set; }
+
+        [DisplayName("Hotline")]
+        public string Hotline { get; set; }
     }
 
     public class AdminLanguageSettingViewModel
@@ -105,7 +151,9 @@ namespace WebMvc.Areas.Admin.ViewModels
 
     public class AdminTermsConditionsSettingViewModel
     {
-
+        [DisplayName("Điều khoản điều kiện")]
+        [UIHint(AppConstants.EditorType), AllowHtml]
+        public string TermsConditions { get; set; }
     }
     public class AdminEmailSettingViewModel
     {
@@ -127,7 +175,9 @@ namespace WebMvc.Areas.Admin.ViewModels
         public string RepresentAtive { get; set; }
         [DisplayName("Chức vụ")]
         public string RepresentPosition { get; set; }
+
         [DisplayName("Giới thiệu")]
+        [UIHint(AppConstants.EditorType), AllowHtml]
         public string Introduce { get; set; }
         
 

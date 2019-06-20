@@ -53,6 +53,13 @@ namespace WebMvc.Application
                         RouterValues = new { area = "Admin"},
                     },
                     new AdminMenuItem{
+                        MenuName = "Thông tin liên hệ",
+
+                        ActionName = "ContactInformation",
+                        ControllerName = "Overview",
+                        RouterValues = new { area = "Admin"},
+                    },
+                    new AdminMenuItem{
                         MenuName = "Điều khoản và điều kiện",
 
                         ActionName = "TermsConditions",
@@ -110,7 +117,7 @@ namespace WebMvc.Application
                 IconMenu = "fa-picture-o",
 
                 ActionName = "Index",
-                ControllerName = "Carousel",
+                ControllerName = "AdminCarousel",
                 RouterValues = new { area = "Admin"},
                 SubMenu = new AdminMenuItem[]
                 {
@@ -191,7 +198,7 @@ namespace WebMvc.Application
                     },
                     new AdminMenuItem
                     {
-                        MenuName = "Quản lý nhóm bài viết",
+                        MenuName = "Danh mục bài viết",
 
                         ActionName = "News",
                         ControllerName = "AdminCategory",
@@ -305,7 +312,7 @@ namespace WebMvc.Application
                     },
                     new AdminMenuItem
                     {
-                        MenuName = "Quản lý nhóm sản phẩm",
+                        MenuName = "Danh mục sản phẩm",
 
                         ActionName = "Product",
                         ControllerName = "AdminCategory",
@@ -371,6 +378,32 @@ namespace WebMvc.Application
 
                         ActionName = "DelAttribute",
                         ControllerName = "AdminProduct",
+                        RouterValues = new { area = "Admin"},
+                    },
+                    new AdminMenuItem
+                    {
+                        MenuName = "Khách đặt hàng",
+
+                        ActionName = "Index",
+                        ControllerName = "ShoppingCart",
+                        RouterValues = new { area = "Admin"},
+                    },
+                    new AdminMenuItem
+                    {
+                        isHidden = true,
+                        MenuName = "Sửa đơn hàng",
+
+                        ActionName = "Edit",
+                        ControllerName = "ShoppingCart",
+                        RouterValues = new { area = "Admin"},
+                    },
+                    new AdminMenuItem
+                    {
+                        isHidden = true,
+                        MenuName = "Xóa đơn hàng",
+
+                        ActionName = "Del",
+                        ControllerName = "ShoppingCart",
                         RouterValues = new { area = "Admin"},
                     },
                 }
@@ -472,7 +505,7 @@ namespace WebMvc.Application
                             },
                             new AdminMenuItem
                             {
-                                MenuName = "Cài đặt tài khoản",
+                                MenuName = "Cài đặt đăng ký",
 
                                 ActionName = "Registration",
                                 ControllerName = "Setting",
@@ -545,14 +578,23 @@ namespace WebMvc.Application
                     },
                 }
             },
-            new AdminMenuItem{
-                MenuName = "Log",
-                IconMenu = "fa-file-text-o",
+             new AdminMenuItem
+            {
+                MenuName = "Liên hệ",
+                IconMenu = "fa-envelope",
 
                 ActionName = "Index",
-                ControllerName = "Log",
+                ControllerName = "AdminContact",
                 RouterValues = new { area = "Admin"},
             },
+            //new AdminMenuItem{
+            //    MenuName = "Log",
+            //    IconMenu = "fa-file-text-o",
+
+            //    ActionName = "Index",
+            //    ControllerName = "Log",
+            //    RouterValues = new { area = "Admin"},
+            //},
         };
 
         public static AdminMenuItem[] NewsManage = new AdminMenuItem[]
@@ -575,7 +617,7 @@ namespace WebMvc.Application
                     //},
                     new AdminMenuItem
                     {
-                        MenuName = "Quản lý nhóm bài viết",
+                        MenuName = "Danh mục bài viết",
 
                         ActionName = "News",
                         ControllerName = "AdminCategory",
@@ -619,7 +661,7 @@ namespace WebMvc.Application
                     //},
                     new AdminMenuItem
                     {
-                        MenuName = "Quản lý nhóm sản phẩm",
+                        MenuName = "Danh mục sản phẩm",
 
                         ActionName = "Product",
                         ControllerName = "AdminCategory",

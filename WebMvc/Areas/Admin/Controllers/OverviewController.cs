@@ -35,8 +35,20 @@ namespace WebMvc.Areas.Admin.Controllers
             {
                 WebsiteName = SettingsService.GetSetting(AppConstants.STWebsiteName),
                 WebsiteUrl = SettingsService.GetSetting(AppConstants.STWebsiteUrl),
+                WebSiteImage = SettingsService.GetSetting(AppConstants.STWebsiteImage),
                 PageTitle = SettingsService.GetSetting(AppConstants.STPageTitle),
                 MetaDesc = SettingsService.GetSetting(AppConstants.STMetaDesc),
+                Keyword = SettingsService.GetSetting(AppConstants.STKeyword),
+                WebsiteFooter = SettingsService.GetSetting(AppConstants.STWebsiteFooter),
+
+
+                Facebook = SettingsService.GetSetting(AppConstants.STFacebook),
+                Twister = SettingsService.GetSetting(AppConstants.STTwister),
+                Instagram = SettingsService.GetSetting(AppConstants.STInstagram),
+                Linker = SettingsService.GetSetting(AppConstants.STLinker),
+                Skype = SettingsService.GetSetting(AppConstants.STSkype),
+                YouTube = SettingsService.GetSetting(AppConstants.STYouTube),
+                Google = SettingsService.GetSetting(AppConstants.STGoogle),
             };
 
             return View("General", model);
@@ -54,8 +66,20 @@ namespace WebMvc.Areas.Admin.Controllers
                     {
                         SettingsService.SetSetting(AppConstants.STWebsiteName, setting.WebsiteName);
                         SettingsService.SetSetting(AppConstants.STWebsiteUrl, setting.WebsiteUrl);
+                        SettingsService.SetSetting(AppConstants.STWebsiteImage, setting.WebSiteImage);
                         SettingsService.SetSetting(AppConstants.STPageTitle, setting.PageTitle);
                         SettingsService.SetSetting(AppConstants.STMetaDesc, setting.MetaDesc);
+                        SettingsService.SetSetting(AppConstants.STKeyword, setting.Keyword);
+                        SettingsService.SetSetting(AppConstants.STWebsiteFooter, setting.WebsiteFooter);
+
+
+                        SettingsService.SetSetting(AppConstants.STFacebook, setting.Facebook);
+                        SettingsService.SetSetting(AppConstants.STTwister, setting.Twister);
+                        SettingsService.SetSetting(AppConstants.STInstagram, setting.Instagram);
+                        SettingsService.SetSetting(AppConstants.STLinker, setting.Linker);
+                        SettingsService.SetSetting(AppConstants.STSkype, setting.Skype);
+                        SettingsService.SetSetting(AppConstants.STYouTube, setting.YouTube);
+                        SettingsService.SetSetting(AppConstants.STGoogle, setting.Google);
 
 
                         unitOfWork.Commit();
@@ -92,10 +116,10 @@ namespace WebMvc.Areas.Admin.Controllers
                 Introduce = SettingsService.GetSetting(AppConstants.STIntroduce),
                 Greeting = SettingsService.GetSetting(AppConstants.STGreeting),
 
-                Fanpage = SettingsService.GetSetting(AppConstants.STFanpage),
-                FanChat = SettingsService.GetSetting(AppConstants.STFanChat),
-                Hotline = SettingsService.GetSetting(AppConstants.STHotline),
-                HotlineImg = SettingsService.GetSetting(AppConstants.STHotlineImg),
+                //Fanpage = SettingsService.GetSetting(AppConstants.STFanpage),
+                //FanChat = SettingsService.GetSetting(AppConstants.STFanChat),
+                //Hotline = SettingsService.GetSetting(AppConstants.STHotline),
+                //HotlineImg = SettingsService.GetSetting(AppConstants.STHotlineImg),
                 Addrens = new List<AdminShowroomSettingViewModel>(),
 
                 BankID = SettingsService.GetSetting(AppConstants.STBankID),
@@ -139,11 +163,11 @@ namespace WebMvc.Areas.Admin.Controllers
                     {
                         SettingsService.SetSetting(AppConstants.STBusinessName, setting.BusinessName);
                         SettingsService.SetSetting(AppConstants.STIntroduce, setting.Introduce);
-                        SettingsService.SetSetting(AppConstants.STGreeting, setting.Greeting);
-                        SettingsService.SetSetting(AppConstants.STFanpage, setting.Fanpage);
-                        SettingsService.SetSetting(AppConstants.STFanChat, setting.FanChat);
-                        SettingsService.SetSetting(AppConstants.STHotline, setting.Hotline);
-                        SettingsService.SetSetting(AppConstants.STHotlineImg, setting.HotlineImg);
+                        //SettingsService.SetSetting(AppConstants.STGreeting, setting.Greeting);
+                        //SettingsService.SetSetting(AppConstants.STFanpage, setting.Fanpage);
+                        //SettingsService.SetSetting(AppConstants.STFanChat, setting.FanChat);
+                        //SettingsService.SetSetting(AppConstants.STHotline, setting.Hotline);
+                        //SettingsService.SetSetting(AppConstants.STHotlineImg, setting.HotlineImg);
 
                         SettingsService.SetSetting(AppConstants.STBankID, setting.BankID);
                         SettingsService.SetSetting(AppConstants.STBankName, setting.BankName);
@@ -192,11 +216,97 @@ namespace WebMvc.Areas.Admin.Controllers
         }
         #endregion
 
+        #region Contact Information
+        public ActionResult ContactInformation()
+        {
+            var model = new AdminContactInformationSettingViewModel
+            {
+                MainAddress = SettingsService.GetSetting(AppConstants.STMainAddress),
+                Hotline = SettingsService.GetSetting(AppConstants.STHotline),
+
+            };
+
+            return View("ContactInformation", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ContactInformation(AdminContactInformationSettingViewModel setting)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var unitOfWork = UnitOfWorkManager.NewUnitOfWork())
+                {
+                    try
+                    {
+                        SettingsService.SetSetting(AppConstants.STMainAddress, setting.MainAddress);
+                        SettingsService.SetSetting(AppConstants.STHotline, setting.Hotline);
+
+
+
+                        unitOfWork.Commit();
+                        TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = LocalizationService.GetResourceString("Cập nhật thành công!"),
+                            MessageType = GenericMessages.success
+                        };
+                    }
+                    catch (Exception ex)
+                    {
+                        unitOfWork.Rollback();
+                        LoggingService.Error(ex);
+                    }
+                }
+
+            }
+
+            return View("ContactInformation", setting);
+        }
+
+        #endregion General Setting
+
         #region TermsConditions Setting
         public ActionResult TermsConditions()
         {
+            var model = new AdminTermsConditionsSettingViewModel
+            {
+                TermsConditions = SettingsService.GetSetting(AppConstants.STTermsConditions),
 
-            return View();
+            };
+
+            return View("TermsConditions", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult TermsConditions(AdminTermsConditionsSettingViewModel setting)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var unitOfWork = UnitOfWorkManager.NewUnitOfWork())
+                {
+                    try
+                    {
+                        SettingsService.SetSetting(AppConstants.STTermsConditions, setting.TermsConditions);
+
+
+                        unitOfWork.Commit();
+                        TempData[AppConstants.MessageViewBagName] = new GenericMessageViewModel
+                        {
+                            Message = LocalizationService.GetResourceString("Cập nhật thành công!"),
+                            MessageType = GenericMessages.success
+                        };
+                    }
+                    catch (Exception ex)
+                    {
+                        unitOfWork.Rollback();
+                        LoggingService.Error(ex);
+                    }
+                }
+
+            }
+
+            return View("TermsConditions", setting);
         }
         #endregion TermsConditions Setting
     }

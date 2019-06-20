@@ -4,70 +4,136 @@
     ViewBag.Title = "Thông tin website";
 }
 
-@using (Html.BeginForm("General", "Setting", FormMethod.Post))
+@using (Html.BeginForm("General", "Overview", FormMethod.Post))
 {
     @Html.ValidationSummary(false)
     @Html.AntiForgeryToken()
-    
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">@ViewBag.Title</h4>
-        </div>
-        <div class="panel-collapse">
-            <div class="panel-body">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.WebsiteName)
-                    @Html.TextBoxFor(model => model.WebsiteName, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.WebsiteName)
-                </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.WebsiteUrl)
-                    @Html.TextBoxFor(model => model.WebsiteUrl, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.WebsiteUrl)
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.PageTitle)
-                    @Html.TextBoxFor(model => model.PageTitle, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.PageTitle)
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.MetaDesc)
-                    @Html.TextAreaFor(model => model.MetaDesc, new { @class = "form-control", @style = "resize:vertical" })
-                    @Html.ValidationMessageFor(model => model.MetaDesc)
-                </div>
-
-                @*<div class="checkbox" >
-                    @using (Html.BeginLabelFor(m => m.IsClosed, new { @class = "checkbox" }))
-                    {
-                        @Html.CheckBoxFor(m => m.IsClosed)
-                    }
-                    @Html.ValidationMessageFor(m => m.IsClosed)
-                </div>*@
-
-                @*<div class="checkbox">
-                    @using (Html.BeginLabelFor(m => m.DisableStandardRegistration, new { @class = "checkbox" }))
-                    {
-                        @Html.CheckBoxFor(m => m.DisableStandardRegistration)
-                    }
-                    <p class="help-block">Điều này sẽ vô hiệu hóa biểu mẫu đăng ký chuẩn, hoàn hảo cho những người chỉ muốn sử dụng đăng nhập Xã hội</p>
-                    @Html.ValidationMessageFor(m => m.DisableStandardRegistration)
-                </div>*@
-
-                @*<div class="checkbox">
-                    @using (Html.BeginLabelFor(m => m.EnableRSSFeeds, new { @class = "checkbox" }))
-                    {
-                        @Html.CheckBoxFor(m => m.EnableRSSFeeds)
-                    }
-                    @Html.ValidationMessageFor(m => m.EnableRSSFeeds)
-                </div>*@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">@ViewBag.Title</h4>
+    </div>
+    <div class="panel-collapse">
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(model => model.WebsiteName)
+                @Html.TextBoxFor(model => model.WebsiteName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.WebsiteName)
             </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.WebsiteUrl)
+                @Html.TextBoxFor(model => model.WebsiteUrl, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.WebsiteUrl)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.WebSiteImage)
+                @Html.EditorFor(model => model.WebSiteImage, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.WebSiteImage, "", new { @class = "text-danger" })
+                <script>
+                    FileManage.replace("WebSiteImage", { Muti: false });
+                </script>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PageTitle)
+                @Html.TextBoxFor(model => model.PageTitle, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PageTitle)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Keyword)
+                @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Keyword)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MetaDesc)
+                @Html.TextAreaFor(model => model.MetaDesc, new { @class = "form-control", @style = "resize:vertical" })
+                @Html.ValidationMessageFor(model => model.MetaDesc)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.WebsiteFooter)
+                @Html.TextAreaFor(model => model.WebsiteFooter, new { @class = "form-control", @style = "resize:vertical" })
+                @Html.ValidationMessageFor(model => model.WebsiteFooter)
+                <script>
+                    CKEDITOR.replace("WebsiteFooter");
+                </script>
+            </div>
+            <hr />
+            <div class="form-group">
+                @Html.LabelFor(model => model.Facebook)
+                @Html.TextBoxFor(model => model.Facebook, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Facebook)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Twister)
+                @Html.TextBoxFor(model => model.Twister, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Twister)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Instagram)
+                @Html.TextBoxFor(model => model.Instagram, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Instagram)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Linker)
+                @Html.TextBoxFor(model => model.Linker, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Linker)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Skype)
+                @Html.TextBoxFor(model => model.Skype, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Skype)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.YouTube)
+                @Html.TextBoxFor(model => model.YouTube, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.YouTube)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Google)
+                @Html.TextBoxFor(model => model.Google, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Google)
+            </div>
+            <hr />
+            @*<div class="checkbox">
+            @using (Html.BeginLabelFor(m => m.IsClosed, new { @class = "checkbox" }))
+            {
+            @Html.CheckBoxFor(m => m.IsClosed)
+            }
+            @Html.ValidationMessageFor(m => m.IsClosed)
+        </div>*@
+
+            @*<div class="checkbox">
+            @using (Html.BeginLabelFor(m => m.DisableStandardRegistration, new { @class = "checkbox" }))
+            {
+            @Html.CheckBoxFor(m => m.DisableStandardRegistration)
+            }
+            <p class="help-block">Điều này sẽ vô hiệu hóa biểu mẫu đăng ký chuẩn, hoàn hảo cho những người chỉ muốn sử dụng đăng nhập Xã hội</p>
+            @Html.ValidationMessageFor(m => m.DisableStandardRegistration)
+        </div>*@
+
+            @*<div class="checkbox">
+            @using (Html.BeginLabelFor(m => m.EnableRSSFeeds, new { @class = "checkbox" }))
+            {
+            @Html.CheckBoxFor(m => m.EnableRSSFeeds)
+            }
+            @Html.ValidationMessageFor(m => m.EnableRSSFeeds)
+        </div>*@
         </div>
     </div>
+</div>
 
-    <div class="submit-holder">
-        <button type="submit" class="btn-mvc-green btn-mvc-large">Lưu cài đặt</button>
-    </div>
+<div class="submit-holder">
+    <button type="submit" class="btn-mvc-green btn-mvc-large">Lưu cài đặt</button>
+</div>
 }

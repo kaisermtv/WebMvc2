@@ -426,7 +426,7 @@ namespace WebMvc.Services
             var cacheKey = string.Concat(CacheKeys.Category.StartsWith, "GetBaseSelectListCategories", "-", allowedCategories.GetHashCode());
             return _cacheService.CachePerRequest(cacheKey, () =>
             {
-                var cats = new List<SelectListItem> { new SelectListItem { Text = "", Value = "" } };
+                var cats = new List<SelectListItem> { new SelectListItem { Text = "----", Value = "" } };
                 foreach (var cat in allowedCategories)
                 {
                     var catName = string.Concat(LevelDashes(cat.Level), cat.Level > 1 ? " " : "", cat.Name);

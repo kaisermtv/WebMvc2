@@ -53,11 +53,11 @@ namespace WebMvc.Areas.Admin.ViewModels
 
         public List<SelectListItem> AllCategories { get; set; }
 
-        [DisplayName("Page Title")]
+        [DisplayName("SEO Title")]
         [MaxLength(80)]
         public string PageTitle { get; set; }
 
-        [DisplayName("Meta Desc")]
+        [DisplayName("SEO Description")]
         [MaxLength(200)]
         public string MetaDesc { get; set; }
 

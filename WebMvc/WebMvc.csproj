@@ -1516,13 +1516,10 @@
     <Content Include="Areas\Admin\Views\ImportExport\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ImportExport\Languages.cshtml" />
     <Content Include="Areas\Admin\Views\Log\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Setting\Business.cshtml" />
     <Content Include="Areas\Admin\Views\Setting\CustomCode.cshtml" />
     <Content Include="Areas\Admin\Views\Setting\Email.cshtml" />
-    <Content Include="Areas\Admin\Views\Setting\General.cshtml" />
     <Content Include="Areas\Admin\Views\Setting\Language.cshtml" />
     <Content Include="Areas\Admin\Views\Setting\Registration.cshtml" />
-    <Content Include="Areas\Admin\Views\Setting\TermsConditions.cshtml" />
     <Content Include="Areas\Admin\Views\Setting\ThemeConfig.cshtml" />
     <Content Include="Areas\Admin\Views\Setting\Themes.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_AdminBlankLayout.cshtml" />
@@ -1616,6 +1613,7 @@
     <Content Include="Areas\Admin\Views\AdminProduct\NotDelAttribute.cshtml" />
     <Content Include="Areas\Admin\Views\AdminMembers\DelRole.cshtml" />
     <Content Include="Areas\Admin\Views\AdminMembers\NotDelRole.cshtml" />
+    <Content Include="Areas\Admin\Views\Overview\ContactInformation.cshtml" />
     <None Include="Properties\PublishProfiles\aquaticshome - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\aquaticshome - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />

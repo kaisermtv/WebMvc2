@@ -34,6 +34,7 @@ namespace WebMvc.Areas.Admin.ViewModels
         [DisplayName("Tên sản phẩm")]
         public string Name { get; set; }
 
+        //[Required]
         [DisplayName("Nội dung")]
         [UIHint(AppConstants.EditorType), AllowHtml]
         public string Content { get; set; }

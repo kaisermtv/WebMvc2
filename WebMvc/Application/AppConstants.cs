@@ -10,17 +10,31 @@ namespace WebMvc.Application
         //SettingKeys
         public const string STWebsiteName = "WebsiteName";
         public const string STWebsiteUrl = "WebsiteUrl";
+        public const string STWebsiteImage = "WebsiteImage";
+        public const string STWebsiteFooter = "WebsiteFooter";
         public const string STPageTitle = "PageTitle";
         public const string STMetaDesc = "MetaDesc";
+        public const string STKeyword = "Keyword";
+
+        public const string STFanpage = "Fanpage";
+        public const string STFanChat = "FanChat";
+
+        public const string STFacebook = "Facebook";
+        public const string STTwister = "Twister";
+        public const string STInstagram = "Instagram";
+        public const string STLinker = "Linker";
+        public const string STSkype = "Skype";
+        public const string STYouTube = "YouTube";
+        public const string STGoogle = "Google+";
+
+        public const string STHotline = "Hotline";
+        public const string STMainAddress = "MainAddress";
 
         public const string STBusinessName = "BusinessName";
         public const string STRepresentAtive = "RepresentAtive";
         public const string STRepresentPosition = "RepresentPosition";
         public const string STIntroduce = "Introduce";
         public const string STGreeting = "Greeting";
-        public const string STFanpage = "Fanpage";
-        public const string STFanChat = "FanChat";
-        public const string STHotline = "Hotline";
         public const string STHotlineImg = "HotlineImg";
         public const string STBankID = "BankID";
         public const string STBankName = "BankName";
@@ -31,6 +45,8 @@ namespace WebMvc.Application
         public const string STInEmail = "InEmail";
 
         public const string STLockRegister = "LockRegister";
+
+        public const string STTermsConditions = "TermsConditions";
 
 
 

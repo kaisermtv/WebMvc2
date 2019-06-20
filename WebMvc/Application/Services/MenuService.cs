@@ -216,7 +216,7 @@ namespace WebMvc.Services
             var list = _cacheService.Get<List<SelectListItem>>(cacheKey);
             if(list == null)
             {
-                list = new List<SelectListItem> { new SelectListItem { Text = "", Value = "" } };
+                list = new List<SelectListItem> { new SelectListItem { Text = "----", Value = "" } };
                 foreach (var cat in allowedCategories)
                 {
                     var catName = string.Concat(LevelDashes(cat.Level), cat.Level > 1 ? " " : "", cat.Name);

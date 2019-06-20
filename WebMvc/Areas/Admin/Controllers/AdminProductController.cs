@@ -477,6 +477,11 @@ namespace WebMvc.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                if (model.Content == null)
+                {
+                    model.Content = string.Empty;
+                }
+
                 using (var unitOfWork = UnitOfWorkManager.NewUnitOfWork())
                 {
                     try
@@ -675,6 +680,11 @@ namespace WebMvc.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
+                if (model.Content == null)
+                {
+                    model.Content = string.Empty;
+                }
+
                 using (var unitOfWork = UnitOfWorkManager.NewUnitOfWork())
                 {
                     try
