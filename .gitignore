@@ -1,4 +1,7 @@
 /WebMvc/Web.config
+/packages
+/WebMvc/bin
+/WebMvc/obj
 /.vs
 /.vs/
 /.vs/*
