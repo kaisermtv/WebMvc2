@@ -1,4 +1,4 @@
-﻿@model  Product
+﻿@model  ProductAttribute
 @{
     ViewBag.Title = "Xóa thuộc tính sản phẩm";
 }
@@ -11,9 +11,9 @@
         <h2>Xác nhận xóa thuộc tính sản phẩm?</h2>
         <p>Thuộc tính sản phẩm sẽ được xóa hoàn toàn và không thể khôi phục.</p>
         <div class="form-group">
-            <input type="text" class="form-control" readonly="readonly" value="@Model.Name" />
+            <input type="text" class="form-control" readonly="readonly" value="@Model.LangName" />
         </div>
-        @using (Html.BeginForm("DelProduct", "AdminProduct", FormMethod.Post))
+        @using (Html.BeginForm("DelAttribute", "AdminProduct", FormMethod.Post))
         {
             <div class="submit-holder">
                 <input type="submit" class="btn-mvc btn-mvc-large" value="Xác nhận xóa" />

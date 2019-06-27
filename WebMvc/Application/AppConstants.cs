@@ -2,12 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebMvc.Application.Entities;
 
 namespace WebMvc.Application
 {
     public static class AppConstants
     {
+        //Langue 
+        public static readonly Language InsertLanguage = new Language { Id = new Guid("9B4F55B2-589D-4200-B862-A8270040EA71"), Name = "Vietnamese (Vietnam)", LanguageCulture = "vi-VN", RightToLeft = false };
+
+
         //SettingKeys
+        public const string STLanguageDefault = "LanguageDefault";
+
+
         public const string STWebsiteName = "WebsiteName";
         public const string STWebsiteUrl = "WebsiteUrl";
         public const string STWebsiteImage = "WebsiteImage";
@@ -49,6 +57,8 @@ namespace WebMvc.Application
         public const string STTermsConditions = "TermsConditions";
 
 
+        public const string STPhoneCount = "PhoneCount";
+        public const string STEmailCount = "EmailCount";
 
         // Admin options
         public const int AdminNumberInPage = 10;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using WebMvc.Application.Lib;
 
 namespace WebMvc.Application.Entities
@@ -24,5 +25,7 @@ namespace WebMvc.Application.Entities
         public Guid? Category_Id { get; set; }
         public Guid? ProductPost_Id { get; set; }
 
+
+        public virtual List<ProductAttributeValue> Attributes { get; set; }
     }
 }

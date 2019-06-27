@@ -220,7 +220,7 @@
     <Compile Include="Application\Entities\Permission.cs" />
     <Compile Include="Application\Entities\PollAnswer.cs" />
     <Compile Include="Application\Entities\Post.cs" />
-    <Compile Include="Application\Entities\product.cs" />
+    <Compile Include="Application\Entities\Product.cs" />
     <Compile Include="Application\Entities\ProductAttribute.cs" />
     <Compile Include="Application\Entities\ProductAttributeValue.cs" />
     <Compile Include="Application\Entities\ProductClass.cs" />
@@ -364,7 +364,6 @@
     <Compile Include="ViewModels\TopicViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Database.sql" />
     <Content Include="Content\admin\Admin.css" />
     <Content Include="Content\admin\Admin.min.css" />
     <Content Include="Content\admin\Images\admin-n3o-logo.png" />

@@ -9,14 +9,14 @@
 <div class="panel">
     <div class="panel-heading">
         <h5>@ViewBag.Title</h5>
-        @if (Model.ProductClass != null)
+        @*@if (Model.ProductClass != null)
         {
             <a class="btn btn-mvc-green" href="@Url.Action("CreateProduct",new { g = Model.ProductClass.Id })" style="float:right;">Thêm sản phẩm</a>
         }
         else
-        {
+        {*@
             <a class="btn btn-mvc-green" href="javascript:createProduct()" style="float:right;">Thêm sản phẩm</a>
-        }
+        @*}*@
     </div>
     <div class="panel-content">
         <div id="container">
@@ -54,6 +54,7 @@
                         <tr>
                             <th style="width:50px">Sửa</th>
                             <th>Tên sản phẩm</th>
+                            <th>Mã sản phẩm</th>
                             <th style="width:150px">Ngày đăng</th>
                             <th style="width:50px">Xóa</th>
                         </tr>
@@ -70,6 +71,7 @@
                                     </span>
                                 </td>
                                 <td>@it.Name</td>
+                                <td>@(it.Attributes.FirstOrDefault(x => x.ProductAttributeId == ViewBag.ProductCodeId)?.Value)</td>
                                 <td>@it.CreateDate.ToString("hh:mm dd/MM/yyyy")</td>
                                 <td>
                                     <a href="@Url.Action("DelProduct", new { id = it.Id })" class="btn-mvc">

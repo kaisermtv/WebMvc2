@@ -140,6 +140,12 @@ namespace WebMvc.Areas.Admin.ViewModels
 
         [DisplayName("Hotline")]
         public string Hotline { get; set; }
+
+        [DisplayName("Phone")]
+        public List<string> Phone { get; set; }
+
+        [DisplayName("Email")]
+        public List<string> Email { get; set; }
     }
 
     public class AdminLanguageSettingViewModel
@@ -183,6 +189,7 @@ namespace WebMvc.Areas.Admin.ViewModels
 
 
         [DisplayName("Lời chào")]
+        [UIHint(AppConstants.EditorType), AllowHtml]
         public string Greeting { get; set; }
         
 

@@ -26,6 +26,17 @@ namespace WebMvc.Areas.Admin.ViewModels
         [DisplayName("Tiêu đề")]
         public string Name { get; set; }
 
+        [DisplayName("Giới thiệu")]
+        [UIHint(AppConstants.EditorType), AllowHtml]
+        public string Intro { get; set; }
+
+        [DisplayName("Từ khóa SEO")]
+        public string SEOKeyword { get; set; }
+
+        [DisplayName("Mô tả SEO")]
+        public string SEODescription { get; set; }
+
+        [DisplayName("Nội dung")]
         [UIHint(AppConstants.EditorType), AllowHtml]
         public string Content { get; set; }
 

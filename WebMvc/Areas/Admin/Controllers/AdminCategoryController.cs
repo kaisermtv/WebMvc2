@@ -411,6 +411,7 @@ namespace WebMvc.Areas.Admin.Controllers
                 {
                     try
                     {
+                        categoryViewModel.IsProduct = isProduct;
                         var category = _categoryService.Get(categoryViewModel.Id);
                         if (category == null || category.IsProduct != isProduct)
                         {

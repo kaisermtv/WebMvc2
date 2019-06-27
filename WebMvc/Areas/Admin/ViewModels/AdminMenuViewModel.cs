@@ -64,6 +64,14 @@ namespace WebMvc.Areas.Admin.ViewModels
         public string LinkCat { get; set; }
         public List<SelectListItem> AllCat { get; set; }
 
+        [DisplayName("Liên kết danh mục bài viết")]
+        public string LinkCatNews { get; set; }
+        public List<SelectListItem> AllCatNews { get; set; }
+
+        [DisplayName("Liên kết danh mục sản phẩm")]
+        public string LinkCatProduct { get; set; }
+        public List<SelectListItem> AllCatProduct { get; set; }
+
         [DisplayName("Liên kết bài viết")]
         public string LinkNews { get; set; }
         public string TitleNews { get; set; }

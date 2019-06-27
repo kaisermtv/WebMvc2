@@ -1,9 +1,9 @@
 ﻿@model AdminEditProductClassViewModel
-<div class="form-group">
+@*<div class="form-group">
     @Html.LabelFor(model => model.Colour)
     @Html.EditorFor(model => model.Colour)
     @Html.ValidationMessageFor(model => model.Colour)
-</div>
+</div>*@
 <div class="form-group">
     @Html.LabelFor(model => model.Name)
     @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
@@ -11,6 +11,13 @@
 </div>
 <div class="form-group">
     @Html.LabelFor(model => model.Image)
+    @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+    <script>
+        FileManage.replace("Image", { Muti: true });
+    </script>
+
+    @*@Html.LabelFor(model => model.Image)
     <div class="input-group">
         <span class="input-group-btn">
             <span class="btn btn-default btn-file" onclick="ButtonInjectChooseImage('Image','')">
@@ -19,7 +26,7 @@
         </span>
         @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
     </div>
-    @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+    @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })*@
 
 </div>
 <div class="form-group">

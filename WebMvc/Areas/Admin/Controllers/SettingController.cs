@@ -145,7 +145,7 @@ namespace WebMvc.Areas.Admin.Controllers
 
                     try
                     {
-                        SettingsService.SetSetting("LanguageDefault", setting.LanguageDefault.ToString());
+                        SettingsService.SetSetting(AppConstants.STLanguageDefault, setting.LanguageDefault.ToString());
 
 
                         unitOfWork.Commit();

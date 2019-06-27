@@ -224,7 +224,35 @@ namespace WebMvc.Areas.Admin.Controllers
                 MainAddress = SettingsService.GetSetting(AppConstants.STMainAddress),
                 Hotline = SettingsService.GetSetting(AppConstants.STHotline),
 
+                Phone = new List<string>(),
+                Email = new List<string>(),
             };
+
+            var PhoneCount = SettingsService.GetSetting(AppConstants.STPhoneCount);
+            int count = 0;
+            try
+            {
+                count = int.Parse(PhoneCount);
+            }
+            catch { }
+
+            for (int i = 0; i < count; i++)
+            {
+                model.Phone.Add(SettingsService.GetSetting("Phone[" + i + "]"));
+            }
+
+            var EmailCount = SettingsService.GetSetting(AppConstants.STEmailCount);
+            int ecount = 0;
+            try
+            {
+                ecount = int.Parse(EmailCount);
+            }
+            catch { }
+
+            for (int i = 0; i < ecount; i++)
+            {
+                model.Email.Add(SettingsService.GetSetting("Email[" + i + "]"));
+            }
 
             return View("ContactInformation", model);
         }
@@ -242,6 +270,38 @@ namespace WebMvc.Areas.Admin.Controllers
                         SettingsService.SetSetting(AppConstants.STMainAddress, setting.MainAddress);
                         SettingsService.SetSetting(AppConstants.STHotline, setting.Hotline);
 
+
+                        if (setting.Phone != null)
+                        {
+                            int count = setting.Phone.Count;
+                            SettingsService.SetSetting(AppConstants.STPhoneCount, count.ToString());
+
+                            for (int i = 0; i < count; i++)
+                            {
+                                SettingsService.SetSetting("Phone[" + i + "]", setting.Phone[i]);
+                            }
+                        }
+                        else
+                        {
+                            SettingsService.SetSetting(AppConstants.STPhoneCount, "0");
+                            setting.Phone = new List<string>();
+                        }
+
+                        if (setting.Email != null)
+                        {
+                            int count = setting.Email.Count;
+                            SettingsService.SetSetting(AppConstants.STEmailCount, count.ToString());
+
+                            for (int i = 0; i < count; i++)
+                            {
+                                SettingsService.SetSetting("Email[" + i + "]", setting.Email[i]);
+                            }
+                        }
+                        else
+                        {
+                            SettingsService.SetSetting(AppConstants.STEmailCount, "0");
+                            setting.Email = new List<string>();
+                        }
 
 
                         unitOfWork.Commit();

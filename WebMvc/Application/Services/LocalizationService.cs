@@ -32,22 +32,52 @@ namespace WebMvc.Services
 
 		}
 
+        private static Dictionary<Guid, Dictionary<string, string>> Alllang = new Dictionary<Guid, Dictionary<string, string>>();
 
-		private static Hashtable Alllang = new Hashtable();
+        private Dictionary<string, string> GetAllLang(Guid id)
+        {
+            if (!Alllang.ContainsKey(id))
+            {
+                DataTable data;
+                using (var Cmd = _context.CreateCommand())
+                {
+                    Cmd.CommandText = "SELECT KY.[Name],ST.[ResourceValue] FROM [LocaleStringResource] AS ST"
+                    + " INNER JOIN [LocaleResourceKey] AS KY ON ST.LocaleResourceKey_Id = KY.Id"
+                    + "  WHERE ST.[Language_Id] = @Language_Id";
 
-		private Hashtable _currentLang = null;
-		private Hashtable CurrentLang
+                    Cmd.AddParameters("Language_Id", id);
+
+                    data = Cmd.FindAll();
+                }
+
+                var lang = new Dictionary<string, string>();
+                foreach (DataRow it in data.Rows)
+                {
+                    lang.Add(it["Name"].ToString(), it["ResourceValue"].ToString());
+                }
+
+                try
+                {
+                    Alllang.Add(Lang_Id, lang);
+                }
+                catch { }
+            }
+                
+            return Alllang[id];
+        }
+
+
+        private Dictionary<string, string> _currentLang = null;
+		private Dictionary<string, string> CurrentLang
 		{
 			get
 			{
 				if (_currentLang != null) return _currentLang;
-				if (!Alllang.ContainsKey(Lang_Id))
-				{
-					Alllang.Add(Lang_Id, new Hashtable());
-				}
-					
-				return Alllang[Lang_Id] as Hashtable;
-			}
+
+                _currentLang = GetAllLang(Lang_Id);
+
+                return _currentLang;
+            }
 		}
 
 		private Language _currentLanguage;
@@ -65,50 +95,13 @@ namespace WebMvc.Services
 
 		public static void Clear()
 		{
-			foreach (DictionaryEntry item in Alllang)
-			{
-				var it = (Hashtable)item.Value;
-				it.Clear();
-			}
-		}
+            Alllang.Clear();
+        }
 
 		public string GetResourceString(Guid languageId, string key)
 		{
 			if (string.IsNullOrEmpty(key)) return string.Empty;
-			key = key.Trim();
-
-			if (!Alllang.ContainsKey(languageId))
-			{
-				Alllang.Add(languageId, new Hashtable());
-			}
-
-			Hashtable lang = Alllang[languageId] as Hashtable;
-
-			if (lang.ContainsKey(key)) return lang[key] as string;
-
-			var Cmd = _context.CreateCommand();
-			Cmd.CommandText = "SELECT ST.[ResourceValue] FROM [LocaleStringResource] AS ST"
-				+ " INNER JOIN [LocaleResourceKey] AS KY ON ST.LocaleResourceKey_Id = KY.Id"
-				+ "  WHERE KY.[Name] = @KEY AND ST.[Language_Id] = @Language_Id";
-
-			Cmd.AddParameters("KEY", key);
-			Cmd.AddParameters("Language_Id", languageId);
-
-			DataRow data = Cmd.FindFirst();
-
-			Cmd.Close();
-
-			string ret = key;
-
-			if (data != null)
-			{
-				ret = data["ResourceValue"].ToString();
-			}
-
-			lang.Add(key, ret);
-
-			return ret;
-
+            return GetAllLang(languageId)[key.Trim()];
 		}
 
 		public string GetResourceString(string key)
@@ -537,6 +530,7 @@ namespace WebMvc.Services
             set { _currentLanguage = value; }
         }
 
+
         /// <summary>
         /// The system default language
         /// </summary>
@@ -544,13 +538,13 @@ namespace WebMvc.Services
         {
             get
             {
-                var language_Id = _settingsService.GetSetting("LanguageDefault");
+                var language_Id = _settingsService.GetSetting(AppConstants.STLanguageDefault);
 
                 if (language_Id.IsNullEmpty())
                 {
                     // This is a one off scenario and means the system has no settings
                     // usually when running the installer, so we need to return a default language
-                    return new Language { Name = "Setup Language", LanguageCulture = "en-GB" };
+                    return AppConstants.InsertLanguage;
                 }
                 
                 // If we get here just set the default language

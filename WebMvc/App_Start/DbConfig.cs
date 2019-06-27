@@ -6,6 +6,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebMvc.Application;
+using WebMvc.Services;
 
 namespace WebMvc
 {
@@ -36,7 +38,8 @@ namespace WebMvc
             tablesConfig.AddTable("tblSetting")
                 .AddColumn("STKEY", SqlDbType.NVarChar).PrimaryKey().Required().MaxLength(30)
                 .AddColumn("VALUE", SqlDbType.NText)
-                .Insert(@"INSERT INTO [dbo].[tblSetting]([STKEY],[VALUE]) VALUES(N'Theme',N'Classiera')");
+                .Insert(@"INSERT INTO [dbo].[tblSetting]([STKEY],[VALUE]) VALUES(N'Theme',N'Classiera')")
+                .Insert(string.Format(@"INSERT INTO [dbo].[tblSetting]([STKEY],[VALUE]) VALUES(N'{0}',N'{1}')", AppConstants.STLanguageDefault, AppConstants.InsertLanguage.Id));
 
             tablesConfig.AddTable("MembershipLogin")
                 .AddColumn("Id", SqlDbType.UniqueIdentifier).PrimaryKey().Required()
@@ -133,19 +136,26 @@ namespace WebMvc
                 .AddColumn("LanguageCulture", SqlDbType.NVarChar).MaxLength(20)
                 .AddColumn("FlagImageFileName", SqlDbType.NVarChar).MaxLength(50)
                 .AddColumn("RightToLeft", SqlDbType.Bit).Required().Default("0")
-                .Insert(@"INSERT INTO [dbo].[Language]([Id],[Name],[LanguageCulture],[FlagImageFileName],[RightToLeft]) VALUES('9B4F55B2-589D-4200-B862-A8270040EA71','Vietnamese (Vietnam)','vi-VN',null,0)");
+                .Insert(AppConstants.InsertLanguage);
+                //.Insert(@"INSERT INTO [dbo].[Language]([Id],[Name],[LanguageCulture],[FlagImageFileName],[RightToLeft]) VALUES('9B4F55B2-589D-4200-B862-A8270040EA71','Vietnamese (Vietnam)','vi-VN',null,0)");
 
             tablesConfig.AddTable("LocaleResourceKey")
                 .AddColumn("Id", SqlDbType.UniqueIdentifier).PrimaryKey().Required()
                 .AddColumn("Name", SqlDbType.NVarChar).MaxLength(200)
                 .AddColumn("Notes", SqlDbType.NVarChar)
-                .AddColumn("DateAdded", SqlDbType.DateTime).Required().Default("GETDATE()");
+                .AddColumn("DateAdded", SqlDbType.DateTime).Required().Default("GETDATE()")
+                .Insert(@"INSERT INTO [dbo].[LocaleResourceKey]([Id],[Name],[Notes],[DateAdded]) VALUES('2652D065-4AB8-47CB-94DF-AA7400AD6FE7','Product.Attribute.Price','',GETDATE())")
+                .Insert(@"INSERT INTO [dbo].[LocaleResourceKey]([Id],[Name],[Notes],[DateAdded]) VALUES('35DC418E-7598-439B-9B96-AA7400B7D836','Product.Attribute.ProductCode','',GETDATE())")
+                .Insert(@"INSERT INTO [dbo].[LocaleResourceKey]([Id],[Name],[Notes],[DateAdded]) VALUES('AD200C05-54FB-4E28-8C88-AA7400ADAFEF','Product.Attribute.Promotion','',GETDATE())");
 
             tablesConfig.AddTable("LocaleStringResource")
                 .AddColumn("Id", SqlDbType.UniqueIdentifier).PrimaryKey().Required()
                 .AddColumn("ResourceValue", SqlDbType.NVarChar).MaxLength(1000)
                 .AddColumn("LocaleResourceKey_Id", SqlDbType.UniqueIdentifier).Required()
-                .AddColumn("Language_Id", SqlDbType.UniqueIdentifier).Required();
+                .AddColumn("Language_Id", SqlDbType.UniqueIdentifier).Required()
+                .Insert(@"INSERT INTO [dbo].[LocaleStringResource]([Id],[ResourceValue],[LocaleResourceKey_Id],[Language_Id]) VALUES('888BFCC7-1B10-4366-B3EF-AA7400AD7C20',N'Giá','2652D065-4AB8-47CB-94DF-AA7400AD6FE7','9B4F55B2-589D-4200-B862-A8270040EA71')")
+                .Insert(@"INSERT INTO [dbo].[LocaleStringResource]([Id],[ResourceValue],[LocaleResourceKey_Id],[Language_Id]) VALUES('42B3CB5B-68C1-42A8-83E2-AA7400B7E903',N'Mã sản phẩm','35DC418E-7598-439B-9B96-AA7400B7D836','9B4F55B2-589D-4200-B862-A8270040EA71')")
+                .Insert(@"INSERT INTO [dbo].[LocaleStringResource]([Id],[ResourceValue],[LocaleResourceKey_Id],[Language_Id]) VALUES('D80E6B14-C8F4-49DA-B955-AA7400ADC471',N'Giá khuyến mãi','AD200C05-54FB-4E28-8C88-AA7400ADAFEF','9B4F55B2-589D-4200-B862-A8270040EA71')");
 
             tablesConfig.AddTable("Category")
                 .AddColumn("Id", SqlDbType.UniqueIdentifier).PrimaryKey().Required()
@@ -189,6 +199,9 @@ namespace WebMvc
                 .AddColumn("Id", SqlDbType.UniqueIdentifier).PrimaryKey().Required()
                 .AddColumn("Name", SqlDbType.NVarChar).MaxLength(450).Required()
                 .AddColumn("ShotContent", SqlDbType.NVarChar).MaxLength(1000)
+                .AddColumn("SEOKeyword", SqlDbType.NVarChar).MaxLength(1000)
+                .AddColumn("SEODescription", SqlDbType.NVarChar)
+                .AddColumn("Intro", SqlDbType.NVarChar)
                 .AddColumn("isAutoShotContent", SqlDbType.Bit).Required().Default("0")
                 .AddColumn("Image", SqlDbType.NVarChar)
                 .AddColumn("CreateDate", SqlDbType.DateTime).Required().Default("GETDATE()")
@@ -241,6 +254,7 @@ namespace WebMvc
                 .AddColumn("IsNull", SqlDbType.Bit).Required().Default("0")
                 .AddColumn("IsLock", SqlDbType.Bit).Required().Default("0")
                 .Insert("INSERT [dbo].[ProductAttribute] ([Id], [LangName], [ValueType], [ValueOption], [ValueFindter], [IsShowFindter], [IsNull], [IsLock]) VALUES (N'944e407a-320f-4b47-b98f-a9f9010994a6', N'Price', 0, N'null', N'null', 0, 1, 1)")
+                .Insert("INSERT [dbo].[ProductAttribute] ([Id], [LangName], [ValueType], [ValueOption], [ValueFindter], [IsShowFindter], [IsNull], [IsLock]) VALUES (N'78BED776-285A-4538-A8E2-AA7400B79959', N'ProductCode', 0, N'null', N'null', 0, 1, 1)")
                 .Insert("INSERT [dbo].[ProductAttribute] ([Id], [LangName], [ValueType], [ValueOption], [ValueFindter], [IsShowFindter], [IsNull], [IsLock]) VALUES (N'46eb0aae-90da-436f-9018-a9f90109f90e', N'Promotion', 1, N'null', N'null', 0, 1, 1)");
 
             tablesConfig.AddTable("ProductClassAttribute")

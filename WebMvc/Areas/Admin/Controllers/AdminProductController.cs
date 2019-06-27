@@ -368,6 +368,8 @@ namespace WebMvc.Areas.Admin.Controllers
         #endregion
 
         #region Product
+        private Guid ProductCodeId = new Guid("78BED776-285A-4538-A8E2-AA7400B79959");
+
         public ActionResult Product(Guid? id,Guid? catid,string seach = null,int? p = 1)
         {
             int limit = 10;
@@ -388,7 +390,11 @@ namespace WebMvc.Areas.Admin.Controllers
                 }
             }
 
-            var finder = _productSevice.GetFinder().SeachProductClass(group).SeachCategory(cat).SeachText(seach);
+            var finder = _productSevice.GetFinder()
+                .IncludeAttribute(ProductCodeId,true)
+                .SeachProductClass(group)
+                .SeachCategory(cat)
+                .SeachText(seach);
 
             var count = finder.Count();
             var Paging = CalcPaging(limit, p, count);
@@ -401,6 +407,8 @@ namespace WebMvc.Areas.Admin.Controllers
                 Paging = Paging,
                 ListProduct = finder.ToPage(limit, Paging.Page)
             };
+
+            ViewBag.ProductCodeId = ProductCodeId;
 
             return View(model);
         }

@@ -12,6 +12,9 @@ namespace WebMvc.Application.Entities
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string ShotContent { get; set; }
+        public string SEOKeyword { get; set; }
+        public string SEODescription { get; set; }
+        public string Intro { get; set; }
         public bool isAutoShotContent { get; set; }
         public string Image { get; set; }
         public DateTime CreateDate { get; set; }

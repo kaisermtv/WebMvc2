@@ -5,14 +5,14 @@
     string dAction;
     if (Model.isProduct)
     {
-        ViewBag.Title = "Quản lý nhóm sản phẩm";
+        ViewBag.Title = "Quản lý danh mục sản phẩm";
         _Menu = ModulConfig.ProductManage;
         eAction = "EditCatProduct";
         dAction = "DelCatProduct";
     }
     else
     {
-        ViewBag.Title = "Quản lý nhóm bài viết";
+        ViewBag.Title = "Quản lý danh mục bài viết";
         _Menu = ModulConfig.NewsManage;
         eAction = "EditCatNews";
         dAction = "DelCatNews";
@@ -41,7 +41,7 @@
         <input type="hidden" id="JsonText" name="JsonText" />
 
         <header class="card-header border-bottom-0"> @ViewBag.Title 
-            <a class="btn btn-mvc-green" href="@Url.Action(Model.isProduct?"NewCatProduct":"NewCatNews")" style="float:right;">@(Model.isProduct?"Thêm nhóm sản phẩm":"Thêm nhóm bài viêt")</a>
+            <a class="btn btn-mvc-green" href="@Url.Action(Model.isProduct?"NewCatProduct":"NewCatNews")" style="float:right;">@(Model.isProduct?"Thêm danh mục sản phẩm":"Thêm danh mục bài viêt")</a>
         </header><!-- .nestable -->
         <div id="nestable02" class="dd" data-toggle="nestable" data-group="1">
             <!-- .dd-list -->

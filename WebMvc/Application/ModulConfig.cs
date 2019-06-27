@@ -537,47 +537,47 @@ namespace WebMvc.Application
                             },
                         },
                     },
-            new AdminMenuItem{
-                MenuName = "Đa ngôn ngữ",
-                IconMenu = "fa-language",
+            //new AdminMenuItem{
+            //    MenuName = "Đa ngôn ngữ",
+            //    IconMenu = "fa-language",
 
-                SubMenu = new AdminMenuItem[]
-                {
-                    new AdminMenuItem
-                    {
-                        MenuName = "Thêm ngôn ngữ",
+            //    SubMenu = new AdminMenuItem[]
+            //    {
+            //        new AdminMenuItem
+            //        {
+            //            MenuName = "Thêm ngôn ngữ",
 
-                        ActionName = "Create",
-                        ControllerName = "AdminLanguage",
-                        RouterValues = new { area = "Admin"},
-                    },
-                    new AdminMenuItem
-                    {
-                        MenuName = "Chỉnh sửa ngôn ngữ",
+            //            ActionName = "Create",
+            //            ControllerName = "AdminLanguage",
+            //            RouterValues = new { area = "Admin"},
+            //        },
+            //        new AdminMenuItem
+            //        {
+            //            MenuName = "Chỉnh sửa ngôn ngữ",
 
-                        ActionName = "Index",
-                        ControllerName = "AdminLanguage",
-                        RouterValues = new { area = "Admin"},
+            //            ActionName = "Index",
+            //            ControllerName = "AdminLanguage",
+            //            RouterValues = new { area = "Admin"},
 
-                        SubMenu = new AdminMenuItem[]
-                        {
-                            new AdminMenuItem
-                            {
-                                ActionName = "managelanguageresourcevalues",
-                                ControllerName = "AdminLanguage",
-                            }
-                        }
-                    },
-                    new AdminMenuItem
-                    {
-                        MenuName = "Import / Export",
+            //            SubMenu = new AdminMenuItem[]
+            //            {
+            //                new AdminMenuItem
+            //                {
+            //                    ActionName = "managelanguageresourcevalues",
+            //                    ControllerName = "AdminLanguage",
+            //                }
+            //            }
+            //        },
+            //        new AdminMenuItem
+            //        {
+            //            MenuName = "Import / Export",
 
-                        ActionName = "ImportExport",
-                        ControllerName = "AdminLanguage",
-                        RouterValues = new { area = "Admin"},
-                    },
-                }
-            },
+            //            ActionName = "ImportExport",
+            //            ControllerName = "AdminLanguage",
+            //            RouterValues = new { area = "Admin"},
+            //        },
+            //    }
+            //},
              new AdminMenuItem
             {
                 MenuName = "Liên hệ",

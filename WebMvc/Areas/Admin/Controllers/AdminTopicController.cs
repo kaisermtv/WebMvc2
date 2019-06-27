@@ -135,6 +135,10 @@ namespace WebMvc.Areas.Admin.Controllers
                             topic.IsSticky = viewModel.IsSticky;
                             topic.MembershipUser_Id = LoggedOnReadOnlyUser.Id;
                             topic.Post_Id = post.Id;
+
+                            topic.Intro = viewModel.Intro;
+                            topic.SEOKeyword = viewModel.SEOKeyword;
+                            topic.SEODescription = viewModel.SEODescription;
                             
                             post.PostContent = viewModel.Content;
                             post.MembershipUser_Id = LoggedOnReadOnlyUser.Id;
@@ -217,6 +221,10 @@ namespace WebMvc.Areas.Admin.Controllers
                     viewModel.IsSticky = topic.IsSticky;
                     viewModel.Image = topic.Image;
 
+                    viewModel.Intro= topic.Intro;
+                    viewModel.SEOKeyword= topic.SEOKeyword;
+                    viewModel.SEODescription= topic.SEODescription;
+
                     if (topic.Post_Id != null)
                     {
                         var post = _postSevice.Get((Guid)topic.Post_Id);
@@ -282,6 +290,10 @@ namespace WebMvc.Areas.Admin.Controllers
                             topic.IsSticky = viewModel.IsSticky;
                             topic.MembershipUser_Id = LoggedOnReadOnlyUser.Id;
                             topic.Post_Id = post.Id;
+
+                            topic.Intro = viewModel.Intro;
+                            topic.SEOKeyword = viewModel.SEOKeyword;
+                            topic.SEODescription = viewModel.SEODescription;
 
                             post.PostContent = viewModel.Content;
                             post.MembershipUser_Id = LoggedOnReadOnlyUser.Id;

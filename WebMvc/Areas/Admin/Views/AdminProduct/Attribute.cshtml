@@ -37,9 +37,12 @@
                                 <td>@it.LangName</td>
                                 <td>@it.ValueType.ToString().Replace("0", "Text").Replace("1", "Number").Replace("2", "Option")</td>
                                 <td>
-                                    <a href="@Url.Action("DelAttribute", new { id = it.Id })" class="btn-mvc">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </a>
+                                    @if (!it.IsLock)
+                                    {
+                                        <a href="@Url.Action("DelAttribute", new { id = it.Id })" class="btn-mvc">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </a>
+                                    }
                                 </td>
                             </tr>
                         }

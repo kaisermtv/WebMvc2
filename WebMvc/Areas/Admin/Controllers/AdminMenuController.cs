@@ -157,7 +157,9 @@ namespace WebMvc.Areas.Admin.Controllers
                     AllMenus = _menuService.GetBaseSelectListMenus(_menuService.GetAll()),
                     AllType = GetTypeLink(),
                     AllPage = GetPageLink(),
-                    AllCat = _categoryService.GetBaseSelectListCategories(_categoryService.GetAll()),
+                    //AllCat = _categoryService.GetBaseSelectListCategories(_categoryService.GetAll()),
+                    AllCatNews = _categoryService.GetBaseSelectListCategories(_categoryService.GetList(false)),
+                    AllCatProduct = _categoryService.GetBaseSelectListCategories(_categoryService.GetList(true)),
                 };
                 return View(ViewModel);
         }
@@ -191,8 +193,14 @@ namespace WebMvc.Areas.Admin.Controllers
                             case 1:
                                 menu.Link = viewModel.LinkPage;
                                 break;
-                            case 2:
-                                menu.Link = viewModel.LinkCat;
+                            //case 2:
+                            //    menu.Link = viewModel.LinkCat;
+                            //    break;
+                            case 6:
+                                menu.Link = viewModel.LinkCatNews;
+                                break;
+                            case 7:
+                                menu.Link = viewModel.LinkCatProduct;
                                 break;
                             case 3:
                                 menu.Link = viewModel.LinkNews;
@@ -240,7 +248,9 @@ namespace WebMvc.Areas.Admin.Controllers
             viewModel.AllMenus = _menuService.GetBaseSelectListMenus(_menuService.GetAll());
             viewModel.AllType = GetTypeLink();
             viewModel.AllPage = GetPageLink();
-            viewModel.AllCat = _categoryService.GetBaseSelectListCategories(_categoryService.GetAll());
+            //viewModel.AllCat = _categoryService.GetBaseSelectListCategories(_categoryService.GetAll());
+            viewModel.AllCatNews = _categoryService.GetBaseSelectListCategories(_categoryService.GetList(false));
+            viewModel.AllCatProduct = _categoryService.GetBaseSelectListCategories(_categoryService.GetList(true));
             return View(viewModel);
         }
 
@@ -263,7 +273,9 @@ namespace WebMvc.Areas.Admin.Controllers
                 AllMenus = _menuService.GetBaseSelectListMenus(_menuService.GetMenusParenMenu(menu)),
                 AllType = GetTypeLink(),
                 AllPage = GetPageLink(),
-                AllCat = _categoryService.GetBaseSelectListCategories(_categoryService.GetAll()),
+                //AllCat = _categoryService.GetBaseSelectListCategories(_categoryService.GetAll()),
+                AllCatNews = _categoryService.GetBaseSelectListCategories(_categoryService.GetList(false)),
+                AllCatProduct = _categoryService.GetBaseSelectListCategories(_categoryService.GetList(true)),
             };
 
             switch (menu.iType)
@@ -274,8 +286,14 @@ namespace WebMvc.Areas.Admin.Controllers
                 case 1:
                     viewModel.LinkPage = menu.Link;
                     break;
-                case 2:
-                    viewModel.LinkCat = menu.Link;
+                //case 2:
+                //    viewModel.LinkCat = menu.Link;
+                //    break;
+                case 6:
+                    viewModel.LinkCatNews = menu.Link;
+                    break;
+                case 7:
+                    viewModel.LinkCatProduct = menu.Link;
                     break;
                 case 3:
                     if (!menu.Link.IsNullEmpty())
@@ -357,8 +375,14 @@ namespace WebMvc.Areas.Admin.Controllers
                             case 1:
                                 menu.Link = viewModel.LinkPage;
                                 break;
-                            case 2:
-                                menu.Link = viewModel.LinkCat;
+                            //case 2:
+                            //    menu.Link = viewModel.LinkCat;
+                            //    break;
+                            case 6:
+                                menu.Link = viewModel.LinkCatNews;
+                                break;
+                            case 7:
+                                menu.Link = viewModel.LinkCatProduct;
                                 break;
                             case 3:
                                 menu.Link = viewModel.LinkNews;
@@ -399,7 +423,9 @@ namespace WebMvc.Areas.Admin.Controllers
             viewModel.AllMenus = _menuService.GetBaseSelectListMenus(_menuService.GetMenusParenMenu(menu));
             viewModel.AllType = GetTypeLink();
             viewModel.AllPage = GetPageLink();
-            viewModel.AllCat = _categoryService.GetBaseSelectListCategories(_categoryService.GetAll());
+            //viewModel.AllCat = _categoryService.GetBaseSelectListCategories(_categoryService.GetAll());
+            viewModel.AllCatNews = _categoryService.GetBaseSelectListCategories(_categoryService.GetList(false));
+            viewModel.AllCatProduct = _categoryService.GetBaseSelectListCategories(_categoryService.GetList(true));
             return View(viewModel);
         }
         #endregion
@@ -494,7 +520,9 @@ namespace WebMvc.Areas.Admin.Controllers
             var lst = new List<SelectListItem>();
             lst.Add(new SelectListItem { Text = "Liên kết url",Value = "0" });
             lst.Add(new SelectListItem { Text = "Trang có sẵn",Value = "1" });
-            lst.Add(new SelectListItem { Text = "Liên kết danh mục",Value = "2" });
+            //lst.Add(new SelectListItem { Text = "Liên kết danh mục",Value = "2" });
+            lst.Add(new SelectListItem { Text = "Liên kết danh mục bài viết",Value = "6" });
+            lst.Add(new SelectListItem { Text = "Liên kết danh mục sản phẩm",Value = "7" });
             lst.Add(new SelectListItem { Text = "Liên kết bài viết",Value = "3" });
             lst.Add(new SelectListItem { Text = "Liên kết sản phẩm", Value = "4" });
             lst.Add(new SelectListItem { Text = "Liên kết nhóm sản phẩm", Value = "5" });

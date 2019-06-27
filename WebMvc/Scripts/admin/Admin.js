@@ -900,3 +900,92 @@ SHOWROOM = {
 
 
 }
+
+PHONE = {
+    ListShowroom: [],
+    Count: 0,
+
+    Add: function () {
+        var i = this.Count++;
+
+        var iTr = document.createElement('tr');
+        iTr.id = "Phone_" + i;
+        var html = "";
+
+        html += `<td>${i+1}</td>`;
+        html += `<td><input class="form-control" type="text" name="Phone[${i}]" /></td>`;
+
+        iTr.innerHTML = html;
+
+        var ListPhone = document.getElementById("ListPhone");
+
+        ListPhone.appendChild(iTr);
+
+        if (i == 0) {
+            var repbutton = document.getElementById("repbuttonPhone");
+            repbutton.className = repbutton.className.replace(" hidden", "");
+        }
+    },
+
+    Repmove: function () {
+        var i = --this.Count;
+
+        //var ShowroomList = document.getElementById("ShowroomList");
+        var element = document.getElementById("Phone_" + i);
+
+        element.remove();
+
+        if (i == 0) {
+            var repbutton = document.getElementById("repbuttonPhone");
+            repbutton.className += " hidden";
+        }
+
+    },
+
+
+
+}
+
+EMAIL = {
+    Count: 0,
+
+    Add: function () {
+        var i = this.Count++;
+
+        var iTr = document.createElement('tr');
+        iTr.id = "Email_" + i;
+        var html = "";
+
+        html += `<td>${i + 1}</td>`;
+        html += `<td><input class="form-control" type="text" name="Email[${i}]" /></td>`;
+
+        iTr.innerHTML = html;
+
+        var ListPhone = document.getElementById("ListEmail");
+
+        ListPhone.appendChild(iTr);
+
+        if (i == 0) {
+            var repbutton = document.getElementById("repbuttonEmail");
+            repbutton.className = repbutton.className.replace(" hidden", "");
+        }
+    },
+
+    Repmove: function () {
+        var i = --this.Count;
+
+        //var ShowroomList = document.getElementById("ShowroomList");
+        var element = document.getElementById("Email_" + i);
+
+        element.remove();
+
+        if (i == 0) {
+            var repbutton = document.getElementById("repbuttonEmail");
+            repbutton.className += " hidden";
+        }
+
+    },
+
+
+
+}

@@ -217,7 +217,69 @@ namespace WebMvc.Services
                     {
                         odr = "CreateDate";
                     }
-                    return string.Concat("(ROW_NUMBER() OVER(ORDER BY ", odr, " ", Asc ? "ASC" : "DESC", ")) AS RowNum");
+                    return string.Concat("(ROW_NUMBER() OVER(ORDER BY P.[", odr, "] ", Asc ? "ASC" : "DESC", ")) AS RowNum");
+                }
+            }
+
+            private string SelectAttribute
+            {
+                get
+                {
+                    if (LstAttribute.Count == 0) return "";
+                    string sql = "";
+                    foreach(var it in LstAttribute)
+                    {
+                        if (sql == "")
+                        {
+                            sql += it.ValueText();
+                        } else
+                        {
+                            sql += "," + it.ValueText();
+                        }
+                    }
+                    return sql;
+                }
+            }
+
+            private string sqlWhereAttribute
+            {
+                get
+                {
+                    if (LstAttribute.Count == 0) return "";
+                    string sql = "";
+                    foreach (var it in LstAttribute)
+                    {
+                        if (sql == "")
+                        {
+                            sql += it.WhereText();
+                        }
+                        else
+                        {
+                            sql += " AND " + it.WhereText();
+                        }
+                    }
+                    return sql;
+                }
+            }
+
+            private string sqlInjoin
+            {
+                get
+                {
+                    if (LstAttribute.Count == 0) return "";
+                    string sql = "";
+                    foreach (var it in LstAttribute)
+                    {
+                        if (sql == "")
+                        {
+                            sql += it.InjoinText();
+                        }
+                        else
+                        {
+                            sql += " " + it.InjoinText();
+                        }
+                    }
+                    return sql;
                 }
             }
 
@@ -225,7 +287,10 @@ namespace WebMvc.Services
             {
                 get
                 {
-                    return string.Concat("SELECT *,", sqlRowNum, " FROM [dbo].[Product]");
+                    var attr = SelectAttribute;
+                    if (attr != "") attr += ",";
+
+                    return string.Concat("SELECT P.*,", attr, sqlRowNum, " FROM [dbo].[Product] AS P ", sqlInjoin);
                 }
             }
 
@@ -233,7 +298,7 @@ namespace WebMvc.Services
             {
                 get
                 {
-                    return string.Concat("SELECT COUNT(*) FROM [dbo].[Product]");
+                    return string.Concat("SELECT COUNT(*) FROM [dbo].[Product] AS P ", sqlInjoin);
                 }
             }
 
@@ -272,7 +337,25 @@ namespace WebMvc.Services
                     {
                         if (txt != "") txt += " AND ";
 
-                        txt += "[Name] LIKE  N'%'+UPPER(RTRIM(LTRIM(@Seach)))+'%'";
+                        var stxt = "[Name] LIKE  N'%'+UPPER(RTRIM(LTRIM(@Seach)))+'%'";
+                        if (LstAttribute.Count > 0)
+                        {
+                            stxt = "(" + stxt;
+
+                            foreach (var it in LstAttribute)
+                            {
+                                string tmp = it.SeachTextWhere;
+
+                                if (tmp != "")
+                                {
+                                    stxt = string.Concat(stxt," OR ", tmp);
+                                }
+                            }
+
+                            stxt = string.Concat(stxt,")");
+                        }
+
+                        txt += stxt;
                     }
 
                     return txt.IsNullEmpty() ? "" : string.Concat("WHERE ",txt);
@@ -285,6 +368,109 @@ namespace WebMvc.Services
                 {
                     return string.Concat(SelectString," ", sqlWhere);
                 }
+            }
+
+            private abstract class AttributeJoinAbstract
+            {
+                public int Index;
+                protected string Key;
+                protected bool IsSeachText = false;
+
+                public string SeachTextWhere
+                {
+                    get
+                    {
+                        if (!IsSeachText) return "";
+
+                        return string.Format("{0}.[Value] LIKE  N'%'+UPPER(RTRIM(LTRIM(@Seach)))+'%'",Key);
+                    }
+                }
+
+                public AttributeJoinAbstract(int index, bool isSeachText = false)
+                {
+                    this.Index = index;
+                    this.IsSeachText = isSeachText;
+                    Key = string.Format("A{0}",index);
+                }
+
+                protected string SeachText;
+                public void AddSeachText(string seach)
+                {
+                    SeachText = seach;
+                }
+
+                public abstract string ValueText();
+                public abstract string InjoinText();
+                public abstract string WhereText();
+            }
+
+            private class AttributeJoinId : AttributeJoinAbstract
+            {
+                private Guid Id;
+                public AttributeJoinId(Guid id, int index, bool isSeachText = false) :base(index, isSeachText)
+                {
+                    Id = id;
+                }
+
+                public override string InjoinText()
+                {
+                    return string.Format(" LEFT JOIN [dbo].[ProductAttributeValue] AS {0} ON {0}.[ProductId] = P.[Id] AND {0}.[ProductAttributeId] = '{1}' ",Key, Id);
+                }
+
+                public override string ValueText()
+                {
+                    return string.Format(" {0}.[Value] AS 'Attributes[{1}].Value', {0}.[Id] AS 'Attributes[{1}].Id', {0}.[ProductAttributeId] AS 'Attributes[{1}].ProductAttributeId' ", Key,Index);
+                }
+
+                public override string WhereText()
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            private class AttributeJoinName : AttributeJoinAbstract
+            {
+                public AttributeJoinName(string name, int index, bool isSeachText = false) : base(index, isSeachText)
+                {
+
+                }
+
+                public override string InjoinText()
+                {
+                    throw new NotImplementedException();
+                }
+
+                public override string ValueText()
+                {
+                    throw new NotImplementedException();
+                }
+
+                public override string WhereText()
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            private int countAttributeJoin = 0;
+            private List<AttributeJoinAbstract> LstAttribute = new List<AttributeJoinAbstract>();
+
+            public void IncludeAttribute(ProductAttribute attribute, bool isSeachText = false)
+            {
+                IncludeAttribute(attribute.Id, isSeachText);
+            }
+
+            public ProductFinder IncludeAttribute(Guid attributeId, bool isSeachText = false)
+            {
+                LstAttribute.Add(new AttributeJoinId(attributeId, countAttributeJoin++, isSeachText));
+
+                return this;
+            }
+
+            public ProductFinder IncludeAttribute(string attributeName, bool isSeachText = false)
+            {
+                LstAttribute.Add(new AttributeJoinName(attributeName, countAttributeJoin++, isSeachText));
+
+                return this;
             }
 
             private string stringProductClass;
@@ -400,7 +586,7 @@ namespace WebMvc.Services
             }
             public int Count()
             {
-                if (Seach.IsNullEmpty() && !_context.IsOpen)
+                if (Seach.IsNullEmpty() && !_context.IsOpen && LstAttribute.Count < 1)
                 {
                     string where = sqlWhere;
                     string cachekey = string.Concat(CacheKeys.Product.StartsWith, "ProductFinder-GetCount:", where);
@@ -429,12 +615,12 @@ namespace WebMvc.Services
                         Cmd.AddParameters("Seach", Seach);
                     }
 
-                    return Cmd.FindAll<Product>();
+                    return FindAll(Cmd);
                 }
             }
             public List<Product> ToList()
             {
-                if (Seach.IsNullEmpty() && !_context.IsOpen)
+                if (Seach.IsNullEmpty() && !_context.IsOpen && LstAttribute.Count < 1)
                 {
                     string where = sqlWhere;
                     string cachekey = string.Concat(CacheKeys.Product.StartsWith, "ProductFinder-ToList:", where);
@@ -461,7 +647,7 @@ namespace WebMvc.Services
                 {
                     string text = string.Concat(SelectString, " ", where);
 
-                    Cmd.CommandText = string.Concat("SELECT TOP " , limit , " * FROM(", text, ") AS MyDerivedTable WHERE RowNum > @Offset");
+                    Cmd.CommandText = string.Concat("SELECT TOP " , limit , " * FROM (", text, ") AS MyDerivedTable WHERE RowNum > @Offset");
                     if (!Seach.IsNullEmpty())
                     {
                         Cmd.AddParameters("Seach", Seach);
@@ -469,12 +655,12 @@ namespace WebMvc.Services
 
                     Cmd.AddParameters("Offset", (page - 1) * limit);
 
-                    return Cmd.FindAll<Product>();
+                    return FindAll(Cmd);
                 }
             }
             public List<Product> ToPage(int limit = 10,int page = 1)
             {
-                if (Seach.IsNullEmpty() && !_context.IsOpen)
+                if (Seach.IsNullEmpty() && !_context.IsOpen && LstAttribute.Count < 1)
                 {
                     string where = sqlWhere;
                     string cachekey = string.Concat(CacheKeys.Product.StartsWith, "ProductFinder-ToPage:", where);
@@ -492,9 +678,64 @@ namespace WebMvc.Services
                     return _ToPage(sqlWhere, limit, page);
                 }
             }
+
+            private List<Product> FindAll(SQLCon Cmd)
+            {
+                var data = Cmd.FindAll();
+                if (data == null) return null;
+
+                var lst = new List<Product>();
+                Type t = typeof(Product);
+                var p = t.GetProperties();
+
+                foreach (DataRow item in data.Rows)
+                {
+                    var entity = new Product();
+
+                    foreach (var it in p)
+                    {
+                        if (data.Columns[it.Name] != null)
+                        {
+                            if (item[it.Name] != DBNull.Value)
+                            {
+                                it.SetValue(entity, item[it.Name]);
+                            }
+                            else
+                            {
+                                it.SetValue(entity, null);
+                            }
+                        }
+                    }
+
+                    if(LstAttribute.Count > 0)
+                    {
+                        entity.Attributes = new List<ProductAttributeValue>();
+
+                        foreach (var it in LstAttribute)
+                        {
+                            string key = string.Format("Attributes[{0}].", it.Index);
+
+                            var attr = new ProductAttributeValue {
+                                ProductId = entity.Id,
+                            };
+                            if(item[key + "Id"] != DBNull.Value) attr.Id = (Guid)item[key + "Id"];
+                            if (item[key + "ProductAttributeId"] != DBNull.Value) attr.ProductAttributeId = (Guid)item[key + "ProductAttributeId"];
+                            if (item[key + "Value"] != DBNull.Value) attr.Value = (string)item[key + "Value"];
+
+                            entity.Attributes.Add(attr);
+                        }
+                    }
+
+                    lst.Add(entity);
+                }
+
+                return lst;
+            }
         }
 
-		public List<ProductClass> GetClassByProducts(List<Category> cats)
+        
+
+        public List<ProductClass> GetClassByProducts(List<Category> cats)
 		{
 			using (var Cmd = _context.CreateCommand())
 			{
